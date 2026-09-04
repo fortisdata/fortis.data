@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fortis.data | Professional Data Recovery</title>
+    <title>Fortis.data | Professional Data Recovery Services</title>
+    <meta name="description" content="Enterprise-grade data recovery for HDDs, SSDs, NVMe, and external storage. Secure, confidential, and technically advanced recovery assessments.">
     
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -24,553 +25,483 @@
                         }
                     },
                     fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
 
-    <!-- Custom CSS -->
-    <style type="text/tailwindcss">
+    <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
-        @layer base {
-            body {
-                @apply bg-brand-dark text-brand-text font-sans antialiased selection:bg-brand-accent/30 selection:text-white;
-            }
-            html {
-                scroll-behavior: smooth;
-            }
+        body {
+            background-color: #050507;
+            color: #E2E8F0;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
         }
 
         ::-webkit-scrollbar {
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            @apply bg-brand-dark;
+            background: #050507;
         }
         ::-webkit-scrollbar-thumb {
-            @apply bg-brand-border rounded-full hover:bg-brand-textMuted transition-colors;
+            background: #1F222A;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94A3B8;
         }
     </style>
-
-    <!-- Babel for JSX compilation in browser -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
-<body>
-    <div id="root"></div>
+<body class="antialiased selection:bg-brand-accent/30 selection:text-white flex flex-col min-h-screen">
 
-    <script type="text/babel" data-type="module">
-        import React, { useState, useEffect } from 'https://esm.sh/react@18.2.0';
-        import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
-        import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'https://esm.sh/react-router-dom@6.22.3';
-        import { motion } from 'https://esm.sh/framer-motion@11.0.8';
-        import { Helmet, HelmetProvider } from 'https://esm.sh/react-helmet-async@2.0.4';
-        import { Menu, X, HardDrive, Server, Usb, Database, Cpu, AlertTriangle, CheckCircle, XCircle, ShieldAlert } from 'https://esm.sh/lucide-react@0.344.0';
-        import { clsx } from 'https://esm.sh/clsx@2.1.0';
-        import { twMerge } from 'https://esm.sh/tailwind-merge@2.2.1';
+    <!-- HEADER -->
+    <header id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 border-b border-brand-border bg-brand-dark/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="text-xl font-bold tracking-widest text-white flex items-center gap-2">
+                <div class="w-4 h-4 bg-brand-accent rounded-sm opacity-80"></div>
+                FORTIS.DATA
+            </a>
 
-        // --- UTILS ---
-        function cn(...inputs) {
-            return twMerge(clsx(inputs));
-        }
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-brand-textMuted">
+                <a href="#services" class="hover:text-white transition-colors">Services</a>
+                <a href="#process" class="hover:text-white transition-colors">Process</a>
+                <a href="#guidelines" class="hover:text-white transition-colors">Guidelines</a>
+                <a href="#assessment" class="bg-brand-surface border border-brand-border hover:border-brand-accent/50 text-white px-5 py-2.5 rounded-md transition-all duration-300">
+                    Get Assessment
+                </a>
+            </nav>
 
-        // --- CONFIG ---
-        const siteConfig = {
-            brandName: "FORTIS.DATA",
-            contact: {
-                phone: "[CONFIG_PHONE_NUMBER]",
-                email: "assessments@fortis.data",
-                address: "[CONFIG_OFFICE_ADDRESS]",
-                city: "[CONFIG_CITY]",
-                businessHours: "Mon-Fri, 9:00 AM - 6:00 PM",
-            },
-            seo: {
-                defaultTitle: "Fortis.data | Professional Data Recovery Services",
-                defaultDescription: "Enterprise-grade data recovery for HDDs, SSDs, NVMe, and external storage. Secure, confidential, and technically advanced recovery assessments.",
-            }
-        };
+            <button id="mobileMenuBtn" class="md:hidden text-brand-text hover:text-white focus:outline-none" aria-label="Toggle Menu">
+                <svg id="menuIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+                <svg id="closeIcon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
 
-        const servicesData = [
-            {
-                id: "hdd",
-                slug: "hdd-recovery",
-                title: "HDD Data Recovery",
-                icon: HardDrive,
-                shortDesc: "Advanced mechanical and logical recovery for traditional hard disk drives.",
-                failures: ["Not detected by BIOS/OS", "Clicking, buzzing, or unusual noises", "Corrupted partitions", "Firmware-related problems", "Mechanical head failure"],
-                details: "Hard Disk Drive recovery requires specialized clean-environment handling for mechanical failures, alongside advanced logical reconstruction capabilities."
-            },
-            {
-                id: "ssd",
-                slug: "ssd-recovery",
-                title: "SSD Data Recovery",
-                icon: Database,
-                shortDesc: "Specialized flash memory extraction and controller reconstruction.",
-                failures: ["Drive not recognized", "File-system corruption", "Controller-related failure", "Firmware issues", "Electronic damage"],
-                details: "Unlike HDDs, SSDs utilize wear-leveling algorithms. Recovery involves complex controller emulation and raw NAND data reconstruction."
-            },
-            {
-                id: "nvme",
-                slug: "nvme-recovery",
-                title: "NVMe Data Recovery",
-                icon: Cpu,
-                shortDesc: "High-speed PCIe storage data extraction and logical repair.",
-                failures: ["Drive not detected", "System freezing/instability", "Controller/firmware issues", "Logical data loss"],
-                details: "NVMe drives present unique thermal and architectural challenges requiring modern diagnostic methodologies to stabilize and extract data."
-            },
-            {
-                id: "usb",
-                slug: "pen-drive-recovery",
-                title: "Pen Drive Recovery",
-                icon: Usb,
-                shortDesc: "NAND flash recovery for USB and compact storage devices.",
-                failures: ["Accidental deletion", "Broken physical connector", "RAW file system", "Not recognized"],
-                details: "From physical connector repair to monolith flash memory pinout reconstruction, we handle complex compact storage failures."
-            },
-            {
-                id: "external",
-                slug: "external-drive-recovery",
-                title: "External Drive Recovery",
-                icon: Server,
-                shortDesc: "Enclosure diagnostics and internal drive data retrieval.",
-                failures: ["Accidental drops", "Power surge damage", "Enclosure/interface issues", "Corrupted volumes"],
-                details: "We isolate enclosure failures from underlying drive failures to ensure the safest possible data extraction path."
-            }
-        ];
+        <!-- Mobile Menu dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden absolute top-20 left-0 w-full bg-brand-surface border-b border-brand-border px-6 py-6 flex flex-col gap-4 shadow-xl z-40">
+            <a href="#services" class="mobile-link text-lg text-white">Services</a>
+            <a href="#process" class="mobile-link text-lg text-white">Process</a>
+            <a href="#guidelines" class="mobile-link text-lg text-white">Guidelines</a>
+            <a href="#assessment" class="mobile-link mt-2 bg-brand-accent text-brand-dark text-center font-semibold px-5 py-3 rounded-md">
+                Request Assessment
+            </a>
+        </div>
+    </header>
 
-        // --- COMPONENTS ---
-        
-        function Header() {
-            const [isScrolled, setIsScrolled] = useState(false);
-            const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-            const location = useLocation();
-
-            useEffect(() => {
-                const handleScroll = () => setIsScrolled(window.scrollY > 20);
-                window.addEventListener('scroll', handleScroll);
-                return () => window.removeEventListener('scroll', handleScroll);
-            }, []);
-
-            useEffect(() => setMobileMenuOpen(false), [location.pathname]);
-
-            return (
-                <header className={cn(
-                    "fixed top-0 w-full z-50 transition-all duration-300 border-b border-transparent",
-                    isScrolled ? "bg-brand-dark/80 backdrop-blur-md border-brand-border" : "bg-transparent"
-                )}>
-                    <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-                        <Link to="/" className="text-xl font-bold tracking-widest text-white flex items-center gap-2">
-                            <div className="w-4 h-4 bg-brand-accent rounded-sm opacity-80" />
-                            {siteConfig.brandName}
-                        </Link>
-                        <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-brand-textMuted">
-                            <Link to="/" className="hover:text-white transition-colors">Services</Link>
-                            <Link to="/" className="hover:text-white transition-colors">Process</Link>
-                            <Link to="/" className="hover:text-white transition-colors">FAQ</Link>
-                            <Link to="/assessment" className="bg-brand-surface border border-brand-border hover:border-brand-accent/50 text-white px-5 py-2.5 rounded-md transition-all duration-300">
-                                Get Assessment
-                            </Link>
-                        </nav>
-                        <button 
-                            className="md:hidden text-brand-text hover:text-white"
-                            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                            aria-label="Toggle Menu"
-                        >
-                            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-                        </button>
-                    </div>
-                    {mobileMenuOpen && (
-                        <div className="md:hidden absolute top-20 left-0 w-full bg-brand-surface border-b border-brand-border p-6 flex flex-col gap-4 shadow-xl">
-                            <Link to="/" className="text-lg text-white">Services</Link>
-                            <Link to="/" className="text-lg text-white">Process</Link>
-                            <Link to="/" className="text-lg text-white">FAQ</Link>
-                            <Link to="/assessment" className="mt-4 bg-brand-accent text-brand-dark text-center font-semibold px-5 py-3 rounded-md">
-                                Request Assessment
-                            </Link>
-                        </div>
-                    )}
-                </header>
-            );
-        }
-
-        function Footer() {
-            return (
-                <footer className="bg-brand-surface border-t border-brand-border pt-16 pb-8">
-                    <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-                        <div>
-                            <div className="text-xl font-bold tracking-widest text-white mb-4">{siteConfig.brandName}</div>
-                            <p className="text-brand-textMuted text-sm leading-relaxed mb-6">
-                                Professional data recovery services specializing in HDD, SSD, NVMe, and complex storage arrays. Secure, confidential, and technically advanced.
-                            </p>
-                        </div>
-                        <div>
-                            <h4 className="text-white font-medium mb-4">Services</h4>
-                            <ul className="space-y-2 text-sm text-brand-textMuted">
-                                {servicesData.map(service => (
-                                    <li key={service.id}>
-                                        <Link to="/" className="hover:text-brand-accent transition-colors">
-                                            {service.title}
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 className="text-white font-medium mb-4">Company</h4>
-                            <ul className="space-y-2 text-sm text-brand-textMuted">
-                                <li><Link to="/" className="hover:text-white transition-colors">Recovery Process</Link></li>
-                                <li><Link to="/" className="hover:text-white transition-colors">FAQ</Link></li>
-                                <li><Link to="/" className="hover:text-white transition-colors">Privacy Policy</Link></li>
-                                <li><Link to="/" className="hover:text-white transition-colors">Terms of Service</Link></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 className="text-white font-medium mb-4">Contact</h4>
-                            <ul className="space-y-2 text-sm text-brand-textMuted">
-                                <li>Email: {siteConfig.contact.email}</li>
-                                <li>Hours: {siteConfig.contact.businessHours}</li>
-                                <li className="mt-4">
-                                    <Link to="/assessment" className="text-brand-accent hover:text-white transition-colors">
-                                        &rarr; Request Assessment
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div className="max-w-7xl mx-auto px-6 border-t border-brand-border pt-8 text-xs text-brand-textMuted flex flex-col md:flex-row justify-between items-center">
-                        <p>&copy; {new Date().getFullYear()} {siteConfig.brandName}. All rights reserved.</p>
-                        <p className="mt-2 md:mt-0">Confidential Data Handling.</p>
-                    </div>
-                </footer>
-            );
-        }
-
-        function Hero() {
-            return (
-                <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-20">
-                    <div className="absolute inset-0 z-0">
-                        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-accent/5 rounded-full blur-[120px]" />
-                        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-brand-accentDark/10 rounded-full blur-[100px]" />
-                        <motion.div 
-                            className="w-full h-full opacity-20"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 0.15 }}
-                            transition={{ duration: 2 }}
-                            style={{
-                                backgroundImage: 'radial-gradient(#1F222A 1px, transparent 1px)',
-                                backgroundSize: '40px 40px'
-                            }}
-                        />
-                    </div>
-                    <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, ease: "easeOut" }}
-                        >
-                            <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight mb-6">
-                                Recover What <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-accent to-brand-accentDark">Matters.</span>
-                            </h1>
-                            <p className="text-lg md:text-xl text-brand-textMuted mb-10 max-w-2xl mx-auto leading-relaxed">
-                                Professional data recovery for HDDs, SSDs, NVMe drives, and complex external storage. Confidential handling, expert reconstruction.
-                            </p>
-                            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                                <Link 
-                                    to="/assessment" 
-                                    className="w-full sm:w-auto px-8 py-4 bg-white text-brand-dark font-semibold rounded-md hover:bg-brand-accent transition-colors duration-300"
-                                >
-                                    Get a Recovery Assessment
-                                </Link>
-                                <a 
-                                    href="#services" 
-                                    className="w-full sm:w-auto px-8 py-4 bg-brand-surface border border-brand-border text-white font-medium rounded-md hover:bg-brand-surfaceHover transition-colors duration-300"
-                                >
-                                    Explore Services
-                                </a>
-                            </div>
-                        </motion.div>
-                    </div>
-                </section>
-            );
-        }
-
-        function ServiceGrid() {
-            return (
-                <section id="services" className="py-24 bg-brand-dark">
-                    <div className="max-w-7xl mx-auto px-6">
-                        <div className="mb-16">
-                            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Storage Recovery Expertise</h2>
-                            <p className="text-brand-textMuted max-w-2xl">We possess the technical capability to diagnose and extract data across standard and specialized storage architectures.</p>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {servicesData.map((service, index) => {
-                                const Icon = service.icon;
-                                return (
-                                    <motion.div
-                                        key={service.id}
-                                        initial={{ opacity: 0, y: 20 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        viewport={{ once: true }}
-                                        transition={{ delay: index * 0.1, duration: 0.5 }}
-                                        className="group relative bg-brand-surface border border-brand-border rounded-xl p-8 hover:border-brand-accent/40 transition-all duration-300"
-                                    >
-                                        <div className="w-12 h-12 bg-brand-dark border border-brand-border rounded-lg flex items-center justify-center mb-6 group-hover:bg-brand-accent/10 group-hover:border-brand-accent/30 transition-colors">
-                                            <Icon className="text-brand-accent" size={24} />
-                                        </div>
-                                        <h3 className="text-xl font-semibold text-white mb-3">{service.title}</h3>
-                                        <p className="text-brand-textMuted text-sm mb-6 line-clamp-2">{service.shortDesc}</p>
-                                        <Link 
-                                            to="/"
-                                            className="text-sm text-white font-medium flex items-center gap-2 group-hover:text-brand-accent transition-colors"
-                                        >
-                                            View capabilities <span className="text-brand-accent">&rarr;</span>
-                                        </Link>
-                                    </motion.div>
-                                );
-                            })}
-                        </div>
-                    </div>
-                </section>
-            );
-        }
-
-        function DoAndDont() {
-            return (
-                <section className="py-24 border-t border-brand-border bg-brand-surface/30">
-                    <div className="max-w-5xl mx-auto px-6">
-                        <div className="text-center mb-12">
-                            <AlertTriangle className="mx-auto text-brand-accent mb-4" size={32} />
-                            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Critical Data Safety Guidelines</h2>
-                            <p className="text-brand-textMuted">If your drive contains important data, your immediate actions determine the feasibility of recovery.</p>
-                        </div>
-                        <div className="grid md:grid-cols-2 gap-8">
-                            <div className="bg-brand-surface border border-brand-border rounded-xl p-8">
-                                <h3 className="text-emerald-400 font-semibold text-lg flex items-center gap-2 mb-6">
-                                    <CheckCircle size={20} /> DO:
-                                </h3>
-                                <ul className="space-y-4 text-brand-textMuted">
-                                    <li className="flex items-start gap-3">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-2 shrink-0" />
-                                        <span>Stop unnecessary use of the device immediately.</span>
-                                    </li>
-                                    <li className="flex items-start gap-3">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-2 shrink-0" />
-                                        <span>Disconnect the affected storage drive safely.</span>
-                                    </li>
-                                    <li className="flex items-start gap-3">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-2 shrink-0" />
-                                        <span>Note exactly what happened before the failure.</span>
-                                    </li>
-                                    <li className="flex items-start gap-3">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-2 shrink-0" />
-                                        <span>Seek a professional structural assessment.</span>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div className="bg-brand-surface border border-brand-border rounded-xl p-8">
-                                <h3 className="text-rose-400 font-semibold text-lg flex items-center gap-2 mb-6">
-                                    <XCircle size={20} /> DON'T:
-                                </h3>
-                                <ul className="space-y-4 text-brand-textMuted">
-                                    <li className="flex items-start gap-3">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-rose-400 mt-2 shrink-0" />
-                                        <span>Do not repeatedly power-cycle a failing or clicking drive.</span>
-                                    </li>
-                                    <li className="flex items-start gap-3">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-rose-400 mt-2 shrink-0" />
-                                        <span>Do not format or initialize an unrecognized device.</span>
-                                    </li>
-                                    <li className="flex items-start gap-3">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-rose-400 mt-2 shrink-0" />
-                                        <span>Do not run `chkdsk` or software repair utilities on failing hardware.</span>
-                                    </li>
-                                    <li className="flex items-start gap-3">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-rose-400 mt-2 shrink-0" />
-                                        <span>Do not open the drive chassis outside a certified cleanroom.</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            );
-        }
-
-        function ProcessTimeline() {
-            const steps = [
-                { num: '01', title: 'Initial Assessment', desc: 'Detail the failure symptoms to help determine the likely technical scenario.' },
-                { num: '02', title: 'Device Diagnosis', desc: 'Secure evaluation of physical hardware and logical structures.' },
-                { num: '03', title: 'Recovery Strategy', desc: 'We outline the feasibility, required approach, and timeline.' },
-                { num: '04', title: 'Data Extraction', desc: 'Executing temporary mechanical repairs or logical reconstruction.' },
-                { num: '05', title: 'Verification', desc: 'Ensuring file integrity and structural coherence of recovered data.' },
-                { num: '06', title: 'Secure Handover', desc: 'Data is returned on a secure medium. Originals preserved.' }
-            ];
-
-            return (
-                <section className="py-24 bg-brand-dark overflow-hidden">
-                    <div className="max-w-7xl mx-auto px-6">
-                        <h2 className="text-3xl font-bold text-white mb-16 text-center">Transparent Recovery Workflow</h2>
-                        <div className="relative">
-                            <div className="hidden md:block absolute top-1/2 left-0 w-full h-px bg-brand-border -translate-y-1/2 z-0" />
-                            <div className="grid grid-cols-1 md:grid-cols-6 gap-8 relative z-10">
-                                {steps.map((step, idx) => (
-                                    <div key={idx} className="relative bg-brand-dark p-4 md:p-0">
-                                        <div className="text-brand-accent font-mono text-sm mb-4 md:bg-brand-dark md:inline-block md:pr-4">{step.num}</div>
-                                        <h4 className="text-white font-medium mb-2">{step.title}</h4>
-                                        <p className="text-brand-textMuted text-sm">{step.desc}</p>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            );
-        }
-
-        function Home() {
-            return (
-                <main>
-                    <Helmet>
-                        <title>{siteConfig.seo.defaultTitle}</title>
-                        <meta name="description" content={siteConfig.seo.defaultDescription} />
-                    </Helmet>
-                    <Hero />
-                    <div className="border-y border-brand-border bg-brand-surface py-4 overflow-hidden">
-                        <div className="max-w-7xl mx-auto px-6 flex flex-wrap justify-center gap-8 text-xs font-mono tracking-widest text-brand-textMuted uppercase">
-                            <span>HDD Recovery</span>
-                            <span className="hidden sm:inline">•</span>
-                            <span>SSD / NVMe</span>
-                            <span className="hidden sm:inline">•</span>
-                            <span>Flash Media</span>
-                            <span className="hidden sm:inline">•</span>
-                            <span>Confidential Handling</span>
-                        </div>
-                    </div>
-                    <ServiceGrid />
-                    <ProcessTimeline />
-                    <DoAndDont />
-                </main>
-            );
-        }
-
-        function Assessment() {
-            const [formState, setFormState] = useState('idle');
-
-            const handleSubmit = (e) => {
-                e.preventDefault();
-                setFormState('submitting');
-                setTimeout(() => {
-                    setFormState('success');
-                }, 1500);
-            };
-
-            return (
-                <main className="pt-32 pb-24 min-h-screen">
-                    <Helmet>
-                        <title>Request Recovery Assessment | Fortis.data</title>
-                    </Helmet>
-                    <div className="max-w-3xl mx-auto px-6">
-                        <h1 className="text-4xl font-bold text-white mb-4">Request a Recovery Assessment</h1>
-                        <p className="text-brand-textMuted mb-12">
-                            Detail the failure symptoms below. We will review the information to determine the appropriate diagnostic approach. 
-                            <strong className="text-white font-normal block mt-2">Never attempt to power on a physically damaged drive.</strong>
-                        </p>
-                        {formState === 'success' ? (
-                            <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-8 text-center">
-                                <h3 className="text-xl text-emerald-400 font-semibold mb-2">Request Received</h3>
-                                <p className="text-brand-textMuted">Our specialists will contact you shortly to discuss the technical assessment.</p>
-                            </div>
-                        ) : (
-                            <form onSubmit={handleSubmit} className="space-y-6">
-                                <div className="grid md:grid-cols-2 gap-6">
-                                    <div>
-                                        <label className="block text-sm font-medium text-brand-textMuted mb-2">Full Name</label>
-                                        <input required type="text" className="w-full bg-brand-surface border border-brand-border rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-accent transition-colors" placeholder="John Doe" />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-brand-textMuted mb-2">Email Address</label>
-                                        <input required type="email" className="w-full bg-brand-surface border border-brand-border rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-accent transition-colors" placeholder="john@company.com" />
-                                    </div>
-                                </div>
-                                <div className="grid md:grid-cols-2 gap-6">
-                                    <div>
-                                        <label className="block text-sm font-medium text-brand-textMuted mb-2">Phone Number</label>
-                                        <input required type="tel" className="w-full bg-brand-surface border border-brand-border rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-accent transition-colors" placeholder="+1 (555) 000-0000" />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-brand-textMuted mb-2">Device Type</label>
-                                        <select className="w-full bg-brand-surface border border-brand-border rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-accent transition-colors appearance-none">
-                                            <option value="hdd">Hard Disk Drive (HDD)</option>
-                                            <option value="ssd">Solid State Drive (SSD)</option>
-                                            <option value="nvme">NVMe Drive</option>
-                                            <option value="usb">Pen Drive / Flash Media</option>
-                                            <option value="external">External Hard Drive</option>
-                                            <option value="other">Other / Not Sure</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-medium text-brand-textMuted mb-2">Description of Failure</label>
-                                    <textarea required rows={5} className="w-full bg-brand-surface border border-brand-border rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-accent transition-colors resize-none" placeholder="Please describe exactly what happened. (e.g., Drive makes a clicking noise, stopped showing up after a power outage, files were accidentally deleted...)"></textarea>
-                                </div>
-                                <div className="flex items-start gap-3 bg-brand-surface/50 p-4 rounded-lg border border-brand-border">
-                                    <ShieldAlert className="text-brand-textMuted shrink-0 mt-0.5" size={18} />
-                                    <p className="text-xs text-brand-textMuted leading-relaxed">
-                                        Your information is transmitted securely and is used exclusively to facilitate your data recovery inquiry. We adhere to strict confidentiality protocols regarding client hardware and data.
-                                    </p>
-                                </div>
-                                <button 
-                                    type="submit" 
-                                    disabled={formState === 'submitting'}
-                                    className="w-full bg-white text-brand-dark font-semibold py-4 rounded-lg hover:bg-brand-accent disabled:opacity-50 transition-all duration-300"
-                                >
-                                    {formState === 'submitting' ? 'Submitting...' : 'Request Assessment'}
-                                </button>
-                            </form>
-                        )}
-                    </div>
-                </main>
-            );
-        }
-
-        const MobileStickyCta = () => (
-            <div className="md:hidden fixed bottom-0 left-0 w-full bg-brand-surface border-t border-brand-border p-4 z-40">
-                <Link to="/assessment" className="block w-full bg-brand-accent text-brand-dark text-center font-semibold py-3 rounded-md">
-                    Get Recovery Assessment
-                </Link>
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow">
+        <!-- HERO SECTION -->
+        <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-24 pb-16">
+            <div class="absolute inset-0 z-0 pointer-events-none">
+                <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-accent/5 rounded-full blur-[120px]"></div>
+                <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-brand-accentDark/10 rounded-full blur-[100px]"></div>
+                <div class="w-full h-full opacity-15" style="background-image: radial-gradient(#1F222A 1px, transparent 1px); background-size: 40px 40px;"></div>
             </div>
-        );
 
-        function App() {
-            return (
-                <HelmetProvider>
-                    <Router>
-                        <div className="flex flex-col min-h-screen">
-                            <Header />
-                            <div className="flex-grow">
-                                <Routes>
-                                    <Route path="/" element={<Home />} />
-                                    <Route path="/assessment" element={<Assessment />} />
-                                    <Route path="*" element={
-                                        <div className="pt-32 pb-24 text-center min-h-[60vh] flex flex-col justify-center">
-                                            <h1 className="text-4xl text-white font-bold mb-4">404 - That page couldn't be found.</h1>
-                                            <Link to="/" className="text-brand-accent">Return Home</Link>
-                                        </div>
-                                    } />
-                                </Routes>
-                            </div>
-                            <Footer />
-                            <MobileStickyCta />
+            <div class="relative z-10 max-w-4xl mx-auto px-6 text-center mt-10">
+                <h1 class="text-5xl md:text-7xl font-bold text-white tracking-tight mb-6">
+                    Recover What <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-accent to-brand-accentDark">Matters.</span>
+                </h1>
+                <p class="text-lg md:text-xl text-brand-textMuted mb-10 max-w-2xl mx-auto leading-relaxed">
+                    Professional data recovery for HDDs, SSDs, NVMe drives, and complex external storage. Confidential handling, hardware-level reconstruction.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#assessment" class="w-full sm:w-auto px-8 py-4 bg-white text-brand-dark font-semibold rounded-md hover:bg-brand-accent transition-colors duration-300">
+                        Get a Recovery Assessment
+                    </a>
+                    <a href="#services" class="w-full sm:w-auto px-8 py-4 bg-brand-surface border border-brand-border text-white font-medium rounded-md hover:bg-brand-surfaceHover transition-colors duration-300">
+                        Explore Services
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- TRUST STRIP -->
+        <div class="border-y border-brand-border bg-brand-surface py-4 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-6 flex flex-wrap justify-center gap-6 sm:gap-8 text-xs font-mono tracking-widest text-brand-textMuted uppercase">
+                <span>HDD Recovery</span>
+                <span class="hidden sm:inline text-brand-border">•</span>
+                <span>SSD / NVMe</span>
+                <span class="hidden sm:inline text-brand-border">•</span>
+                <span>Flash Media</span>
+                <span class="hidden sm:inline text-brand-border">•</span>
+                <span>Confidential Handling</span>
+            </div>
+        </div>
+
+        <!-- SERVICES SECTION -->
+        <section id="services" class="py-24 bg-brand-dark">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Storage Recovery Expertise</h2>
+                    <p class="text-brand-textMuted max-w-2xl">Structured diagnosis and advanced extraction methodologies across consumer, enterprise, and industrial storage devices.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- HDD -->
+                    <div class="group bg-brand-surface border border-brand-border rounded-xl p-8 hover:border-brand-accent/40 transition-all duration-300">
+                        <div class="w-12 h-12 bg-brand-dark border border-brand-border rounded-lg flex items-center justify-center mb-6 group-hover:border-brand-accent/40 transition-colors text-brand-accent">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2 1.5 3 3.5 3h9c2 0 3.5-1 3.5-3V7c0-2-1.5-3-3.5-3h-9C5.5 4 4 5 4 7zm8 8h.01M7 15h.01"></path></svg>
                         </div>
-                    </Router>
-                </HelmetProvider>
-            );
-        }
+                        <h3 class="text-xl font-semibold text-white mb-3">HDD Data Recovery</h3>
+                        <p class="text-brand-textMuted text-sm mb-6 leading-relaxed">Mechanical head alignment, platter swap, spindle motor repairs, and firmware reconstruction for spindle drives.</p>
+                        <ul class="text-xs text-brand-textMuted/80 space-y-1 pt-4 border-t border-brand-border">
+                            <li>• Clicking / Buzzing Sounds</li>
+                            <li>• Head Assembly Failure</li>
+                            <li>• Bad Sectors & Corrupted MBR</li>
+                        </ul>
+                    </div>
 
-        const root = createRoot(document.getElementById('root'));
-        root.render(<App />);
+                    <!-- SSD -->
+                    <div class="group bg-brand-surface border border-brand-border rounded-xl p-8 hover:border-brand-accent/40 transition-all duration-300">
+                        <div class="w-12 h-12 bg-brand-dark border border-brand-border rounded-lg flex items-center justify-center mb-6 group-hover:border-brand-accent/40 transition-colors text-brand-accent">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1v-2zM4 21a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1v-2z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-3">SSD Data Recovery</h3>
+                        <p class="text-brand-textMuted text-sm mb-6 leading-relaxed">Advanced flash translation layer (FTL) reconstruction, controller bypass, and raw NAND chip extraction.</p>
+                        <ul class="text-xs text-brand-textMuted/80 space-y-1 pt-4 border-t border-brand-border">
+                            <li>• Drive Not Recognized in BIOS</li>
+                            <li>• Controller Electronic Failure</li>
+                            <li>• Firmware Corruption Locks</li>
+                        </ul>
+                    </div>
+
+                    <!-- NVMe -->
+                    <div class="group bg-brand-surface border border-brand-border rounded-xl p-8 hover:border-brand-accent/40 transition-all duration-300">
+                        <div class="w-12 h-12 bg-brand-dark border border-brand-border rounded-lg flex items-center justify-center mb-6 group-hover:border-brand-accent/40 transition-colors text-brand-accent">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-3">NVMe Data Recovery</h3>
+                        <p class="text-brand-textMuted text-sm mb-6 leading-relaxed">PCIe interface diagnostics and raw memory block reading under regulated thermal environments.</p>
+                        <ul class="text-xs text-brand-textMuted/80 space-y-1 pt-4 border-t border-brand-border">
+                            <li>• System Freezing / BSODs</li>
+                            <li>• Thermal Degradation Damage</li>
+                            <li>• Controller Desynchronization</li>
+                        </ul>
+                    </div>
+
+                    <!-- Pen Drive / Flash -->
+                    <div class="group bg-brand-surface border border-brand-border rounded-xl p-8 hover:border-brand-accent/40 transition-all duration-300">
+                        <div class="w-12 h-12 bg-brand-dark border border-brand-border rounded-lg flex items-center justify-center mb-6 group-hover:border-brand-accent/40 transition-colors text-brand-accent">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-3">Pen Drive Recovery</h3>
+                        <p class="text-brand-textMuted text-sm mb-6 leading-relaxed">Direct spider-pinout micro-soldering and trace repair for monolithic and broken USB flash drives.</p>
+                        <ul class="text-xs text-brand-textMuted/80 space-y-1 pt-4 border-t border-brand-border">
+                            <li>• Snapped / Bent Connector</li>
+                            <li>• "Please Insert Disk" Errors</li>
+                            <li>• Monolithic Memory Failure</li>
+                        </ul>
+                    </div>
+
+                    <!-- External Drive -->
+                    <div class="group bg-brand-surface border border-brand-border rounded-xl p-8 hover:border-brand-accent/40 transition-all duration-300">
+                        <div class="w-12 h-12 bg-brand-dark border border-brand-border rounded-lg flex items-center justify-center mb-6 group-hover:border-brand-accent/40 transition-colors text-brand-accent">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-3">External Drive Recovery</h3>
+                        <p class="text-brand-textMuted text-sm mb-6 leading-relaxed">Bridge chip failure diagnosis and direct internal drive extraction following physical drops or shocks.</p>
+                        <ul class="text-xs text-brand-textMuted/80 space-y-1 pt-4 border-t border-brand-border">
+                            <li>• Accidental Drops & Impacts</li>
+                            <li>• USB Interface Board Shorts</li>
+                            <li>• Corrupted Partition Tables</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROCESS SECTION -->
+        <section id="process" class="py-24 bg-brand-surface/30 border-t border-brand-border overflow-hidden">
+            <div class="max-w-7xl mx-auto px-6">
+                <h2 class="text-3xl font-bold text-white mb-16 text-center">Structured Recovery Protocol</h2>
+                <div class="relative">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 relative z-10">
+                        <div class="bg-brand-surface p-6 rounded-lg border border-brand-border">
+                            <div class="text-brand-accent font-mono text-sm mb-3">01</div>
+                            <h4 class="text-white font-medium mb-2">Assessment</h4>
+                            <p class="text-brand-textMuted text-xs leading-relaxed">Detailed intake of failure symptoms to formulate a risk profile.</p>
+                        </div>
+                        <div class="bg-brand-surface p-6 rounded-lg border border-brand-border">
+                            <div class="text-brand-accent font-mono text-sm mb-3">02</div>
+                            <h4 class="text-white font-medium mb-2">Diagnosis</h4>
+                            <p class="text-brand-textMuted text-xs leading-relaxed">Hardware and firmware inspection to isolate failure points.</p>
+                        </div>
+                        <div class="bg-brand-surface p-6 rounded-lg border border-brand-border">
+                            <div class="text-brand-accent font-mono text-sm mb-3">03</div>
+                            <h4 class="text-white font-medium mb-2">Strategy</h4>
+                            <p class="text-brand-textMuted text-xs leading-relaxed">Determining the required non-destructive retrieval methodology.</p>
+                        </div>
+                        <div class="bg-brand-surface p-6 rounded-lg border border-brand-border">
+                            <div class="text-brand-accent font-mono text-sm mb-3">04</div>
+                            <h4 class="text-white font-medium mb-2">Extraction</h4>
+                            <p class="text-brand-textMuted text-xs leading-relaxed">Raw sector cloning and NAND reconstruction into secure targets.</p>
+                        </div>
+                        <div class="bg-brand-surface p-6 rounded-lg border border-brand-border">
+                            <div class="text-brand-accent font-mono text-sm mb-3">05</div>
+                            <h4 class="text-white font-medium mb-2">Verification</h4>
+                            <p class="text-brand-textMuted text-xs leading-relaxed">File integrity checks and logical directory validation.</p>
+                        </div>
+                        <div class="bg-brand-surface p-6 rounded-lg border border-brand-border">
+                            <div class="text-brand-accent font-mono text-sm mb-3">06</div>
+                            <h4 class="text-white font-medium mb-2">Handover</h4>
+                            <p class="text-brand-textMuted text-xs leading-relaxed">Encrypted delivery of recovered data; original drive preserved.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DO / DON'T GUIDELINES -->
+        <section id="guidelines" class="py-24 border-t border-brand-border bg-brand-dark">
+            <div class="max-w-5xl mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Critical Data Safety Guidelines</h2>
+                    <p class="text-brand-textMuted">If your drive contains critical information, immediate actions dictate the probability of recovery.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- DO -->
+                    <div class="bg-brand-surface border border-brand-border rounded-xl p-8">
+                        <h3 class="text-emerald-400 font-semibold text-lg flex items-center gap-2 mb-6">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            DO:
+                        </h3>
+                        <ul class="space-y-4 text-brand-textMuted text-sm">
+                            <li class="flex items-start gap-3">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-2 shrink-0"></span>
+                                <span>Stop unnecessary use of the device immediately upon first symptom.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-2 shrink-0"></span>
+                                <span>Disconnect the affected drive to prevent sector degradation.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-2 shrink-0"></span>
+                                <span>Document the events leading directly up to the failure.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-2 shrink-0"></span>
+                                <span>Seek a formal laboratory diagnosis prior to executing software scans.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- DON'T -->
+                    <div class="bg-brand-surface border border-brand-border rounded-xl p-8">
+                        <h3 class="text-rose-400 font-semibold text-lg flex items-center gap-2 mb-6">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            DON'T:
+                        </h3>
+                        <ul class="space-y-4 text-brand-textMuted text-sm">
+                            <li class="flex items-start gap-3">
+                                <span class="w-1.5 h-1.5 rounded-full bg-rose-400 mt-2 shrink-0"></span>
+                                <span>Do not repeatedly power-cycle a clicking, grinding, or buzzing drive.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="w-1.5 h-1.5 rounded-full bg-rose-400 mt-2 shrink-0"></span>
+                                <span>Do not format or initialize an unrecognized drive in Disk Management.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="w-1.5 h-1.5 rounded-full bg-rose-400 mt-2 shrink-0"></span>
+                                <span>Do not run `chkdsk` or aggressive recovery software over failing hardware.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="w-1.5 h-1.5 rounded-full bg-rose-400 mt-2 shrink-0"></span>
+                                <span>Do not disassemble drive screws outside of an ISO Class 5 clean bench.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ASSESSMENT FORM -->
+        <section id="assessment" class="py-24 border-t border-brand-border bg-brand-surface/40">
+            <div class="max-w-3xl mx-auto px-6">
+                <h2 class="text-4xl font-bold text-white mb-4">Request a Recovery Assessment</h2>
+                <p class="text-brand-textMuted mb-10 leading-relaxed">
+                    Detail the failure symptoms below. We evaluate each case based on device architecture and initial symptoms.
+                    <span class="text-white block mt-1">Never attempt to continuously power on a physically compromised drive.</span>
+                </p>
+
+                <!-- Success Box -->
+                <div id="formSuccess" class="hidden bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-8 text-center mb-8">
+                    <h3 class="text-xl text-emerald-400 font-semibold mb-2">Request Received</h3>
+                    <p class="text-brand-textMuted text-sm">Our engineering team will review the symptoms provided and contact you with diagnostic directions.</p>
+                </div>
+
+                <form id="recoveryForm" class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-brand-textMuted mb-2">Full Name</label>
+                            <input required type="text" class="w-full bg-brand-surface border border-brand-border rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-accent transition-colors" placeholder="e.g. John Doe">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-brand-textMuted mb-2">Email Address</label>
+                            <input required type="email" class="w-full bg-brand-surface border border-brand-border rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-accent transition-colors" placeholder="e.g. j.doe@company.com">
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-brand-textMuted mb-2">Phone Number</label>
+                            <input required type="tel" class="w-full bg-brand-surface border border-brand-border rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-accent transition-colors" placeholder="e.g. +1 (555) 019-2831">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-brand-textMuted mb-2">Device Type</label>
+                            <select class="w-full bg-brand-surface border border-brand-border rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-accent transition-colors">
+                                <option value="hdd">Hard Disk Drive (HDD)</option>
+                                <option value="ssd">Solid State Drive (SSD)</option>
+                                <option value="nvme">NVMe / M.2 PCIe Drive</option>
+                                <option value="usb">Pen Drive / Flash Storage</option>
+                                <option value="external">External Hard Drive</option>
+                                <option value="other">Other / Not Listed</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-brand-textMuted mb-2">Detailed Description of Failure</label>
+                        <textarea required rows="4" class="w-full bg-brand-surface border border-brand-border rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-accent transition-colors resize-none" placeholder="Provide details: did the drive suffer a physical drop? Is it recognized in BIOS? Are there clicking/beeping sounds?"></textarea>
+                    </div>
+
+                    <div class="flex items-start gap-3 bg-brand-surface p-4 rounded-lg border border-brand-border">
+                        <svg class="w-5 h-5 text-brand-textMuted shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                        <p class="text-xs text-brand-textMuted leading-relaxed">
+                            Confidentiality Assurance: Intake information is utilized solely to assess recovery parameters. Hardware sent for diagnostic assessment is subject to strict non-disclosure workflows.
+                        </p>
+                    </div>
+
+                    <button id="submitBtn" type="submit" class="w-full bg-white text-brand-dark font-semibold py-4 rounded-lg hover:bg-brand-accent transition-all duration-300">
+                        Request Assessment
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-surface border-t border-brand-border pt-16 pb-24 md:pb-12">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+            <div>
+                <div class="text-xl font-bold tracking-widest text-white mb-4">FORTIS.DATA</div>
+                <p class="text-brand-textMuted text-sm leading-relaxed mb-6">
+                    Enterprise-grade storage recovery. Specialized hardware extraction, cleanroom mechanical repairs, and NAND firmware stabilization.
+                </p>
+            </div>
+            
+            <div>
+                <h4 class="text-white font-medium mb-4">Capabilities</h4>
+                <ul class="space-y-2 text-sm text-brand-textMuted">
+                    <li><a href="#services" class="hover:text-brand-accent transition-colors">HDD Platter Recovery</a></li>
+                    <li><a href="#services" class="hover:text-brand-accent transition-colors">SSD Controller Emulation</a></li>
+                    <li><a href="#services" class="hover:text-brand-accent transition-colors">NVMe Flash Stabilization</a></li>
+                    <li><a href="#services" class="hover:text-brand-accent transition-colors">Monolithic USB Reconstruction</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white font-medium mb-4">Company</h4>
+                <ul class="space-y-2 text-sm text-brand-textMuted">
+                    <li><a href="#process" class="hover:text-white transition-colors">Diagnostic Protocol</a></li>
+                    <li><a href="#guidelines" class="hover:text-white transition-colors">Safety Guidelines</a></li>
+                    <li><a href="#assessment" class="hover:text-white transition-colors">Assessment Intake</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white font-medium mb-4">Operations</h4>
+                <ul class="space-y-2 text-sm text-brand-textMuted">
+                    <li>Intake: assessments@fortis.data</li>
+                    <li>Hours: Mon-Fri, 9:00 AM - 6:00 PM</li>
+                    <li class="pt-4">
+                        <a href="#assessment" class="text-brand-accent text-sm hover:underline">&rarr; Request Assessment</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 border-t border-brand-border pt-8 text-xs text-brand-textMuted flex flex-col md:flex-row justify-between items-center gap-4">
+            <p>&copy; 2026 FORTIS.DATA. All rights reserved.</p>
+            <p>Confidential & Secure Hardware Intake</p>
+        </div>
+    </footer>
+
+    <!-- STICKY MOBILE CTA -->
+    <div class="md:hidden fixed bottom-0 left-0 w-full bg-brand-surface/95 backdrop-blur-md border-t border-brand-border p-4 z-50">
+        <a href="#assessment" class="block w-full bg-brand-accent text-brand-dark text-center font-semibold py-3 rounded-md shadow-lg">
+            Request Recovery Assessment
+        </a>
+    </div>
+
+    <!-- PURE JAVASCRIPT LOGIC -->
+    <script>
+        // Header Scroll Effect
+        const header = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                header.classList.add('shadow-lg');
+            } else {
+                header.classList.remove('shadow-lg');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIcon = document.getElementById('menuIcon');
+        const closeIcon = document.getElementById('closeIcon');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            const isOpen = !mobileMenu.classList.contains('hidden');
+            if (isOpen) {
+                mobileMenu.classList.add('hidden');
+                menuIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+            } else {
+                mobileMenu.classList.remove('hidden');
+                menuIcon.classList.add('hidden');
+                closeIcon.classList.remove('hidden');
+            }
+        });
+
+        // Close mobile menu when clicking nav links
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+            });
+        });
+
+        // Form submission handling (Native JS Simulation)
+        const form = document.getElementById('recoveryForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const successBox = document.getElementById('formSuccess');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            submitBtn.disabled = true;
+            submitBtn.innerText = 'Submitting Assessment...';
+            submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            setTimeout(() => {
+                form.classList.add('hidden');
+                successBox.classList.remove('hidden');
+                // Scroll to success message smoothly
+                successBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 1200);
+        });
     </script>
 </body>
 </html>
