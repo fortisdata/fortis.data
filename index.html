@@ -3,173 +3,574 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fortis Data Recovery | ISO Certified Lab</title>
+    <title>Fortis.data | Professional Data Recovery</title>
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <link rel="stylesheet" href="css/style.css">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#050507',
+                            surface: '#0F1014',
+                            surfaceHover: '#16181D',
+                            border: '#1F222A',
+                            accent: '#00D1FF',
+                            accentDark: '#0066FF',
+                            text: '#E2E8F0',
+                            textMuted: '#94A3B8',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS -->
+    <style type="text/tailwindcss">
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        @layer base {
+            body {
+                @apply bg-brand-dark text-brand-text font-sans antialiased selection:bg-brand-accent/30 selection:text-white;
+            }
+            html {
+                scroll-behavior: smooth;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            @apply bg-brand-dark;
+        }
+        ::-webkit-scrollbar-thumb {
+            @apply bg-brand-border rounded-full hover:bg-brand-textMuted transition-colors;
+        }
+    </style>
+
+    <!-- Babel for JSX compilation in browser -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 <body>
+    <div id="root"></div>
 
-    <div class="top-bar">
-        <div class="container top-bar-content">
-            <span class="emergency"><i class="fa-solid fa-phone-volume"></i> 24/7 Emergency Helpline: <strong>1800-123-4567</strong></span>
-            <span class="cert-text"><i class="fa-solid fa-shield-check"></i> ISO 9001 & 27001 Certified Lab</span>
-        </div>
-    </div>
+    <script type="text/babel" data-type="module">
+        import React, { useState, useEffect } from 'https://esm.sh/react@18.2.0';
+        import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
+        import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'https://esm.sh/react-router-dom@6.22.3';
+        import { motion } from 'https://esm.sh/framer-motion@11.0.8';
+        import { Helmet, HelmetProvider } from 'https://esm.sh/react-helmet-async@2.0.4';
+        import { Menu, X, HardDrive, Server, Usb, Database, Cpu, AlertTriangle, CheckCircle, XCircle, ShieldAlert } from 'https://esm.sh/lucide-react@0.344.0';
+        import { clsx } from 'https://esm.sh/clsx@2.1.0';
+        import { twMerge } from 'https://esm.sh/tailwind-merge@2.2.1';
 
-    <nav class="navbar">
-        <div class="container nav-container">
-            <div class="logo">
-                <i class="fa-solid fa-database brand-icon"></i> 
-                <span class="brand-name">FORTIS</span> <span class="brand-sub">DATA RECOVERY</span>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#lab-tech">Our Technology</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#estimator">Cost Estimate</a></li>
-            </ul>
-            <a href="#contact" class="btn btn-primary">Submit Case</a>
-        </div>
-    </nav>
+        // --- UTILS ---
+        function cn(...inputs) {
+            return twMerge(clsx(inputs));
+        }
 
-    <header class="hero">
-        <div class="container hero-grid">
-            <div class="hero-text">
-                <div class="badge">CLASS 100 CLEANROOM FACILITY</div>
-                <h1>We Recover Data When Others Fail.</h1>
-                <p>Industry-leading hardware-level data extraction. From burnt hard drives to complex RAID server failures, your data is recovered with microscopic precision in our state-of-the-art lab.</p>
-                
-                <div class="hero-actions">
-                    <a href="#contact" class="btn btn-primary btn-large">Start Free Evaluation</a>
-                    <a href="#lab-tech" class="btn btn-outline btn-large">Explore Our Lab</a>
-                </div>
-                
-                <div class="trust-metrics">
-                    <div class="metric"><i class="fa-solid fa-check-circle"></i> 96% Success Rate</div>
-                    <div class="metric"><i class="fa-solid fa-lock"></i> 100% Confidentiality</div>
-                    <div class="metric"><i class="fa-solid fa-ban"></i> No Data, No Charge</div>
-                </div>
-            </div>
-            <div class="hero-image-placeholder">
-                <div class="platter-graphic">
-                    <div class="disk">
-                        <div class="disk-inner">
-                            <div class="spindle"></div>
+        // --- CONFIG ---
+        const siteConfig = {
+            brandName: "FORTIS.DATA",
+            contact: {
+                phone: "[CONFIG_PHONE_NUMBER]",
+                email: "assessments@fortis.data",
+                address: "[CONFIG_OFFICE_ADDRESS]",
+                city: "[CONFIG_CITY]",
+                businessHours: "Mon-Fri, 9:00 AM - 6:00 PM",
+            },
+            seo: {
+                defaultTitle: "Fortis.data | Professional Data Recovery Services",
+                defaultDescription: "Enterprise-grade data recovery for HDDs, SSDs, NVMe, and external storage. Secure, confidential, and technically advanced recovery assessments.",
+            }
+        };
+
+        const servicesData = [
+            {
+                id: "hdd",
+                slug: "hdd-recovery",
+                title: "HDD Data Recovery",
+                icon: HardDrive,
+                shortDesc: "Advanced mechanical and logical recovery for traditional hard disk drives.",
+                failures: ["Not detected by BIOS/OS", "Clicking, buzzing, or unusual noises", "Corrupted partitions", "Firmware-related problems", "Mechanical head failure"],
+                details: "Hard Disk Drive recovery requires specialized clean-environment handling for mechanical failures, alongside advanced logical reconstruction capabilities."
+            },
+            {
+                id: "ssd",
+                slug: "ssd-recovery",
+                title: "SSD Data Recovery",
+                icon: Database,
+                shortDesc: "Specialized flash memory extraction and controller reconstruction.",
+                failures: ["Drive not recognized", "File-system corruption", "Controller-related failure", "Firmware issues", "Electronic damage"],
+                details: "Unlike HDDs, SSDs utilize wear-leveling algorithms. Recovery involves complex controller emulation and raw NAND data reconstruction."
+            },
+            {
+                id: "nvme",
+                slug: "nvme-recovery",
+                title: "NVMe Data Recovery",
+                icon: Cpu,
+                shortDesc: "High-speed PCIe storage data extraction and logical repair.",
+                failures: ["Drive not detected", "System freezing/instability", "Controller/firmware issues", "Logical data loss"],
+                details: "NVMe drives present unique thermal and architectural challenges requiring modern diagnostic methodologies to stabilize and extract data."
+            },
+            {
+                id: "usb",
+                slug: "pen-drive-recovery",
+                title: "Pen Drive Recovery",
+                icon: Usb,
+                shortDesc: "NAND flash recovery for USB and compact storage devices.",
+                failures: ["Accidental deletion", "Broken physical connector", "RAW file system", "Not recognized"],
+                details: "From physical connector repair to monolith flash memory pinout reconstruction, we handle complex compact storage failures."
+            },
+            {
+                id: "external",
+                slug: "external-drive-recovery",
+                title: "External Drive Recovery",
+                icon: Server,
+                shortDesc: "Enclosure diagnostics and internal drive data retrieval.",
+                failures: ["Accidental drops", "Power surge damage", "Enclosure/interface issues", "Corrupted volumes"],
+                details: "We isolate enclosure failures from underlying drive failures to ensure the safest possible data extraction path."
+            }
+        ];
+
+        // --- COMPONENTS ---
+        
+        function Header() {
+            const [isScrolled, setIsScrolled] = useState(false);
+            const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+            const location = useLocation();
+
+            useEffect(() => {
+                const handleScroll = () => setIsScrolled(window.scrollY > 20);
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            useEffect(() => setMobileMenuOpen(false), [location.pathname]);
+
+            return (
+                <header className={cn(
+                    "fixed top-0 w-full z-50 transition-all duration-300 border-b border-transparent",
+                    isScrolled ? "bg-brand-dark/80 backdrop-blur-md border-brand-border" : "bg-transparent"
+                )}>
+                    <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+                        <Link to="/" className="text-xl font-bold tracking-widest text-white flex items-center gap-2">
+                            <div className="w-4 h-4 bg-brand-accent rounded-sm opacity-80" />
+                            {siteConfig.brandName}
+                        </Link>
+                        <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-brand-textMuted">
+                            <Link to="/" className="hover:text-white transition-colors">Services</Link>
+                            <Link to="/" className="hover:text-white transition-colors">Process</Link>
+                            <Link to="/" className="hover:text-white transition-colors">FAQ</Link>
+                            <Link to="/assessment" className="bg-brand-surface border border-brand-border hover:border-brand-accent/50 text-white px-5 py-2.5 rounded-md transition-all duration-300">
+                                Get Assessment
+                            </Link>
+                        </nav>
+                        <button 
+                            className="md:hidden text-brand-text hover:text-white"
+                            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                            aria-label="Toggle Menu"
+                        >
+                            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                        </button>
+                    </div>
+                    {mobileMenuOpen && (
+                        <div className="md:hidden absolute top-20 left-0 w-full bg-brand-surface border-b border-brand-border p-6 flex flex-col gap-4 shadow-xl">
+                            <Link to="/" className="text-lg text-white">Services</Link>
+                            <Link to="/" className="text-lg text-white">Process</Link>
+                            <Link to="/" className="text-lg text-white">FAQ</Link>
+                            <Link to="/assessment" className="mt-4 bg-brand-accent text-brand-dark text-center font-semibold px-5 py-3 rounded-md">
+                                Request Assessment
+                            </Link>
+                        </div>
+                    )}
+                </header>
+            );
+        }
+
+        function Footer() {
+            return (
+                <footer className="bg-brand-surface border-t border-brand-border pt-16 pb-8">
+                    <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                        <div>
+                            <div className="text-xl font-bold tracking-widest text-white mb-4">{siteConfig.brandName}</div>
+                            <p className="text-brand-textMuted text-sm leading-relaxed mb-6">
+                                Professional data recovery services specializing in HDD, SSD, NVMe, and complex storage arrays. Secure, confidential, and technically advanced.
+                            </p>
+                        </div>
+                        <div>
+                            <h4 className="text-white font-medium mb-4">Services</h4>
+                            <ul className="space-y-2 text-sm text-brand-textMuted">
+                                {servicesData.map(service => (
+                                    <li key={service.id}>
+                                        <Link to="/" className="hover:text-brand-accent transition-colors">
+                                            {service.title}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 className="text-white font-medium mb-4">Company</h4>
+                            <ul className="space-y-2 text-sm text-brand-textMuted">
+                                <li><Link to="/" className="hover:text-white transition-colors">Recovery Process</Link></li>
+                                <li><Link to="/" className="hover:text-white transition-colors">FAQ</Link></li>
+                                <li><Link to="/" className="hover:text-white transition-colors">Privacy Policy</Link></li>
+                                <li><Link to="/" className="hover:text-white transition-colors">Terms of Service</Link></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 className="text-white font-medium mb-4">Contact</h4>
+                            <ul className="space-y-2 text-sm text-brand-textMuted">
+                                <li>Email: {siteConfig.contact.email}</li>
+                                <li>Hours: {siteConfig.contact.businessHours}</li>
+                                <li className="mt-4">
+                                    <Link to="/assessment" className="text-brand-accent hover:text-white transition-colors">
+                                        &rarr; Request Assessment
+                                    </Link>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="actuator-arm"></div>
-                </div>
-            </div>
-        </div>
-    </header>
+                    <div className="max-w-7xl mx-auto px-6 border-t border-brand-border pt-8 text-xs text-brand-textMuted flex flex-col md:flex-row justify-between items-center">
+                        <p>&copy; {new Date().getFullYear()} {siteConfig.brandName}. All rights reserved.</p>
+                        <p className="mt-2 md:mt-0">Confidential Data Handling.</p>
+                    </div>
+                </footer>
+            );
+        }
 
-    <section id="lab-tech" class="section-grey">
-        <div class="container">
-            <div class="section-header">
-                <h2>Advanced Lab Capabilities</h2>
-                <p>We do not rely on commercial software. We fix drives at the hardware and firmware level.</p>
-            </div>
-            <div class="grid-3">
-                <div class="tech-card">
-                    <div class="icon-wrapper"><i class="fa-solid fa-microchip"></i></div>
-                    <h3>PC-3000 Systems</h3>
-                    <p>Equipped with ACE Laboratory PC-3000 hardware to communicate with hard drives at the factory firmware level, bypassing standard BIOS limitations.</p>
-                </div>
-                <div class="tech-card">
-                    <div class="icon-wrapper"><i class="fa-solid fa-screwdriver-wrench"></i></div>
-                    <h3>Head Replacement Tools</h3>
-                    <p>Proprietary head unsticking and platter swap tools used inside our ISO-5 Cleanroom to prevent micro-dust contamination during internal repairs.</p>
-                </div>
-                <div class="tech-card">
-                    <div class="icon-wrapper"><i class="fa-solid fa-memory"></i></div>
-                    <h3>NAND Chip-Off Recovery</h3>
-                    <p>Advanced soldering and BGA rework stations for dead SSDs and monolithic flash drives. We read memory chips directly when controllers die.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+        function Hero() {
+            return (
+                <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-20">
+                    <div className="absolute inset-0 z-0">
+                        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-accent/5 rounded-full blur-[120px]" />
+                        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-brand-accentDark/10 rounded-full blur-[100px]" />
+                        <motion.div 
+                            className="w-full h-full opacity-20"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 0.15 }}
+                            transition={{ duration: 2 }}
+                            style={{
+                                backgroundImage: 'radial-gradient(#1F222A 1px, transparent 1px)',
+                                backgroundSize: '40px 40px'
+                            }}
+                        />
+                    </div>
+                    <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, ease: "easeOut" }}
+                        >
+                            <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight mb-6">
+                                Recover What <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-accent to-brand-accentDark">Matters.</span>
+                            </h1>
+                            <p className="text-lg md:text-xl text-brand-textMuted mb-10 max-w-2xl mx-auto leading-relaxed">
+                                Professional data recovery for HDDs, SSDs, NVMe drives, and complex external storage. Confidential handling, expert reconstruction.
+                            </p>
+                            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                                <Link 
+                                    to="/assessment" 
+                                    className="w-full sm:w-auto px-8 py-4 bg-white text-brand-dark font-semibold rounded-md hover:bg-brand-accent transition-colors duration-300"
+                                >
+                                    Get a Recovery Assessment
+                                </Link>
+                                <a 
+                                    href="#services" 
+                                    className="w-full sm:w-auto px-8 py-4 bg-brand-surface border border-brand-border text-white font-medium rounded-md hover:bg-brand-surfaceHover transition-colors duration-300"
+                                >
+                                    Explore Services
+                                </a>
+                            </div>
+                        </motion.div>
+                    </div>
+                </section>
+            );
+        }
 
-    <section id="estimator" class="section-white">
-        <div class="container">
-            <div class="section-header">
-                <h2>Recovery Cost Estimator</h2>
-                <p>Transparent pricing. Select your media and symptom for a baseline estimate.</p>
-            </div>
-            
-            <div class="estimator-wrapper">
-                <div class="estimator-panel">
-                    
-                    <div class="form-group">
-                        <label>1. Select Media Type</label>
-                        <div class="pill-group" id="mediaType">
-                            <div class="pill active" data-val="hdd">Hard Drive (HDD)</div>
-                            <div class="pill" data-val="ssd">Solid State (SSD)</div>
-                            <div class="pill" data-val="raid">RAID / NAS</div>
-                            <div class="pill" data-val="flash">USB / SD Card</div>
+        function ServiceGrid() {
+            return (
+                <section id="services" className="py-24 bg-brand-dark">
+                    <div className="max-w-7xl mx-auto px-6">
+                        <div className="mb-16">
+                            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Storage Recovery Expertise</h2>
+                            <p className="text-brand-textMuted max-w-2xl">We possess the technical capability to diagnose and extract data across standard and specialized storage architectures.</p>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {servicesData.map((service, index) => {
+                                const Icon = service.icon;
+                                return (
+                                    <motion.div
+                                        key={service.id}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ delay: index * 0.1, duration: 0.5 }}
+                                        className="group relative bg-brand-surface border border-brand-border rounded-xl p-8 hover:border-brand-accent/40 transition-all duration-300"
+                                    >
+                                        <div className="w-12 h-12 bg-brand-dark border border-brand-border rounded-lg flex items-center justify-center mb-6 group-hover:bg-brand-accent/10 group-hover:border-brand-accent/30 transition-colors">
+                                            <Icon className="text-brand-accent" size={24} />
+                                        </div>
+                                        <h3 className="text-xl font-semibold text-white mb-3">{service.title}</h3>
+                                        <p className="text-brand-textMuted text-sm mb-6 line-clamp-2">{service.shortDesc}</p>
+                                        <Link 
+                                            to="/"
+                                            className="text-sm text-white font-medium flex items-center gap-2 group-hover:text-brand-accent transition-colors"
+                                        >
+                                            View capabilities <span className="text-brand-accent">&rarr;</span>
+                                        </Link>
+                                    </motion.div>
+                                );
+                            })}
                         </div>
                     </div>
+                </section>
+            );
+        }
 
-                    <div class="form-group">
-                        <label>2. Select Primary Symptom</label>
-                        <div class="pill-group" id="issueType">
-                            <div class="pill active" data-val="logical">Accidental Deletion / Format</div>
-                            <div class="pill" data-val="firmware">Not Detecting / Bad Sectors</div>
-                            <div class="pill" data-val="physical">Clicking / Beeping (Dead)</div>
+        function DoAndDont() {
+            return (
+                <section className="py-24 border-t border-brand-border bg-brand-surface/30">
+                    <div className="max-w-5xl mx-auto px-6">
+                        <div className="text-center mb-12">
+                            <AlertTriangle className="mx-auto text-brand-accent mb-4" size={32} />
+                            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Critical Data Safety Guidelines</h2>
+                            <p className="text-brand-textMuted">If your drive contains important data, your immediate actions determine the feasibility of recovery.</p>
+                        </div>
+                        <div className="grid md:grid-cols-2 gap-8">
+                            <div className="bg-brand-surface border border-brand-border rounded-xl p-8">
+                                <h3 className="text-emerald-400 font-semibold text-lg flex items-center gap-2 mb-6">
+                                    <CheckCircle size={20} /> DO:
+                                </h3>
+                                <ul className="space-y-4 text-brand-textMuted">
+                                    <li className="flex items-start gap-3">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-2 shrink-0" />
+                                        <span>Stop unnecessary use of the device immediately.</span>
+                                    </li>
+                                    <li className="flex items-start gap-3">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-2 shrink-0" />
+                                        <span>Disconnect the affected storage drive safely.</span>
+                                    </li>
+                                    <li className="flex items-start gap-3">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-2 shrink-0" />
+                                        <span>Note exactly what happened before the failure.</span>
+                                    </li>
+                                    <li className="flex items-start gap-3">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-2 shrink-0" />
+                                        <span>Seek a professional structural assessment.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className="bg-brand-surface border border-brand-border rounded-xl p-8">
+                                <h3 className="text-rose-400 font-semibold text-lg flex items-center gap-2 mb-6">
+                                    <XCircle size={20} /> DON'T:
+                                </h3>
+                                <ul className="space-y-4 text-brand-textMuted">
+                                    <li className="flex items-start gap-3">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-rose-400 mt-2 shrink-0" />
+                                        <span>Do not repeatedly power-cycle a failing or clicking drive.</span>
+                                    </li>
+                                    <li className="flex items-start gap-3">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-rose-400 mt-2 shrink-0" />
+                                        <span>Do not format or initialize an unrecognized device.</span>
+                                    </li>
+                                    <li className="flex items-start gap-3">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-rose-400 mt-2 shrink-0" />
+                                        <span>Do not run `chkdsk` or software repair utilities on failing hardware.</span>
+                                    </li>
+                                    <li className="flex items-start gap-3">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-rose-400 mt-2 shrink-0" />
+                                        <span>Do not open the drive chassis outside a certified cleanroom.</span>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
+                </section>
+            );
+        }
 
-                    <button class="btn btn-primary btn-full" onclick="calculateQuote()">Generate Estimate</button>
-                </div>
-                
-                <div class="estimator-result">
-                    <h4>Estimated Recovery Cost</h4>
-                    <div class="price-display" id="priceRange">₹0 - ₹0</div>
-                    <ul class="result-notes">
-                        <li><i class="fa-solid fa-check"></i> Free Lab Evaluation included</li>
-                        <li><i class="fa-solid fa-check"></i> Spare parts cost included</li>
-                        <li><i class="fa-solid fa-check"></i> Firm quote provided after diagnosis</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
+        function ProcessTimeline() {
+            const steps = [
+                { num: '01', title: 'Initial Assessment', desc: 'Detail the failure symptoms to help determine the likely technical scenario.' },
+                { num: '02', title: 'Device Diagnosis', desc: 'Secure evaluation of physical hardware and logical structures.' },
+                { num: '03', title: 'Recovery Strategy', desc: 'We outline the feasibility, required approach, and timeline.' },
+                { num: '04', title: 'Data Extraction', desc: 'Executing temporary mechanical repairs or logical reconstruction.' },
+                { num: '05', title: 'Verification', desc: 'Ensuring file integrity and structural coherence of recovered data.' },
+                { num: '06', title: 'Secure Handover', desc: 'Data is returned on a secure medium. Originals preserved.' }
+            ];
 
-    <section id="contact" class="section-grey">
-        <div class="container contact-container">
-            <div class="contact-info">
-                <h2>Ready to recover your data?</h2>
-                <p>Submit your case details. Our lab technicians will review your problem and call you within 15 minutes.</p>
-                <br>
-                <h4>Lab Address:</h4>
-                <p>Fortis Data Recovery Lab<br>Tech Park, Ground Floor, Sector 4<br>Mumbai, India 400001</p>
-            </div>
-            <div class="contact-form-wrapper">
-                <form id="labForm" class="corporate-form">
-                    <div class="form-row">
-                        <input type="text" placeholder="Full Name" required>
-                        <input type="tel" placeholder="Phone Number" required>
+            return (
+                <section className="py-24 bg-brand-dark overflow-hidden">
+                    <div className="max-w-7xl mx-auto px-6">
+                        <h2 className="text-3xl font-bold text-white mb-16 text-center">Transparent Recovery Workflow</h2>
+                        <div className="relative">
+                            <div className="hidden md:block absolute top-1/2 left-0 w-full h-px bg-brand-border -translate-y-1/2 z-0" />
+                            <div className="grid grid-cols-1 md:grid-cols-6 gap-8 relative z-10">
+                                {steps.map((step, idx) => (
+                                    <div key={idx} className="relative bg-brand-dark p-4 md:p-0">
+                                        <div className="text-brand-accent font-mono text-sm mb-4 md:bg-brand-dark md:inline-block md:pr-4">{step.num}</div>
+                                        <h4 className="text-white font-medium mb-2">{step.title}</h4>
+                                        <p className="text-brand-textMuted text-sm">{step.desc}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                     </div>
-                    <input type="email" placeholder="Email Address" required>
-                    <textarea placeholder="Describe the problem (e.g., Seagate 1TB, clicking sound, dropped on floor)" rows="4" required></textarea>
-                    <button type="submit" class="btn btn-primary">Submit Case to Lab</button>
-                    <div id="formStatus" class="form-status"></div>
-                </form>
+                </section>
+            );
+        }
+
+        function Home() {
+            return (
+                <main>
+                    <Helmet>
+                        <title>{siteConfig.seo.defaultTitle}</title>
+                        <meta name="description" content={siteConfig.seo.defaultDescription} />
+                    </Helmet>
+                    <Hero />
+                    <div className="border-y border-brand-border bg-brand-surface py-4 overflow-hidden">
+                        <div className="max-w-7xl mx-auto px-6 flex flex-wrap justify-center gap-8 text-xs font-mono tracking-widest text-brand-textMuted uppercase">
+                            <span>HDD Recovery</span>
+                            <span className="hidden sm:inline">•</span>
+                            <span>SSD / NVMe</span>
+                            <span className="hidden sm:inline">•</span>
+                            <span>Flash Media</span>
+                            <span className="hidden sm:inline">•</span>
+                            <span>Confidential Handling</span>
+                        </div>
+                    </div>
+                    <ServiceGrid />
+                    <ProcessTimeline />
+                    <DoAndDont />
+                </main>
+            );
+        }
+
+        function Assessment() {
+            const [formState, setFormState] = useState('idle');
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                setFormState('submitting');
+                setTimeout(() => {
+                    setFormState('success');
+                }, 1500);
+            };
+
+            return (
+                <main className="pt-32 pb-24 min-h-screen">
+                    <Helmet>
+                        <title>Request Recovery Assessment | Fortis.data</title>
+                    </Helmet>
+                    <div className="max-w-3xl mx-auto px-6">
+                        <h1 className="text-4xl font-bold text-white mb-4">Request a Recovery Assessment</h1>
+                        <p className="text-brand-textMuted mb-12">
+                            Detail the failure symptoms below. We will review the information to determine the appropriate diagnostic approach. 
+                            <strong className="text-white font-normal block mt-2">Never attempt to power on a physically damaged drive.</strong>
+                        </p>
+                        {formState === 'success' ? (
+                            <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-8 text-center">
+                                <h3 className="text-xl text-emerald-400 font-semibold mb-2">Request Received</h3>
+                                <p className="text-brand-textMuted">Our specialists will contact you shortly to discuss the technical assessment.</p>
+                            </div>
+                        ) : (
+                            <form onSubmit={handleSubmit} className="space-y-6">
+                                <div className="grid md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label className="block text-sm font-medium text-brand-textMuted mb-2">Full Name</label>
+                                        <input required type="text" className="w-full bg-brand-surface border border-brand-border rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-accent transition-colors" placeholder="John Doe" />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-brand-textMuted mb-2">Email Address</label>
+                                        <input required type="email" className="w-full bg-brand-surface border border-brand-border rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-accent transition-colors" placeholder="john@company.com" />
+                                    </div>
+                                </div>
+                                <div className="grid md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label className="block text-sm font-medium text-brand-textMuted mb-2">Phone Number</label>
+                                        <input required type="tel" className="w-full bg-brand-surface border border-brand-border rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-accent transition-colors" placeholder="+1 (555) 000-0000" />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-brand-textMuted mb-2">Device Type</label>
+                                        <select className="w-full bg-brand-surface border border-brand-border rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-accent transition-colors appearance-none">
+                                            <option value="hdd">Hard Disk Drive (HDD)</option>
+                                            <option value="ssd">Solid State Drive (SSD)</option>
+                                            <option value="nvme">NVMe Drive</option>
+                                            <option value="usb">Pen Drive / Flash Media</option>
+                                            <option value="external">External Hard Drive</option>
+                                            <option value="other">Other / Not Sure</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-brand-textMuted mb-2">Description of Failure</label>
+                                    <textarea required rows={5} className="w-full bg-brand-surface border border-brand-border rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-accent transition-colors resize-none" placeholder="Please describe exactly what happened. (e.g., Drive makes a clicking noise, stopped showing up after a power outage, files were accidentally deleted...)"></textarea>
+                                </div>
+                                <div className="flex items-start gap-3 bg-brand-surface/50 p-4 rounded-lg border border-brand-border">
+                                    <ShieldAlert className="text-brand-textMuted shrink-0 mt-0.5" size={18} />
+                                    <p className="text-xs text-brand-textMuted leading-relaxed">
+                                        Your information is transmitted securely and is used exclusively to facilitate your data recovery inquiry. We adhere to strict confidentiality protocols regarding client hardware and data.
+                                    </p>
+                                </div>
+                                <button 
+                                    type="submit" 
+                                    disabled={formState === 'submitting'}
+                                    className="w-full bg-white text-brand-dark font-semibold py-4 rounded-lg hover:bg-brand-accent disabled:opacity-50 transition-all duration-300"
+                                >
+                                    {formState === 'submitting' ? 'Submitting...' : 'Request Assessment'}
+                                </button>
+                            </form>
+                        )}
+                    </div>
+                </main>
+            );
+        }
+
+        const MobileStickyCta = () => (
+            <div className="md:hidden fixed bottom-0 left-0 w-full bg-brand-surface border-t border-brand-border p-4 z-40">
+                <Link to="/assessment" className="block w-full bg-brand-accent text-brand-dark text-center font-semibold py-3 rounded-md">
+                    Get Recovery Assessment
+                </Link>
             </div>
-        </div>
-    </section>
+        );
 
-    <footer class="corporate-footer">
-        <div class="container">
-            <p>&copy; 2026 Fortis Data Recovery | All Rights Reserved.</p>
-            <p class="footer-links">Privacy Policy | Terms of Service | Data Security Guarantee</p>
-        </div>
-    </footer>
+        function App() {
+            return (
+                <HelmetProvider>
+                    <Router>
+                        <div className="flex flex-col min-h-screen">
+                            <Header />
+                            <div className="flex-grow">
+                                <Routes>
+                                    <Route path="/" element={<Home />} />
+                                    <Route path="/assessment" element={<Assessment />} />
+                                    <Route path="*" element={
+                                        <div className="pt-32 pb-24 text-center min-h-[60vh] flex flex-col justify-center">
+                                            <h1 className="text-4xl text-white font-bold mb-4">404 - That page couldn't be found.</h1>
+                                            <Link to="/" className="text-brand-accent">Return Home</Link>
+                                        </div>
+                                    } />
+                                </Routes>
+                            </div>
+                            <Footer />
+                            <MobileStickyCta />
+                        </div>
+                    </Router>
+                </HelmetProvider>
+            );
+        }
 
-    <script src="js/app.js"></script>
+        const root = createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
 </body>
 </html>
