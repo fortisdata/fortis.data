@@ -1,12 +1,17 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth bg-[#050505]">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fortis.data | Professional Data Recovery Services</title>
-    <meta name="description" content="Enterprise-grade data recovery for HDDs, SSDs, NVMe, and external storage. Secure, confidential, and technically advanced recovery assessments.">
+    <title>Fortis.data | Professional Data Recovery</title>
+    <meta name="description" content="Professional data recovery for HDDs, SSDs, NVMe drives, pen drives and external storage devices. Enterprise-grade, confidential handling.">
     
-    <!-- Tailwind CSS CDN -->
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -14,18 +19,31 @@
                 extend: {
                     colors: {
                         brand: {
-                            dark: '#050507',
-                            surface: '#0F1014',
-                            surfaceHover: '#16181D',
-                            border: '#1F222A',
-                            accent: '#00D1FF',
-                            accentDark: '#0066FF',
-                            text: '#E2E8F0',
-                            textMuted: '#94A3B8',
+                            black: '#050505',
+                            deep: '#0A0A0A',
+                            surface: '#111111',
+                            primary: '#B7F34A',
+                            secondary: '#9FE23F',
+                            white: '#FFFFFF',
+                            softWhite: '#F4F7F2',
+                            mutedWhite: '#D8DDD5',
+                            muted: '#9AA198',
+                            border: 'rgba(255, 255, 255, 0.10)',
+                            borderGreen: 'rgba(183, 243, 74, 0.25)',
                         }
                     },
                     fontFamily: {
                         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                    animation: {
+                        'scan': 'scan 3s linear infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        scan: {
+                            '0%': { transform: 'translateY(-100%)' },
+                            '100%': { transform: 'translateY(100%)' },
+                        }
                     }
                 }
             }
@@ -33,291 +51,561 @@
     </script>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        
         body {
-            background-color: #050507;
-            color: #E2E8F0;
+            background-color: #050505;
+            color: #D8DDD5;
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
+        /* Custom Scrollbar - matching brand */
         ::-webkit-scrollbar {
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #050507;
+            background: #050505;
         }
         ::-webkit-scrollbar-thumb {
-            background: #1F222A;
-            border-radius: 9999px;
+            background: #111111;
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #94A3B8;
+            background: rgba(183, 243, 74, 0.25);
+            border-color: #B7F34A;
+        }
+
+        /* Remove default browser focus outlines (blue) and replace with brand green */
+        *:focus-visible {
+            outline: 2px solid #B7F34A !important;
+            outline-offset: 2px;
+        }
+
+        /* Technical Background Pattern */
+        .tech-grid {
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+        
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            right: 24px;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.10);
+            z-index: 0;
+        }
+        @media (max-width: 768px) {
+            .timeline-line::before {
+                top: 0; left: 24px; bottom: 0; right: auto; width: 1px; height: auto;
+            }
         }
     </style>
 </head>
-<body class="antialiased selection:bg-brand-accent/30 selection:text-white flex flex-col min-h-screen">
+<body class="selection:bg-brand-primary/30 selection:text-brand-white flex flex-col min-h-screen">
 
     <!-- HEADER -->
-    <header id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 border-b border-brand-border bg-brand-dark/80 backdrop-blur-md">
+    <header id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 border-b border-transparent bg-brand-deep/80 backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="#" class="text-xl font-bold tracking-widest text-white flex items-center gap-2">
-                <div class="w-4 h-4 bg-brand-accent rounded-sm opacity-80"></div>
-                FORTIS.DATA
+            <!-- Logo -->
+            <a href="#" class="text-2xl font-bold tracking-tight flex items-center gap-1 group">
+                <span class="text-brand-white group-hover:text-brand-softWhite transition-colors">Fortis.</span><span class="text-brand-primary">data</span>
             </a>
 
-            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-brand-textMuted">
-                <a href="#services" class="hover:text-white transition-colors">Services</a>
-                <a href="#process" class="hover:text-white transition-colors">Process</a>
-                <a href="#guidelines" class="hover:text-white transition-colors">Guidelines</a>
-                <a href="#assessment" class="bg-brand-surface border border-brand-border hover:border-brand-accent/50 text-white px-5 py-2.5 rounded-md transition-all duration-300">
-                    Get Assessment
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-brand-mutedWhite">
+                <a href="#services" class="hover:text-brand-primary transition-colors">Services</a>
+                <a href="#process" class="hover:text-brand-primary transition-colors">Recovery Process</a>
+                <a href="#why-us" class="hover:text-brand-primary transition-colors">Why Fortis.data</a>
+                <a href="#faq" class="hover:text-brand-primary transition-colors">FAQ</a>
+                <a href="#assessment" class="bg-brand-primary text-brand-black hover:brightness-110 font-semibold px-6 py-2.5 rounded-md transition-all duration-300">
+                    Get a Recovery Assessment
                 </a>
             </nav>
 
-            <button id="mobileMenuBtn" class="md:hidden text-brand-text hover:text-white focus:outline-none" aria-label="Toggle Menu">
-                <svg id="menuIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            <!-- Mobile Menu Button -->
+            <button id="mobileMenuBtn" class="md:hidden text-brand-white hover:text-brand-primary focus:outline-none" aria-label="Toggle Menu">
+                <svg id="menuIcon" class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
-                <svg id="closeIcon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                <svg id="closeIcon" class="w-7 h-7 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
             </button>
         </div>
 
-        <!-- Mobile Menu dropdown -->
-        <div id="mobileMenu" class="hidden md:hidden absolute top-20 left-0 w-full bg-brand-surface border-b border-brand-border px-6 py-6 flex flex-col gap-4 shadow-xl z-40">
-            <a href="#services" class="mobile-link text-lg text-white">Services</a>
-            <a href="#process" class="mobile-link text-lg text-white">Process</a>
-            <a href="#guidelines" class="mobile-link text-lg text-white">Guidelines</a>
-            <a href="#assessment" class="mobile-link mt-2 bg-brand-accent text-brand-dark text-center font-semibold px-5 py-3 rounded-md">
-                Request Assessment
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden absolute top-20 left-0 w-full bg-brand-deep border-b border-brand-border px-6 py-8 flex flex-col gap-6 shadow-2xl z-40">
+            <a href="#services" class="mobile-link text-lg text-brand-white hover:text-brand-primary">Services</a>
+            <a href="#process" class="mobile-link text-lg text-brand-white hover:text-brand-primary">Recovery Process</a>
+            <a href="#why-us" class="mobile-link text-lg text-brand-white hover:text-brand-primary">Why Fortis.data</a>
+            <a href="#faq" class="mobile-link text-lg text-brand-white hover:text-brand-primary">FAQ</a>
+            <a href="#assessment" class="mobile-link mt-4 bg-brand-primary text-brand-black text-center font-semibold px-6 py-4 rounded-md transition-all">
+                Get a Recovery Assessment
             </a>
         </div>
     </header>
 
     <!-- MAIN CONTENT -->
     <main class="flex-grow">
-        <!-- HERO SECTION -->
-        <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-24 pb-16">
-            <div class="absolute inset-0 z-0 pointer-events-none">
-                <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-accent/5 rounded-full blur-[120px]"></div>
-                <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-brand-accentDark/10 rounded-full blur-[100px]"></div>
-                <div class="w-full h-full opacity-15" style="background-image: radial-gradient(#1F222A 1px, transparent 1px); background-size: 40px 40px;"></div>
-            </div>
+        
+        <!-- 1. HERO SECTION -->
+        <section class="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden border-b border-brand-border">
+            <!-- Ambient Glow -->
+            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-primary/5 rounded-full blur-[120px] pointer-events-none"></div>
+            
+            <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center relative z-10">
+                <!-- Hero Text -->
+                <div class="max-w-2xl">
+                    <h1 class="text-5xl lg:text-7xl font-bold text-brand-white tracking-tight mb-6 leading-[1.1]">
+                        Recover What <span class="text-brand-primary">Matters.</span>
+                    </h1>
+                    <p class="text-lg text-brand-muted mb-10 leading-relaxed max-w-lg">
+                        Professional data recovery for HDDs, SSDs, NVMe drives, pen drives and external storage devices.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center gap-4">
+                        <a href="#assessment" class="w-full sm:w-auto bg-brand-primary text-brand-black font-semibold px-8 py-4 rounded-md hover:brightness-110 transition-all duration-300 text-center">
+                            Get a Recovery Assessment
+                        </a>
+                        <a href="#services" class="w-full sm:w-auto bg-transparent text-brand-white border border-brand-border hover:border-brand-primary px-8 py-4 rounded-md transition-all duration-300 text-center">
+                            Explore Recovery Services
+                        </a>
+                    </div>
+                </div>
 
-            <div class="relative z-10 max-w-4xl mx-auto px-6 text-center mt-10">
-                <h1 class="text-5xl md:text-7xl font-bold text-white tracking-tight mb-6">
-                    Recover What <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-accent to-brand-accentDark">Matters.</span>
-                </h1>
-                <p class="text-lg md:text-xl text-brand-textMuted mb-10 max-w-2xl mx-auto leading-relaxed">
-                    Professional data recovery for HDDs, SSDs, NVMe drives, and complex external storage. Confidential handling, hardware-level reconstruction.
-                </p>
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <a href="#assessment" class="w-full sm:w-auto px-8 py-4 bg-white text-brand-dark font-semibold rounded-md hover:bg-brand-accent transition-colors duration-300">
-                        Get a Recovery Assessment
-                    </a>
-                    <a href="#services" class="w-full sm:w-auto px-8 py-4 bg-brand-surface border border-brand-border text-white font-medium rounded-md hover:bg-brand-surfaceHover transition-colors duration-300">
-                        Explore Services
-                    </a>
+                <!-- Hero Technical Visualization -->
+                <div class="relative w-full aspect-square lg:aspect-auto lg:h-[500px] border border-brand-border bg-brand-deep rounded-xl overflow-hidden group tech-grid flex items-center justify-center shadow-[0_0_40px_rgba(0,0,0,0.5)]">
+                    <!-- Scanning line -->
+                    <div class="absolute left-0 right-0 h-32 bg-gradient-to-b from-transparent via-brand-primary/10 to-brand-primary/30 opacity-50 animate-scan"></div>
+                    <div class="absolute left-0 right-0 h-[1px] bg-brand-primary opacity-30 animate-scan"></div>
+                    
+                    <!-- Abstract Storage Architecture -->
+                    <div class="relative z-10 w-3/4 h-3/4 flex flex-col gap-4">
+                        <!-- Platter / Disk representation -->
+                        <div class="flex-1 border border-brand-border bg-brand-surface rounded-lg relative overflow-hidden flex items-center justify-center">
+                            <div class="w-32 h-32 border border-brand-border rounded-full flex items-center justify-center">
+                                <div class="w-24 h-24 border border-brand-border rounded-full flex items-center justify-center">
+                                    <div class="w-8 h-8 border border-brand-borderGreen bg-brand-deep rounded-full"></div>
+                                </div>
+                            </div>
+                            <!-- Read head abstract line -->
+                            <div class="absolute top-1/2 left-1/2 w-24 h-[1px] bg-brand-primary/40 origin-left -rotate-45"></div>
+                        </div>
+                        <!-- PCB / NAND representation -->
+                        <div class="h-1/3 border border-brand-border bg-brand-surface rounded-lg flex items-center justify-around px-4">
+                            <div class="w-8 h-12 border border-brand-border bg-brand-deep rounded flex items-center justify-center"><div class="w-1.5 h-1.5 bg-brand-primary rounded-full animate-pulse-slow"></div></div>
+                            <div class="w-8 h-12 border border-brand-border bg-brand-deep rounded"></div>
+                            <div class="w-8 h-12 border border-brand-border bg-brand-deep rounded"></div>
+                            <div class="w-12 h-12 border border-brand-borderGreen bg-brand-primary/10 rounded flex items-center justify-center">
+                                <svg class="w-5 h-5 text-brand-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- TRUST STRIP -->
-        <div class="border-y border-brand-border bg-brand-surface py-4 overflow-hidden">
-            <div class="max-w-7xl mx-auto px-6 flex flex-wrap justify-center gap-6 sm:gap-8 text-xs font-mono tracking-widest text-brand-textMuted uppercase">
-                <span>HDD Recovery</span>
-                <span class="hidden sm:inline text-brand-border">•</span>
-                <span>SSD / NVMe</span>
-                <span class="hidden sm:inline text-brand-border">•</span>
-                <span>Flash Media</span>
-                <span class="hidden sm:inline text-brand-border">•</span>
-                <span>Confidential Handling</span>
+        <!-- 2. DEVICE RECOVERY STRIP -->
+        <div class="border-b border-brand-border bg-brand-surface py-6">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                    <span class="text-sm font-semibold tracking-widest text-brand-muted uppercase whitespace-nowrap">We Recover Data From:</span>
+                    <div class="flex flex-wrap justify-center md:justify-end gap-3 sm:gap-6 w-full">
+                        <div class="flex items-center gap-2 px-3 py-1.5 rounded border border-transparent hover:border-brand-borderGreen transition-colors cursor-default">
+                            <svg class="w-5 h-5 text-brand-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 7v10c0 2 1.5 3 3.5 3h9c2 0 3.5-1 3.5-3V7c0-2-1.5-3-3.5-3h-9C5.5 4 4 5 4 7zm8 8h.01M7 15h.01"></path></svg>
+                            <span class="text-sm text-brand-mutedWhite font-medium">HDD</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-3 py-1.5 rounded border border-transparent hover:border-brand-borderGreen transition-colors cursor-default">
+                            <svg class="w-5 h-5 text-brand-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1v-2zM4 21a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1v-2z"></path></svg>
+                            <span class="text-sm text-brand-mutedWhite font-medium">SSD</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-3 py-1.5 rounded border border-transparent hover:border-brand-borderGreen transition-colors cursor-default">
+                            <svg class="w-5 h-5 text-brand-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
+                            <span class="text-sm text-brand-mutedWhite font-medium">NVMe</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-3 py-1.5 rounded border border-transparent hover:border-brand-borderGreen transition-colors cursor-default">
+                            <svg class="w-5 h-5 text-brand-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path></svg>
+                            <span class="text-sm text-brand-mutedWhite font-medium">Pen Drive</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-3 py-1.5 rounded border border-transparent hover:border-brand-borderGreen transition-colors cursor-default">
+                            <svg class="w-5 h-5 text-brand-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2"></path></svg>
+                            <span class="text-sm text-brand-mutedWhite font-medium">External</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- SERVICES SECTION -->
-        <section id="services" class="py-24 bg-brand-dark">
+        <!-- 3. RECOVERY SERVICES -->
+        <section id="services" class="py-24">
             <div class="max-w-7xl mx-auto px-6">
                 <div class="mb-16">
-                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Storage Recovery Expertise</h2>
-                    <p class="text-brand-textMuted max-w-2xl">Structured diagnosis and advanced extraction methodologies across consumer, enterprise, and industrial storage devices.</p>
+                    <h2 class="text-3xl md:text-4xl font-bold text-brand-white mb-4 tracking-tight">Recovery for the Storage You Rely On.</h2>
+                    <p class="text-brand-muted max-w-2xl text-lg">Specialized technical extraction for all standard and complex storage architectures.</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- HDD -->
-                    <div class="group bg-brand-surface border border-brand-border rounded-xl p-8 hover:border-brand-accent/40 transition-all duration-300">
-                        <div class="w-12 h-12 bg-brand-dark border border-brand-border rounded-lg flex items-center justify-center mb-6 group-hover:border-brand-accent/40 transition-colors text-brand-accent">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2 1.5 3 3.5 3h9c2 0 3.5-1 3.5-3V7c0-2-1.5-3-3.5-3h-9C5.5 4 4 5 4 7zm8 8h.01M7 15h.01"></path></svg>
+                    <!-- Card 1: HDD -->
+                    <div class="group bg-brand-surface border border-brand-border rounded-xl p-8 hover:border-brand-borderGreen hover:-translate-y-1 transition-all duration-300 flex flex-col h-full relative overflow-hidden">
+                        <div class="w-12 h-12 border border-brand-border bg-brand-deep rounded-lg flex items-center justify-center mb-6 text-brand-primary group-hover:bg-brand-primary/5 transition-colors">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 7v10c0 2 1.5 3 3.5 3h9c2 0 3.5-1 3.5-3V7c0-2-1.5-3-3.5-3h-9C5.5 4 4 5 4 7zm8 8h.01M7 15h.01"></path></svg>
                         </div>
-                        <h3 class="text-xl font-semibold text-white mb-3">HDD Data Recovery</h3>
-                        <p class="text-brand-textMuted text-sm mb-6 leading-relaxed">Mechanical head alignment, platter swap, spindle motor repairs, and firmware reconstruction for spindle drives.</p>
-                        <ul class="text-xs text-brand-textMuted/80 space-y-1 pt-4 border-t border-brand-border">
-                            <li>• Clicking / Buzzing Sounds</li>
-                            <li>• Head Assembly Failure</li>
-                            <li>• Bad Sectors & Corrupted MBR</li>
-                        </ul>
+                        <h3 class="text-xl font-semibold text-brand-white mb-3">HDD Data Recovery</h3>
+                        <p class="text-brand-muted text-sm mb-6 flex-grow leading-relaxed">Mechanical repairs in clean environments and advanced logical reconstruction for magnetic hard drives.</p>
+                        <div class="border-t border-brand-border pt-4 mb-6">
+                            <ul class="text-xs text-brand-muted space-y-2">
+                                <li class="flex items-start gap-2"><span class="text-brand-primary mt-0.5">•</span> Clicking / unusual sounds</li>
+                                <li class="flex items-start gap-2"><span class="text-brand-primary mt-0.5">•</span> Drive not detected</li>
+                                <li class="flex items-start gap-2"><span class="text-brand-primary mt-0.5">•</span> Mechanical failure</li>
+                                <li class="flex items-start gap-2"><span class="text-brand-primary mt-0.5">•</span> Damaged partitions</li>
+                            </ul>
+                        </div>
+                        <a href="#assessment" class="text-sm font-medium text-brand-white group-hover:text-brand-primary transition-colors inline-flex items-center gap-1">Learn More <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></a>
                     </div>
 
-                    <!-- SSD -->
-                    <div class="group bg-brand-surface border border-brand-border rounded-xl p-8 hover:border-brand-accent/40 transition-all duration-300">
-                        <div class="w-12 h-12 bg-brand-dark border border-brand-border rounded-lg flex items-center justify-center mb-6 group-hover:border-brand-accent/40 transition-colors text-brand-accent">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1v-2zM4 21a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1v-2z"></path></svg>
+                    <!-- Card 2: SSD -->
+                    <div class="group bg-brand-surface border border-brand-border rounded-xl p-8 hover:border-brand-borderGreen hover:-translate-y-1 transition-all duration-300 flex flex-col h-full relative overflow-hidden">
+                        <div class="w-12 h-12 border border-brand-border bg-brand-deep rounded-lg flex items-center justify-center mb-6 text-brand-primary group-hover:bg-brand-primary/5 transition-colors">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1v-2zM4 21a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1v-2z"></path></svg>
                         </div>
-                        <h3 class="text-xl font-semibold text-white mb-3">SSD Data Recovery</h3>
-                        <p class="text-brand-textMuted text-sm mb-6 leading-relaxed">Advanced flash translation layer (FTL) reconstruction, controller bypass, and raw NAND chip extraction.</p>
-                        <ul class="text-xs text-brand-textMuted/80 space-y-1 pt-4 border-t border-brand-border">
-                            <li>• Drive Not Recognized in BIOS</li>
-                            <li>• Controller Electronic Failure</li>
-                            <li>• Firmware Corruption Locks</li>
-                        </ul>
+                        <h3 class="text-xl font-semibold text-brand-white mb-3">SSD Data Recovery</h3>
+                        <p class="text-brand-muted text-sm mb-6 flex-grow leading-relaxed">Flash translation layer reconstruction and controller bypass for dead or unrecognized solid-state drives.</p>
+                        <div class="border-t border-brand-border pt-4 mb-6">
+                            <ul class="text-xs text-brand-muted space-y-2">
+                                <li class="flex items-start gap-2"><span class="text-brand-primary mt-0.5">•</span> Drive not detected</li>
+                                <li class="flex items-start gap-2"><span class="text-brand-primary mt-0.5">•</span> Firmware issues</li>
+                                <li class="flex items-start gap-2"><span class="text-brand-primary mt-0.5">•</span> Controller-related failure</li>
+                                <li class="flex items-start gap-2"><span class="text-brand-primary mt-0.5">•</span> Corrupted file system</li>
+                            </ul>
+                        </div>
+                        <a href="#assessment" class="text-sm font-medium text-brand-white group-hover:text-brand-primary transition-colors inline-flex items-center gap-1">Learn More <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></a>
                     </div>
 
-                    <!-- NVMe -->
-                    <div class="group bg-brand-surface border border-brand-border rounded-xl p-8 hover:border-brand-accent/40 transition-all duration-300">
-                        <div class="w-12 h-12 bg-brand-dark border border-brand-border rounded-lg flex items-center justify-center mb-6 group-hover:border-brand-accent/40 transition-colors text-brand-accent">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
+                    <!-- Card 3: NVMe -->
+                    <div class="group bg-brand-surface border border-brand-border rounded-xl p-8 hover:border-brand-borderGreen hover:-translate-y-1 transition-all duration-300 flex flex-col h-full relative overflow-hidden">
+                        <div class="w-12 h-12 border border-brand-border bg-brand-deep rounded-lg flex items-center justify-center mb-6 text-brand-primary group-hover:bg-brand-primary/5 transition-colors">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
                         </div>
-                        <h3 class="text-xl font-semibold text-white mb-3">NVMe Data Recovery</h3>
-                        <p class="text-brand-textMuted text-sm mb-6 leading-relaxed">PCIe interface diagnostics and raw memory block reading under regulated thermal environments.</p>
-                        <ul class="text-xs text-brand-textMuted/80 space-y-1 pt-4 border-t border-brand-border">
-                            <li>• System Freezing / BSODs</li>
-                            <li>• Thermal Degradation Damage</li>
-                            <li>• Controller Desynchronization</li>
-                        </ul>
+                        <h3 class="text-xl font-semibold text-brand-white mb-3">NVMe Data Recovery</h3>
+                        <p class="text-brand-muted text-sm mb-6 flex-grow leading-relaxed">PCIe interface diagnostics and complex logical reconstruction for high-speed M.2 storage.</p>
+                        <div class="border-t border-brand-border pt-4 mb-6">
+                            <ul class="text-xs text-brand-muted space-y-2">
+                                <li class="flex items-start gap-2"><span class="text-brand-primary mt-0.5">•</span> Drive not detected</li>
+                                <li class="flex items-start gap-2"><span class="text-brand-primary mt-0.5">•</span> Logical data loss</li>
+                                <li class="flex items-start gap-2"><span class="text-brand-primary mt-0.5">•</span> Firmware/controller problems</li>
+                                <li class="flex items-start gap-2"><span class="text-brand-primary mt-0.5">•</span> System corruption</li>
+                            </ul>
+                        </div>
+                        <a href="#assessment" class="text-sm font-medium text-brand-white group-hover:text-brand-primary transition-colors inline-flex items-center gap-1">Learn More <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></a>
                     </div>
 
-                    <!-- Pen Drive / Flash -->
-                    <div class="group bg-brand-surface border border-brand-border rounded-xl p-8 hover:border-brand-accent/40 transition-all duration-300">
-                        <div class="w-12 h-12 bg-brand-dark border border-brand-border rounded-lg flex items-center justify-center mb-6 group-hover:border-brand-accent/40 transition-colors text-brand-accent">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path></svg>
+                    <!-- Card 4: Pen Drive -->
+                    <div class="group bg-brand-surface border border-brand-border rounded-xl p-8 hover:border-brand-borderGreen hover:-translate-y-1 transition-all duration-300 flex flex-col h-full relative overflow-hidden lg:col-start-1 lg:ml-[16.666%]">
+                        <div class="w-12 h-12 border border-brand-border bg-brand-deep rounded-lg flex items-center justify-center mb-6 text-brand-primary group-hover:bg-brand-primary/5 transition-colors">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path></svg>
                         </div>
-                        <h3 class="text-xl font-semibold text-white mb-3">Pen Drive Recovery</h3>
-                        <p class="text-brand-textMuted text-sm mb-6 leading-relaxed">Direct spider-pinout micro-soldering and trace repair for monolithic and broken USB flash drives.</p>
-                        <ul class="text-xs text-brand-textMuted/80 space-y-1 pt-4 border-t border-brand-border">
-                            <li>• Snapped / Bent Connector</li>
-                            <li>• "Please Insert Disk" Errors</li>
-                            <li>• Monolithic Memory Failure</li>
-                        </ul>
+                        <h3 class="text-xl font-semibold text-brand-white mb-3">Pen Drive Recovery</h3>
+                        <p class="text-brand-muted text-sm mb-6 flex-grow leading-relaxed">Physical connector repair and monolithic flash memory pinout reconstruction.</p>
+                        <div class="border-t border-brand-border pt-4 mb-6">
+                            <ul class="text-xs text-brand-muted space-y-2">
+                                <li class="flex items-start gap-2"><span class="text-brand-primary mt-0.5">•</span> Accidental deletion</li>
+                                <li class="flex items-start gap-2"><span class="text-brand-primary mt-0.5">•</span> Drive not detected</li>
+                                <li class="flex items-start gap-2"><span class="text-brand-primary mt-0.5">•</span> File system damage</li>
+                                <li class="flex items-start gap-2"><span class="text-brand-primary mt-0.5">•</span> Physical breakage</li>
+                            </ul>
+                        </div>
+                        <a href="#assessment" class="text-sm font-medium text-brand-white group-hover:text-brand-primary transition-colors inline-flex items-center gap-1">Learn More <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></a>
                     </div>
 
-                    <!-- External Drive -->
-                    <div class="group bg-brand-surface border border-brand-border rounded-xl p-8 hover:border-brand-accent/40 transition-all duration-300">
-                        <div class="w-12 h-12 bg-brand-dark border border-brand-border rounded-lg flex items-center justify-center mb-6 group-hover:border-brand-accent/40 transition-colors text-brand-accent">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2"></path></svg>
+                    <!-- Card 5: External -->
+                    <div class="group bg-brand-surface border border-brand-border rounded-xl p-8 hover:border-brand-borderGreen hover:-translate-y-1 transition-all duration-300 flex flex-col h-full relative overflow-hidden lg:col-start-2 lg:ml-[16.666%]">
+                        <div class="w-12 h-12 border border-brand-border bg-brand-deep rounded-lg flex items-center justify-center mb-6 text-brand-primary group-hover:bg-brand-primary/5 transition-colors">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2"></path></svg>
                         </div>
-                        <h3 class="text-xl font-semibold text-white mb-3">External Drive Recovery</h3>
-                        <p class="text-brand-textMuted text-sm mb-6 leading-relaxed">Bridge chip failure diagnosis and direct internal drive extraction following physical drops or shocks.</p>
-                        <ul class="text-xs text-brand-textMuted/80 space-y-1 pt-4 border-t border-brand-border">
-                            <li>• Accidental Drops & Impacts</li>
-                            <li>• USB Interface Board Shorts</li>
-                            <li>• Corrupted Partition Tables</li>
-                        </ul>
+                        <h3 class="text-xl font-semibold text-brand-white mb-3">External Drive Recovery</h3>
+                        <p class="text-brand-muted text-sm mb-6 flex-grow leading-relaxed">Isolation of enclosure failures and secure internal drive data extraction.</p>
+                        <div class="border-t border-brand-border pt-4 mb-6">
+                            <ul class="text-xs text-brand-muted space-y-2">
+                                <li class="flex items-start gap-2"><span class="text-brand-primary mt-0.5">•</span> Dropped / physical shock</li>
+                                <li class="flex items-start gap-2"><span class="text-brand-primary mt-0.5">•</span> Drive not detected</li>
+                                <li class="flex items-start gap-2"><span class="text-brand-primary mt-0.5">•</span> Interface/enclosure issues</li>
+                                <li class="flex items-start gap-2"><span class="text-brand-primary mt-0.5">•</span> Data corruption</li>
+                            </ul>
+                        </div>
+                        <a href="#assessment" class="text-sm font-medium text-brand-white group-hover:text-brand-primary transition-colors inline-flex items-center gap-1">Learn More <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- PROCESS SECTION -->
-        <section id="process" class="py-24 bg-brand-surface/30 border-t border-brand-border overflow-hidden">
+        <!-- 4. DIAGNOSTICS: WHAT'S WRONG -->
+        <section class="py-24 border-y border-brand-border bg-brand-deep tech-grid">
             <div class="max-w-7xl mx-auto px-6">
-                <h2 class="text-3xl font-bold text-white mb-16 text-center">Structured Recovery Protocol</h2>
-                <div class="relative">
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 relative z-10">
-                        <div class="bg-brand-surface p-6 rounded-lg border border-brand-border">
-                            <div class="text-brand-accent font-mono text-sm mb-3">01</div>
-                            <h4 class="text-white font-medium mb-2">Assessment</h4>
-                            <p class="text-brand-textMuted text-xs leading-relaxed">Detailed intake of failure symptoms to formulate a risk profile.</p>
+                <div class="text-center mb-16 max-w-2xl mx-auto">
+                    <h2 class="text-3xl md:text-4xl font-bold text-brand-white mb-4 tracking-tight">What's Wrong With Your Drive?</h2>
+                    <p class="text-brand-muted text-lg">Identify your symptom below. Recovery feasibility depends on the condition and exact failure type.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl mx-auto">
+                    <!-- Symptom List -->
+                    <a href="#assessment" class="flex items-center p-4 bg-brand-surface border border-brand-border rounded-lg hover:border-brand-borderGreen transition-colors group">
+                        <div class="w-10 h-10 rounded bg-brand-deep border border-brand-border flex items-center justify-center mr-4 group-hover:text-brand-primary transition-colors text-brand-mutedWhite">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="1.5"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4m0 4h.01"/></svg>
                         </div>
-                        <div class="bg-brand-surface p-6 rounded-lg border border-brand-border">
-                            <div class="text-brand-accent font-mono text-sm mb-3">02</div>
-                            <h4 class="text-white font-medium mb-2">Diagnosis</h4>
-                            <p class="text-brand-textMuted text-xs leading-relaxed">Hardware and firmware inspection to isolate failure points.</p>
+                        <div class="flex-grow">
+                            <h4 class="text-brand-white font-medium text-sm">Drive not detected by computer</h4>
+                            <p class="text-brand-muted text-xs mt-1">Affects: All storage types</p>
                         </div>
-                        <div class="bg-brand-surface p-6 rounded-lg border border-brand-border">
-                            <div class="text-brand-accent font-mono text-sm mb-3">03</div>
-                            <h4 class="text-white font-medium mb-2">Strategy</h4>
-                            <p class="text-brand-textMuted text-xs leading-relaxed">Determining the required non-destructive retrieval methodology.</p>
+                        <svg class="w-5 h-5 text-brand-muted group-hover:text-brand-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/></svg>
+                    </a>
+                    
+                    <a href="#assessment" class="flex items-center p-4 bg-brand-surface border border-brand-border rounded-lg hover:border-brand-borderGreen transition-colors group">
+                        <div class="w-10 h-10 rounded bg-brand-deep border border-brand-border flex items-center justify-center mr-4 group-hover:text-brand-primary transition-colors text-brand-mutedWhite">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
                         </div>
-                        <div class="bg-brand-surface p-6 rounded-lg border border-brand-border">
-                            <div class="text-brand-accent font-mono text-sm mb-3">04</div>
-                            <h4 class="text-white font-medium mb-2">Extraction</h4>
-                            <p class="text-brand-textMuted text-xs leading-relaxed">Raw sector cloning and NAND reconstruction into secure targets.</p>
+                        <div class="flex-grow">
+                            <h4 class="text-brand-white font-medium text-sm">Clicking / unusual sounds</h4>
+                            <p class="text-brand-muted text-xs mt-1">Affects: HDDs, External Drives</p>
                         </div>
-                        <div class="bg-brand-surface p-6 rounded-lg border border-brand-border">
-                            <div class="text-brand-accent font-mono text-sm mb-3">05</div>
-                            <h4 class="text-white font-medium mb-2">Verification</h4>
-                            <p class="text-brand-textMuted text-xs leading-relaxed">File integrity checks and logical directory validation.</p>
+                        <svg class="w-5 h-5 text-brand-muted group-hover:text-brand-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/></svg>
+                    </a>
+
+                    <a href="#assessment" class="flex items-center p-4 bg-brand-surface border border-brand-border rounded-lg hover:border-brand-borderGreen transition-colors group">
+                        <div class="w-10 h-10 rounded bg-brand-deep border border-brand-border flex items-center justify-center mr-4 group-hover:text-brand-primary transition-colors text-brand-mutedWhite">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                         </div>
-                        <div class="bg-brand-surface p-6 rounded-lg border border-brand-border">
-                            <div class="text-brand-accent font-mono text-sm mb-3">06</div>
-                            <h4 class="text-white font-medium mb-2">Handover</h4>
-                            <p class="text-brand-textMuted text-xs leading-relaxed">Encrypted delivery of recovered data; original drive preserved.</p>
+                        <div class="flex-grow">
+                            <h4 class="text-brand-white font-medium text-sm">Files missing or deleted</h4>
+                            <p class="text-brand-muted text-xs mt-1">Affects: All storage types</p>
+                        </div>
+                        <svg class="w-5 h-5 text-brand-muted group-hover:text-brand-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/></svg>
+                    </a>
+
+                    <a href="#assessment" class="flex items-center p-4 bg-brand-surface border border-brand-border rounded-lg hover:border-brand-borderGreen transition-colors group">
+                        <div class="w-10 h-10 rounded bg-brand-deep border border-brand-border flex items-center justify-center mr-4 group-hover:text-brand-primary transition-colors text-brand-mutedWhite">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                        </div>
+                        <div class="flex-grow">
+                            <h4 class="text-brand-white font-medium text-sm">Drive asking to be formatted</h4>
+                            <p class="text-brand-muted text-xs mt-1">Affects: USBs, Externals, SDs</p>
+                        </div>
+                        <svg class="w-5 h-5 text-brand-muted group-hover:text-brand-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. RECOVERY PROCESS -->
+        <section id="process" class="py-24">
+            <div class="max-w-7xl mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-bold text-brand-white mb-16 text-center tracking-tight">Structured Recovery Workflow</h2>
+                
+                <div class="relative timeline-line">
+                    <div class="grid grid-cols-1 md:grid-cols-6 gap-8 relative z-10">
+                        <!-- Step 1 -->
+                        <div class="relative flex flex-row md:flex-col items-start gap-4 md:gap-0">
+                            <div class="w-12 h-12 rounded bg-brand-surface border border-brand-border flex items-center justify-center text-brand-primary font-mono text-sm shrink-0 md:mb-6 shadow-[0_0_15px_rgba(183,243,74,0.1)]">01</div>
+                            <div>
+                                <h4 class="text-brand-white font-semibold mb-2">Initial Assessment</h4>
+                                <p class="text-brand-muted text-xs leading-relaxed">Evaluation of symptoms and failure parameters.</p>
+                            </div>
+                        </div>
+                        <!-- Step 2 -->
+                        <div class="relative flex flex-row md:flex-col items-start gap-4 md:gap-0">
+                            <div class="w-12 h-12 rounded bg-brand-surface border border-brand-border flex items-center justify-center text-brand-primary font-mono text-sm shrink-0 md:mb-6">02</div>
+                            <div>
+                                <h4 class="text-brand-white font-semibold mb-2">Device Diagnosis</h4>
+                                <p class="text-brand-muted text-xs leading-relaxed">Hardware and logical inspection to isolate faults.</p>
+                            </div>
+                        </div>
+                        <!-- Step 3 -->
+                        <div class="relative flex flex-row md:flex-col items-start gap-4 md:gap-0">
+                            <div class="w-12 h-12 rounded bg-brand-surface border border-brand-border flex items-center justify-center text-brand-primary font-mono text-sm shrink-0 md:mb-6">03</div>
+                            <div>
+                                <h4 class="text-brand-white font-semibold mb-2">Recovery Strategy</h4>
+                                <p class="text-brand-muted text-xs leading-relaxed">Determining the exact methodology required.</p>
+                            </div>
+                        </div>
+                        <!-- Step 4 -->
+                        <div class="relative flex flex-row md:flex-col items-start gap-4 md:gap-0">
+                            <div class="w-12 h-12 rounded bg-brand-surface border border-brand-border flex items-center justify-center text-brand-primary font-mono text-sm shrink-0 md:mb-6">04</div>
+                            <div>
+                                <h4 class="text-brand-white font-semibold mb-2">Data Extraction</h4>
+                                <p class="text-brand-muted text-xs leading-relaxed">Safe block-level cloning and data reconstruction.</p>
+                            </div>
+                        </div>
+                        <!-- Step 5 -->
+                        <div class="relative flex flex-row md:flex-col items-start gap-4 md:gap-0">
+                            <div class="w-12 h-12 rounded bg-brand-surface border border-brand-border flex items-center justify-center text-brand-primary font-mono text-sm shrink-0 md:mb-6">05</div>
+                            <div>
+                                <h4 class="text-brand-white font-semibold mb-2">Data Verification</h4>
+                                <p class="text-brand-muted text-xs leading-relaxed">Integrity checks on recovered file structures.</p>
+                            </div>
+                        </div>
+                        <!-- Step 6 -->
+                        <div class="relative flex flex-row md:flex-col items-start gap-4 md:gap-0">
+                            <div class="w-12 h-12 rounded bg-brand-surface border border-brand-border flex items-center justify-center text-brand-primary font-mono text-sm shrink-0 md:mb-6">06</div>
+                            <div>
+                                <h4 class="text-brand-white font-semibold mb-2">Secure Handover</h4>
+                                <p class="text-brand-muted text-xs leading-relaxed">Data securely transferred to new media.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- DO / DON'T GUIDELINES -->
-        <section id="guidelines" class="py-24 border-t border-brand-border bg-brand-dark">
+        <!-- 6. TECHNICAL CREDIBILITY -->
+        <section class="py-24 bg-brand-surface border-y border-brand-border overflow-hidden relative">
+            <!-- Background Accent -->
+            <div class="absolute right-0 top-1/2 -translate-y-1/2 w-1/2 h-full bg-gradient-to-l from-brand-primary/5 to-transparent pointer-events-none"></div>
+            
+            <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-brand-white mb-6 tracking-tight">Data Recovery Is More Than File Recovery.</h2>
+                    <p class="text-brand-muted text-lg mb-8 leading-relaxed">
+                        Storage failures occur across multiple architectural layers. True data recovery requires intervening at the exact point of structural failure, whether mechanical, electronic, or logical.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-center gap-3 text-sm text-brand-mutedWhite">
+                            <div class="w-1.5 h-1.5 bg-brand-primary rounded-full"></div> Mechanical & Sector-level problems
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-brand-mutedWhite">
+                            <div class="w-1.5 h-1.5 bg-brand-primary rounded-full"></div> Firmware & Controller issues
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-brand-mutedWhite">
+                            <div class="w-1.5 h-1.5 bg-brand-primary rounded-full"></div> Flash storage translation behavior
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-brand-mutedWhite">
+                            <div class="w-1.5 h-1.5 bg-brand-primary rounded-full"></div> File-system and Logical corruption
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Layered Viz -->
+                <div class="relative h-[400px] flex flex-col justify-center gap-4 pl-12 md:pl-24">
+                    <!-- Vertical connector line -->
+                    <div class="absolute left-6 md:left-12 top-10 bottom-10 w-[1px] bg-brand-primary/30"></div>
+                    
+                    <div class="relative bg-brand-deep border border-brand-border p-4 rounded-lg shadow-lg -translate-x-4 transition-transform hover:translate-x-0 cursor-default">
+                        <div class="absolute -left-[32px] md:-left-[56px] top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-brand-deep border-2 border-brand-primary z-10"></div>
+                        <h4 class="text-brand-white font-medium text-sm">Logical Layer</h4>
+                        <p class="text-brand-muted text-xs mt-1">File systems, partitions, directories</p>
+                    </div>
+                    
+                    <div class="relative bg-brand-deep border border-brand-border p-4 rounded-lg shadow-lg transition-transform hover:translate-x-4 cursor-default">
+                        <div class="absolute -left-[16px] md:-left-[40px] top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-brand-deep border-2 border-brand-primary z-10"></div>
+                        <h4 class="text-brand-white font-medium text-sm">Firmware Layer</h4>
+                        <p class="text-brand-muted text-xs mt-1">Microcode, translation tables, defect lists</p>
+                    </div>
+
+                    <div class="relative bg-brand-deep border border-brand-border p-4 rounded-lg shadow-lg translate-x-4 transition-transform hover:translate-x-8 cursor-default">
+                        <div class="absolute left-0 md:-left-[24px] top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-brand-deep border-2 border-brand-primary z-10"></div>
+                        <h4 class="text-brand-white font-medium text-sm">Physical Layer</h4>
+                        <p class="text-brand-muted text-xs mt-1">Platters, heads, NAND chips, PCB</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. WHY FORTIS.DATA (Trust) -->
+        <section id="why-us" class="py-24">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-16 max-w-2xl mx-auto">
+                    <h2 class="text-3xl md:text-4xl font-bold text-brand-white mb-4 tracking-tight">Built Around Careful Recovery.</h2>
+                    <p class="text-brand-muted text-lg">We prioritize data integrity through stringent technical protocols, ensuring the highest feasible extraction safety.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-brand-surface border border-brand-border rounded-xl p-6 hover:border-brand-borderGreen transition-colors group">
+                        <div class="text-brand-primary font-mono text-sm mb-4 opacity-50 group-hover:opacity-100 transition-opacity">01</div>
+                        <h4 class="text-brand-white font-medium mb-3">Structured Diagnosis</h4>
+                        <p class="text-brand-muted text-sm leading-relaxed">No guesswork. Every device is evaluated systematically before any invasive procedure.</p>
+                    </div>
+                    <div class="bg-brand-surface border border-brand-border rounded-xl p-6 hover:border-brand-borderGreen transition-colors group">
+                        <div class="text-brand-primary font-mono text-sm mb-4 opacity-50 group-hover:opacity-100 transition-opacity">02</div>
+                        <h4 class="text-brand-white font-medium mb-3">Device-Specific Approach</h4>
+                        <p class="text-brand-muted text-sm leading-relaxed">Custom recovery vectors based on exact architecture—not automated scan software.</p>
+                    </div>
+                    <div class="bg-brand-surface border border-brand-border rounded-xl p-6 hover:border-brand-borderGreen transition-colors group">
+                        <div class="text-brand-primary font-mono text-sm mb-4 opacity-50 group-hover:opacity-100 transition-opacity">03</div>
+                        <h4 class="text-brand-white font-medium mb-3">Professional Handling</h4>
+                        <p class="text-brand-muted text-sm leading-relaxed">Strict adherence to confidentiality and device preservation guidelines.</p>
+                    </div>
+                    <div class="bg-brand-surface border border-brand-border rounded-xl p-6 hover:border-brand-borderGreen transition-colors group">
+                        <div class="text-brand-primary font-mono text-sm mb-4 opacity-50 group-hover:opacity-100 transition-opacity">04</div>
+                        <h4 class="text-brand-white font-medium mb-3">Clear Communication</h4>
+                        <p class="text-brand-muted text-sm leading-relaxed">Transparent updates on feasibility, risks, and process timelines.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. DO / DON'T -->
+        <section class="py-24 bg-brand-deep border-y border-brand-border tech-grid">
             <div class="max-w-5xl mx-auto px-6">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Critical Data Safety Guidelines</h2>
-                    <p class="text-brand-textMuted">If your drive contains critical information, immediate actions dictate the probability of recovery.</p>
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-brand-white mb-4 tracking-tight">Before You Try Anything Else</h2>
+                    <p class="text-brand-muted text-lg">Incorrect handling of a failing drive permanently destroys data. Follow these strict guidelines.</p>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <!-- DO -->
-                    <div class="bg-brand-surface border border-brand-border rounded-xl p-8">
-                        <h3 class="text-emerald-400 font-semibold text-lg flex items-center gap-2 mb-6">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <div class="bg-brand-surface border border-brand-borderGreen rounded-xl p-8 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-brand-primary"></div>
+                        <h3 class="text-brand-primary font-semibold text-lg flex items-center gap-2 mb-6">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                             DO:
                         </h3>
-                        <ul class="space-y-4 text-brand-textMuted text-sm">
+                        <ul class="space-y-4 text-brand-white text-sm">
                             <li class="flex items-start gap-3">
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-2 shrink-0"></span>
-                                <span>Stop unnecessary use of the device immediately upon first symptom.</span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-brand-primary mt-2 shrink-0"></span>
+                                <span>Stop unnecessary use immediately.</span>
                             </li>
                             <li class="flex items-start gap-3">
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-2 shrink-0"></span>
-                                <span>Disconnect the affected drive to prevent sector degradation.</span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-brand-primary mt-2 shrink-0"></span>
+                                <span>Disconnect the affected drive safely from power.</span>
                             </li>
                             <li class="flex items-start gap-3">
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-2 shrink-0"></span>
-                                <span>Document the events leading directly up to the failure.</span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-brand-primary mt-2 shrink-0"></span>
+                                <span>Preserve the original device and its cables.</span>
                             </li>
                             <li class="flex items-start gap-3">
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-2 shrink-0"></span>
-                                <span>Seek a formal laboratory diagnosis prior to executing software scans.</span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-brand-primary mt-2 shrink-0"></span>
+                                <span>Seek a professional technical assessment.</span>
                             </li>
                         </ul>
                     </div>
 
                     <!-- DON'T -->
-                    <div class="bg-brand-surface border border-brand-border rounded-xl p-8">
-                        <h3 class="text-rose-400 font-semibold text-lg flex items-center gap-2 mb-6">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <div class="bg-brand-surface border border-brand-border rounded-xl p-8 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-brand-muted"></div>
+                        <h3 class="text-brand-white font-semibold text-lg flex items-center gap-2 mb-6">
+                            <svg class="w-6 h-6 text-brand-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                             DON'T:
                         </h3>
-                        <ul class="space-y-4 text-brand-textMuted text-sm">
+                        <ul class="space-y-4 text-brand-muted text-sm">
                             <li class="flex items-start gap-3">
-                                <span class="w-1.5 h-1.5 rounded-full bg-rose-400 mt-2 shrink-0"></span>
-                                <span>Do not repeatedly power-cycle a clicking, grinding, or buzzing drive.</span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-brand-muted mt-2 shrink-0"></span>
+                                <span>Do not format or initialize an unrecognized drive.</span>
                             </li>
                             <li class="flex items-start gap-3">
-                                <span class="w-1.5 h-1.5 rounded-full bg-rose-400 mt-2 shrink-0"></span>
-                                <span>Do not format or initialize an unrecognized drive in Disk Management.</span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-brand-muted mt-2 shrink-0"></span>
+                                <span>Do not keep retrying or power-cycling a clicking device.</span>
                             </li>
                             <li class="flex items-start gap-3">
-                                <span class="w-1.5 h-1.5 rounded-full bg-rose-400 mt-2 shrink-0"></span>
-                                <span>Do not run `chkdsk` or aggressive recovery software over failing hardware.</span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-brand-muted mt-2 shrink-0"></span>
+                                <span>Do not run `chkdsk` or aggressive software repair tools.</span>
                             </li>
                             <li class="flex items-start gap-3">
-                                <span class="w-1.5 h-1.5 rounded-full bg-rose-400 mt-2 shrink-0"></span>
-                                <span>Do not disassemble drive screws outside of an ISO Class 5 clean bench.</span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-brand-muted mt-2 shrink-0"></span>
+                                <span>Do not write any new data to the affected storage.</span>
                             </li>
                         </ul>
                     </div>
@@ -325,157 +613,213 @@
             </div>
         </section>
 
-        <!-- ASSESSMENT FORM -->
-        <section id="assessment" class="py-24 border-t border-brand-border bg-brand-surface/40">
+        <!-- 9. FAQ -->
+        <section id="faq" class="py-24">
             <div class="max-w-3xl mx-auto px-6">
-                <h2 class="text-4xl font-bold text-white mb-4">Request a Recovery Assessment</h2>
-                <p class="text-brand-textMuted mb-10 leading-relaxed">
-                    Detail the failure symptoms below. We evaluate each case based on device architecture and initial symptoms.
-                    <span class="text-white block mt-1">Never attempt to continuously power on a physically compromised drive.</span>
-                </p>
+                <h2 class="text-3xl font-bold text-brand-white mb-10 text-center tracking-tight">Frequently Asked Questions</h2>
+                
+                <div class="space-y-4">
+                    <details class="group bg-brand-surface border border-brand-border rounded-lg [&_summary::-webkit-details-marker]:hidden">
+                        <summary class="flex items-center justify-between p-6 text-brand-white font-medium cursor-pointer">
+                            Can data be recovered from a drive that is not detected?
+                            <svg class="w-5 h-5 text-brand-muted group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </summary>
+                        <div class="px-6 pb-6 text-sm text-brand-muted leading-relaxed">
+                            Yes. A drive failing to be detected is often due to firmware corruption, controller failure, or read-head failure. We utilize specialized hardware to bypass the BIOS/OS and access the raw data directly.
+                        </div>
+                    </details>
 
-                <!-- Success Box -->
-                <div id="formSuccess" class="hidden bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-8 text-center mb-8">
-                    <h3 class="text-xl text-emerald-400 font-semibold mb-2">Request Received</h3>
-                    <p class="text-brand-textMuted text-sm">Our engineering team will review the symptoms provided and contact you with diagnostic directions.</p>
+                    <details class="group bg-brand-surface border border-brand-border rounded-lg [&_summary::-webkit-details-marker]:hidden">
+                        <summary class="flex items-center justify-between p-6 text-brand-white font-medium cursor-pointer">
+                            Is SSD recovery different from HDD recovery?
+                            <svg class="w-5 h-5 text-brand-muted group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </summary>
+                        <div class="px-6 pb-6 text-sm text-brand-muted leading-relaxed">
+                            Significantly. HDDs rely on mechanical platters, while SSDs use NAND flash memory and complex wear-leveling algorithms. SSD recovery often involves rebuilding the Flash Translation Layer (FTL) manually.
+                        </div>
+                    </details>
+
+                    <details class="group bg-brand-surface border border-brand-border rounded-lg [&_summary::-webkit-details-marker]:hidden">
+                        <summary class="flex items-center justify-between p-6 text-brand-white font-medium cursor-pointer">
+                            What should I do if my HDD is making clicking noises?
+                            <svg class="w-5 h-5 text-brand-muted group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </summary>
+                        <div class="px-6 pb-6 text-sm text-brand-muted leading-relaxed">
+                            Power it off immediately. Clicking usually indicates mechanical read/write head failure. Continued operation will cause the heads to scratch the magnetic platters, permanently destroying the data.
+                        </div>
+                    </details>
+
+                    <details class="group bg-brand-surface border border-brand-border rounded-lg [&_summary::-webkit-details-marker]:hidden">
+                        <summary class="flex items-center justify-between p-6 text-brand-white font-medium cursor-pointer">
+                            Is recovery always possible?
+                            <svg class="w-5 h-5 text-brand-muted group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </summary>
+                        <div class="px-6 pb-6 text-sm text-brand-muted leading-relaxed">
+                            No. Recovery feasibility strictly depends on the condition of the device. Severe platter damage on an HDD or severe encryption/TRIM execution on an SSD can render data permanently unrecoverable. This is why immediate professional diagnosis is critical.
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. ASSESSMENT FORM CTA -->
+        <section id="assessment" class="py-32 bg-brand-deep border-t border-brand-border relative overflow-hidden">
+            <!-- Background Glow -->
+            <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-brand-primary/5 rounded-full blur-[150px] pointer-events-none"></div>
+
+            <div class="max-w-3xl mx-auto px-6 relative z-10">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-brand-white mb-4 tracking-tight">Not sure what happened to your drive?</h2>
+                    <p class="text-brand-muted text-lg">Tell us what failed, and we'll help determine the appropriate next step.</p>
                 </div>
 
-                <form id="recoveryForm" class="space-y-6">
+                <div id="formSuccess" class="hidden bg-brand-surface border border-brand-borderGreen rounded-xl p-8 text-center mb-8 shadow-[0_0_20px_rgba(183,243,74,0.1)]">
+                    <h3 class="text-xl text-brand-primary font-semibold mb-2 flex items-center justify-center gap-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        Assessment Request Received
+                    </h3>
+                    <p class="text-brand-mutedWhite text-sm">Our technical team will review your symptoms and contact you shortly.</p>
+                </div>
+
+                <form id="recoveryForm" class="space-y-6 bg-brand-surface border border-brand-border rounded-xl p-8 shadow-2xl">
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-sm font-medium text-brand-textMuted mb-2">Full Name</label>
-                            <input required type="text" class="w-full bg-brand-surface border border-brand-border rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-accent transition-colors" placeholder="e.g. John Doe">
+                            <label class="block text-sm font-medium text-brand-mutedWhite mb-2">Name</label>
+                            <input required type="text" class="w-full bg-brand-deep border border-brand-border rounded-md px-4 py-3 text-brand-white focus:outline-none focus:border-brand-primary transition-colors" placeholder="Full Name">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-brand-textMuted mb-2">Email Address</label>
-                            <input required type="email" class="w-full bg-brand-surface border border-brand-border rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-accent transition-colors" placeholder="e.g. j.doe@company.com">
+                            <label class="block text-sm font-medium text-brand-mutedWhite mb-2">Email</label>
+                            <input required type="email" class="w-full bg-brand-deep border border-brand-border rounded-md px-4 py-3 text-brand-white focus:outline-none focus:border-brand-primary transition-colors" placeholder="Email Address">
                         </div>
                     </div>
 
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-sm font-medium text-brand-textMuted mb-2">Phone Number</label>
-                            <input required type="tel" class="w-full bg-brand-surface border border-brand-border rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-accent transition-colors" placeholder="e.g. +1 (555) 019-2831">
+                            <label class="block text-sm font-medium text-brand-mutedWhite mb-2">Phone</label>
+                            <input required type="tel" class="w-full bg-brand-deep border border-brand-border rounded-md px-4 py-3 text-brand-white focus:outline-none focus:border-brand-primary transition-colors" placeholder="Phone Number">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-brand-textMuted mb-2">Device Type</label>
-                            <select class="w-full bg-brand-surface border border-brand-border rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-accent transition-colors">
-                                <option value="hdd">Hard Disk Drive (HDD)</option>
-                                <option value="ssd">Solid State Drive (SSD)</option>
-                                <option value="nvme">NVMe / M.2 PCIe Drive</option>
-                                <option value="usb">Pen Drive / Flash Storage</option>
-                                <option value="external">External Hard Drive</option>
-                                <option value="other">Other / Not Listed</option>
+                            <label class="block text-sm font-medium text-brand-mutedWhite mb-2">Device Type</label>
+                            <select class="w-full bg-brand-deep border border-brand-border rounded-md px-4 py-3 text-brand-white focus:outline-none focus:border-brand-primary transition-colors appearance-none">
+                                <option value="hdd">HDD (Hard Drive)</option>
+                                <option value="ssd">SSD (Solid State Drive)</option>
+                                <option value="nvme">NVMe / M.2</option>
+                                <option value="usb">Pen Drive</option>
+                                <option value="external">External Drive</option>
+                                <option value="other">Not Sure</option>
                             </select>
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-brand-textMuted mb-2">Detailed Description of Failure</label>
-                        <textarea required rows="4" class="w-full bg-brand-surface border border-brand-border rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-accent transition-colors resize-none" placeholder="Provide details: did the drive suffer a physical drop? Is it recognized in BIOS? Are there clicking/beeping sounds?"></textarea>
+                        <label class="block text-sm font-medium text-brand-mutedWhite mb-2">Problem Description</label>
+                        <textarea required rows="4" class="w-full bg-brand-deep border border-brand-border rounded-md px-4 py-3 text-brand-white focus:outline-none focus:border-brand-primary transition-colors resize-none" placeholder="What happened? Are there any noises? Is it detected?"></textarea>
                     </div>
 
-                    <div class="flex items-start gap-3 bg-brand-surface p-4 rounded-lg border border-brand-border">
-                        <svg class="w-5 h-5 text-brand-textMuted shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                        <p class="text-xs text-brand-textMuted leading-relaxed">
-                            Confidentiality Assurance: Intake information is utilized solely to assess recovery parameters. Hardware sent for diagnostic assessment is subject to strict non-disclosure workflows.
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-brand-muted shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                        <p class="text-xs text-brand-muted leading-relaxed">
+                            Your information is used only to respond to your recovery enquiry. All device details remain strictly confidential.
                         </p>
                     </div>
 
-                    <button id="submitBtn" type="submit" class="w-full bg-white text-brand-dark font-semibold py-4 rounded-lg hover:bg-brand-accent transition-all duration-300">
-                        Request Assessment
+                    <button id="submitBtn" type="submit" class="w-full bg-brand-primary text-brand-black font-semibold py-4 rounded-md hover:brightness-110 transition-all duration-300 text-lg">
+                        Request Recovery Assessment
                     </button>
                 </form>
             </div>
         </section>
+
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-brand-surface border-t border-brand-border pt-16 pb-24 md:pb-12">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+    <footer class="bg-brand-black border-t border-brand-border pt-20 pb-24 md:pb-12">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+            <!-- Brand -->
             <div>
-                <div class="text-xl font-bold tracking-widest text-white mb-4">FORTIS.DATA</div>
-                <p class="text-brand-textMuted text-sm leading-relaxed mb-6">
-                    Enterprise-grade storage recovery. Specialized hardware extraction, cleanroom mechanical repairs, and NAND firmware stabilization.
+                <a href="#" class="text-2xl font-bold tracking-tight flex items-center gap-1 mb-6">
+                    <span class="text-brand-white">Fortis.</span><span class="text-brand-primary">data</span>
+                </a>
+                <p class="text-brand-muted text-sm leading-relaxed">
+                    Enterprise-grade professional data recovery for complex storage failures. Secure, precise, and technically advanced.
                 </p>
             </div>
             
+            <!-- Services -->
             <div>
-                <h4 class="text-white font-medium mb-4">Capabilities</h4>
-                <ul class="space-y-2 text-sm text-brand-textMuted">
-                    <li><a href="#services" class="hover:text-brand-accent transition-colors">HDD Platter Recovery</a></li>
-                    <li><a href="#services" class="hover:text-brand-accent transition-colors">SSD Controller Emulation</a></li>
-                    <li><a href="#services" class="hover:text-brand-accent transition-colors">NVMe Flash Stabilization</a></li>
-                    <li><a href="#services" class="hover:text-brand-accent transition-colors">Monolithic USB Reconstruction</a></li>
+                <h4 class="text-brand-white font-medium mb-6">Services</h4>
+                <ul class="space-y-3 text-sm text-brand-muted">
+                    <li><a href="#services" class="hover:text-brand-primary transition-colors">HDD Recovery</a></li>
+                    <li><a href="#services" class="hover:text-brand-primary transition-colors">SSD Recovery</a></li>
+                    <li><a href="#services" class="hover:text-brand-primary transition-colors">NVMe Recovery</a></li>
+                    <li><a href="#services" class="hover:text-brand-primary transition-colors">Pen Drive Recovery</a></li>
+                    <li><a href="#services" class="hover:text-brand-primary transition-colors">External Drive Recovery</a></li>
                 </ul>
             </div>
 
+            <!-- Company -->
             <div>
-                <h4 class="text-white font-medium mb-4">Company</h4>
-                <ul class="space-y-2 text-sm text-brand-textMuted">
-                    <li><a href="#process" class="hover:text-white transition-colors">Diagnostic Protocol</a></li>
-                    <li><a href="#guidelines" class="hover:text-white transition-colors">Safety Guidelines</a></li>
-                    <li><a href="#assessment" class="hover:text-white transition-colors">Assessment Intake</a></li>
+                <h4 class="text-brand-white font-medium mb-6">Company</h4>
+                <ul class="space-y-3 text-sm text-brand-muted">
+                    <li><a href="#" class="hover:text-brand-primary transition-colors">About</a></li>
+                    <li><a href="#why-us" class="hover:text-brand-primary transition-colors">Why Fortis.data</a></li>
+                    <li><a href="#process" class="hover:text-brand-primary transition-colors">Recovery Process</a></li>
+                    <li><a href="#faq" class="hover:text-brand-primary transition-colors">FAQ</a></li>
                 </ul>
             </div>
 
+            <!-- Support / Legal -->
             <div>
-                <h4 class="text-white font-medium mb-4">Operations</h4>
-                <ul class="space-y-2 text-sm text-brand-textMuted">
-                    <li>Intake: assessments@fortis.data</li>
-                    <li>Hours: Mon-Fri, 9:00 AM - 6:00 PM</li>
-                    <li class="pt-4">
-                        <a href="#assessment" class="text-brand-accent text-sm hover:underline">&rarr; Request Assessment</a>
-                    </li>
+                <h4 class="text-brand-white font-medium mb-6">Support & Legal</h4>
+                <ul class="space-y-3 text-sm text-brand-muted">
+                    <li><a href="#assessment" class="hover:text-brand-primary transition-colors text-brand-primary">Recovery Assessment &rarr;</a></li>
+                    <li><a href="#" class="hover:text-brand-primary transition-colors">Contact</a></li>
+                    <li class="pt-2"><a href="#" class="hover:text-brand-primary transition-colors">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-brand-primary transition-colors">Terms & Conditions</a></li>
                 </ul>
             </div>
         </div>
 
-        <div class="max-w-7xl mx-auto px-6 border-t border-brand-border pt-8 text-xs text-brand-textMuted flex flex-col md:flex-row justify-between items-center gap-4">
-            <p>&copy; 2026 FORTIS.DATA. All rights reserved.</p>
-            <p>Confidential & Secure Hardware Intake</p>
+        <div class="max-w-7xl mx-auto px-6 border-t border-brand-border pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-brand-muted">
+            <p>&copy; 2026 Fortis.data. All rights reserved.</p>
+            <p>Professional Storage Recovery Specialists.</p>
         </div>
     </footer>
 
     <!-- STICKY MOBILE CTA -->
     <div class="md:hidden fixed bottom-0 left-0 w-full bg-brand-surface/95 backdrop-blur-md border-t border-brand-border p-4 z-50">
-        <a href="#assessment" class="block w-full bg-brand-accent text-brand-dark text-center font-semibold py-3 rounded-md shadow-lg">
-            Request Recovery Assessment
+        <a href="#assessment" class="block w-full bg-brand-primary text-brand-black text-center font-semibold py-3.5 rounded-md shadow-[0_-5px_20px_rgba(0,0,0,0.3)]">
+            Get a Recovery Assessment
         </a>
     </div>
 
-    <!-- PURE JAVASCRIPT LOGIC -->
+    <!-- JAVASCRIPT -->
     <script>
-        // Header Scroll Effect
+        // Header styling on scroll
         const header = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 20) {
-                header.classList.add('shadow-lg');
+                header.classList.add('border-brand-border');
+                header.classList.remove('border-transparent');
             } else {
-                header.classList.remove('shadow-lg');
+                header.classList.remove('border-brand-border');
+                header.classList.add('border-transparent');
             }
         });
 
-        // Mobile menu toggle
+        // Mobile Menu Toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
         const menuIcon = document.getElementById('menuIcon');
         const closeIcon = document.getElementById('closeIcon');
 
         mobileMenuBtn.addEventListener('click', () => {
-            const isOpen = !mobileMenu.classList.contains('hidden');
-            if (isOpen) {
-                mobileMenu.classList.add('hidden');
-                menuIcon.classList.remove('hidden');
-                closeIcon.classList.add('hidden');
-            } else {
-                mobileMenu.classList.remove('hidden');
-                menuIcon.classList.add('hidden');
-                closeIcon.classList.remove('hidden');
-            }
+            mobileMenu.classList.toggle('hidden');
+            menuIcon.classList.toggle('hidden');
+            closeIcon.classList.toggle('hidden');
         });
 
-        // Close mobile menu when clicking nav links
+        // Close menu on link click
         document.querySelectorAll('.mobile-link').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.add('hidden');
@@ -484,7 +828,7 @@
             });
         });
 
-        // Form submission handling (Native JS Simulation)
+        // Form Submission Simulation
         const form = document.getElementById('recoveryForm');
         const submitBtn = document.getElementById('submitBtn');
         const successBox = document.getElementById('formSuccess');
@@ -492,15 +836,27 @@
         form.addEventListener('submit', (e) => {
             e.preventDefault();
             submitBtn.disabled = true;
-            submitBtn.innerText = 'Submitting Assessment...';
-            submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            submitBtn.innerText = 'Submitting...';
+            submitBtn.classList.add('opacity-70', 'cursor-not-allowed');
 
             setTimeout(() => {
                 form.classList.add('hidden');
                 successBox.classList.remove('hidden');
-                // Scroll to success message smoothly
                 successBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 1200);
+            }, 1000);
+        });
+
+        // FAQ Accordion smooth toggle logic (optional enhancement for standard details)
+        const detailsElements = document.querySelectorAll('details');
+        detailsElements.forEach(detail => {
+            detail.addEventListener('click', (e) => {
+                if (e.target.tagName !== 'SUMMARY') return;
+                detailsElements.forEach(otherDetail => {
+                    if (otherDetail !== detail) {
+                        otherDetail.removeAttribute('open');
+                    }
+                });
+            });
         });
     </script>
 </body>
