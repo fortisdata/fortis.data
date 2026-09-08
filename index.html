@@ -6,10 +6,12 @@
     <title>Fortis.data | Professional Data Recovery</title>
     <meta name="description" content="Professional data recovery for HDDs, SSDs, NVMe drives, pen drives and external storage devices. Enterprise-grade, confidential handling.">
     
+    <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -20,9 +22,12 @@
                             black: '#050505',
                             softBlack: '#0B0B0B',
                             surface: '#111111',
-                            primary: '#B7F34A',
-                            danger: '#EF4444',
+                            primary: '#B7F34A',     /* Light Green */
+                            danger: '#EF4444',      /* Restrained Red */
+                            purple: '#8B5CF6',      /* Radiant Purple */
                             white: '#FFFFFF',
+                            muted: '#98A098',
+                            border: 'rgba(255, 255, 255, 0.10)',
                         }
                     },
                     fontFamily: {
@@ -30,6 +35,18 @@
                     },
                     animation: {
                         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 4s ease-in-out infinite',
+                        'glow': 'glow 3s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        glow: {
+                            '0%': { boxShadow: '0 0 10px rgba(139, 92, 246, 0.2)' },
+                            '100%': { boxShadow: '0 0 25px rgba(139, 92, 246, 0.6)' },
+                        }
                     }
                 }
             }
@@ -37,52 +54,14 @@
     </script>
 
     <style>
-        /* Responsive Theming System */
-        :root {
-            /* Mobile Defaults (Dark Theme) */
-            --bg-hero: #050505;
-            --bg-section-1: #0B0B0B;
-            --bg-section-2: #050505;
-            --bg-section-greenish: #0B0B0B;
-            --card-bg: #111111;
-            --card-border: rgba(255, 255, 255, 0.1);
-            --text-main: #FFFFFF;
-            --text-muted: #98A098;
-        }
-
-        @media (min-width: 1024px) {
-            :root {
-                /* Desktop Overrides (Light Theme) */
-                --bg-hero: linear-gradient(180deg, #FFFFFF 0%, #F4F7F2 100%);
-                --bg-section-1: #F9F9F9; /* Very light gray */
-                --bg-section-2: #FFFFFF; /* White */
-                --bg-section-greenish: #F4F7F2; /* Soft green-tinted white */
-                --card-bg: #FFFFFF;
-                --card-border: rgba(0, 0, 0, 0.1);
-                --text-main: #050505;
-                --text-muted: #4A554A;
-            }
-        }
-
-        /* Base Utilities */
         body {
-            background: var(--bg-hero);
-            color: var(--text-main);
+            background-color: #050505;
+            color: #FFFFFF;
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
-
-        /* Dynamic Theme Classes */
-        .theme-bg-hero { background: var(--bg-hero); }
-        .theme-bg-1 { background: var(--bg-section-1); }
-        .theme-bg-2 { background: var(--bg-section-2); }
-        .theme-bg-greenish { background: var(--bg-section-greenish); }
-        .theme-card { background: var(--card-bg); border-color: var(--card-border); }
-        .theme-text { color: var(--text-main); }
-        .theme-text-muted { color: var(--text-muted); }
-        .theme-border { border-color: var(--card-border); }
 
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
@@ -92,11 +71,19 @@
         
         *:focus-visible { outline: 2px solid #B7F34A !important; outline-offset: 2px; }
 
+        /* Tech Grid Pattern */
+        .tech-grid {
+            background-image: 
+                linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+
         /* Reveal Animations */
         .reveal {
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
         .reveal.is-visible {
             opacity: 1;
@@ -138,21 +125,25 @@
         }
     </style>
 </head>
-<body class="selection:bg-brand-primary/30 selection:text-brand-black flex flex-col min-h-screen">
+<body class="selection:bg-brand-primary/30 selection:text-brand-white flex flex-col min-h-screen">
 
+    <!-- HEADER -->
     <header id="navbar" class="fixed top-0 w-full z-40 transition-all duration-300 border-b border-transparent bg-brand-softBlack/95 backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-6 h-16 lg:h-20 flex items-center justify-between">
+            <!-- Brand Wordmark -->
             <a href="#" class="text-xl lg:text-2xl font-bold tracking-tight">
-                <span class="text-brand-white">Fortis</span><span class="text-brand-danger">.</span><span class="text-brand-primary">data</span>
+                <span class="text-white">Fortis</span><span class="text-brand-danger">.</span><span class="text-brand-primary">data</span>
             </a>
 
+            <!-- Desktop Nav -->
             <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-brand-muted">
-                <a href="#services" class="hover:text-brand-primary transition-colors">Services</a>
+                <a href="#services" class="hover:text-brand-primary hover:text-shadow transition-colors">Services</a>
                 <a href="#process" class="hover:text-brand-primary transition-colors">Recovery Process</a>
                 <a href="#why-us" class="hover:text-brand-primary transition-colors">Why Fortis.data</a>
                 <a href="#faq" class="hover:text-brand-primary transition-colors">FAQs</a>
             </nav>
 
+            <!-- Mobile Menu Button -->
             <button id="mobileMenuBtn" class="lg:hidden text-brand-white hover:text-brand-primary focus:outline-none transition-colors" aria-label="Open Menu">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -161,11 +152,12 @@
         </div>
     </header>
 
+    <!-- MOBILE NAVIGATION OVERLAY & PANEL -->
     <div id="mobileNavOverlay" class="fixed inset-0 bg-brand-black/80 backdrop-blur-sm z-50 lg:hidden"></div>
-    <div id="mobileNavPanel" class="fixed top-0 right-0 h-full w-[85%] max-w-sm bg-brand-softBlack border-l border-white/10 z-50 flex flex-col lg:hidden shadow-2xl">
-        <div class="flex items-center justify-between p-6 border-b border-white/10">
+    <div id="mobileNavPanel" class="fixed top-0 right-0 h-full w-[85%] max-w-sm bg-brand-softBlack border-l border-brand-purple/20 z-50 flex flex-col lg:hidden shadow-[0_0_30px_rgba(139,92,246,0.15)]">
+        <div class="flex items-center justify-between p-6 border-b border-brand-border">
             <span class="text-xl font-bold tracking-tight">
-                <span class="text-brand-white">Fortis</span><span class="text-brand-danger">.</span><span class="text-brand-primary">data</span>
+                <span class="text-white">Fortis</span><span class="text-brand-danger">.</span><span class="text-brand-primary">data</span>
             </span>
             <button id="closeMobileMenuBtn" class="text-brand-muted hover:text-brand-primary transition-colors" aria-label="Close Menu">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -179,83 +171,88 @@
             <a href="#why-us" class="mobile-link text-lg text-brand-white hover:text-brand-primary font-medium">Why Fortis.data</a>
             <a href="#faq" class="mobile-link text-lg text-brand-white hover:text-brand-primary font-medium">FAQs</a>
             
-            <a href="#assessment" class="mobile-link mt-auto bg-brand-primary text-brand-black text-center font-semibold px-6 py-4 rounded-md transition-all">
+            <a href="#assessment" class="mobile-link mt-auto bg-brand-primary text-brand-black text-center font-bold px-6 py-4 rounded-md transition-all shadow-[0_0_15px_rgba(183,243,74,0.3)]">
                 Request Assessment
             </a>
         </div>
     </div>
 
+    <!-- MAIN CONTENT -->
     <main class="flex-grow">
         
-        <section class="relative pt-24 pb-12 lg:pt-36 lg:pb-20 border-b theme-border theme-bg-hero overflow-hidden flex items-center">
-            <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-10 lg:gap-16 items-center relative z-10 w-full">
+        <!-- 1. HERO SECTION (GIF Background) -->
+        <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden border-b border-brand-border">
+            <!-- Uploaded Looping GIF without blur -->
+            <img src="/media/hero.gif" alt="Data Recovery Process" class="absolute inset-0 w-full h-full object-cover z-0" />
+            
+            <!-- Contrast Overlay (Dark enough for text to pop, but GIF remains visible and sharp) -->
+            <div class="absolute inset-0 bg-gradient-to-b from-brand-black/90 via-brand-black/60 to-brand-black z-10"></div>
+            
+            <div class="max-w-4xl mx-auto px-6 relative z-20 text-center reveal">
+                <h1 class="text-[2.8rem] leading-[1.1] lg:text-[5rem] font-bold text-white tracking-tight mb-6 drop-shadow-xl">
+                    Recover What <span class="text-brand-primary">Matters.</span>
+                </h1>
+                <p class="text-base lg:text-xl text-gray-300 mb-10 leading-relaxed max-w-2xl mx-auto drop-shadow-md">
+                    Professional data recovery for HDDs, SSDs, NVMe drives, pen drives and external storage devices.
+                </p>
                 
-                <div class="lg:col-span-5 flex flex-col justify-center reveal">
-                    <h1 class="text-[2.5rem] leading-[1.1] lg:text-[4.5rem] font-bold theme-text tracking-tight mb-5">
-                        Recover What <span class="text-brand-primary">Matters.</span>
-                    </h1>
-                    <p class="text-base lg:text-lg theme-text-muted mb-8 leading-relaxed max-w-lg">
-                        Professional data recovery for HDDs, SSDs, NVMe drives, pen drives and external storage devices.
-                    </p>
-                    <div class="hidden lg:flex flex-row items-center gap-4">
-                        <a href="#assessment" class="bg-brand-primary text-brand-black font-semibold px-8 py-3.5 rounded-md hover:brightness-110 transition-all text-center">
-                            Get a Recovery Assessment
-                        </a>
-                    </div>
+                <!-- Desktop CTA only. Hidden on Mobile -->
+                <div class="hidden lg:flex flex-row items-center justify-center gap-6">
+                    <a href="#assessment" class="bg-brand-primary text-brand-black font-bold px-10 py-4 rounded-md hover:brightness-110 hover:shadow-[0_0_25px_rgba(183,243,74,0.4)] hover:-translate-y-1 transition-all duration-300">
+                        Get a Recovery Assessment
+                    </a>
                 </div>
-
-                <div class="lg:col-span-7 relative w-full aspect-[4/3] lg:aspect-[16/10] border theme-border theme-card rounded-xl overflow-hidden shadow-lg reveal flex items-center justify-center">
-                    <img src="/media/hero.gif" alt="Data Recovery Process" class="w-full h-full object-cover" />
-                </div>
-
             </div>
         </section>
 
-        <div class="border-b theme-border theme-bg-2 py-4">
+        <!-- 2. DEVICE RECOVERY STRIP -->
+        <div class="border-b border-brand-border bg-brand-softBlack py-4 relative z-20">
             <div class="max-w-7xl mx-auto px-6 reveal">
                 <div class="flex flex-col lg:flex-row items-center justify-between gap-4">
-                    <span class="text-xs font-bold tracking-widest theme-text-muted uppercase whitespace-nowrap">We Recover Data From:</span>
+                    <span class="text-xs font-bold tracking-widest text-brand-muted uppercase whitespace-nowrap">We Recover Data From:</span>
                     <div class="flex flex-wrap justify-center lg:justify-end gap-3 w-full">
-                        <div class="flex items-center gap-2 px-3 py-1.5 rounded border theme-border theme-card">
+                        <div class="flex items-center gap-2 px-3 py-1.5 rounded border border-brand-border bg-brand-surface hover:border-brand-purple hover:shadow-[0_0_10px_rgba(139,92,246,0.2)] transition-all cursor-default">
                             <svg class="w-4 h-4 text-brand-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 7v10c0 2 1.5 3 3.5 3h9c2 0 3.5-1 3.5-3V7c0-2-1.5-3-3.5-3h-9C5.5 4 4 5 4 7zm8 8h.01M7 15h.01"></path></svg>
-                            <span class="text-xs theme-text font-semibold">HDD</span>
+                            <span class="text-xs text-white font-semibold">HDD</span>
                         </div>
-                        <div class="flex items-center gap-2 px-3 py-1.5 rounded border theme-border theme-card">
+                        <div class="flex items-center gap-2 px-3 py-1.5 rounded border border-brand-border bg-brand-surface hover:border-brand-purple hover:shadow-[0_0_10px_rgba(139,92,246,0.2)] transition-all cursor-default">
                             <svg class="w-4 h-4 text-brand-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1v-2zM4 21a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1v-2z"></path></svg>
-                            <span class="text-xs theme-text font-semibold">SSD</span>
+                            <span class="text-xs text-white font-semibold">SSD</span>
                         </div>
-                        <div class="flex items-center gap-2 px-3 py-1.5 rounded border theme-border theme-card">
+                        <div class="flex items-center gap-2 px-3 py-1.5 rounded border border-brand-border bg-brand-surface hover:border-brand-purple hover:shadow-[0_0_10px_rgba(139,92,246,0.2)] transition-all cursor-default">
                             <svg class="w-4 h-4 text-brand-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
-                            <span class="text-xs theme-text font-semibold">NVMe</span>
+                            <span class="text-xs text-white font-semibold">NVMe</span>
                         </div>
-                        <div class="flex items-center gap-2 px-3 py-1.5 rounded border theme-border theme-card">
+                        <div class="flex items-center gap-2 px-3 py-1.5 rounded border border-brand-border bg-brand-surface hover:border-brand-purple hover:shadow-[0_0_10px_rgba(139,92,246,0.2)] transition-all cursor-default">
                             <svg class="w-4 h-4 text-brand-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path></svg>
-                            <span class="text-xs theme-text font-semibold">Pen Drive</span>
+                            <span class="text-xs text-white font-semibold">Pen Drive</span>
                         </div>
-                        <div class="flex items-center gap-2 px-3 py-1.5 rounded border theme-border theme-card">
+                        <div class="flex items-center gap-2 px-3 py-1.5 rounded border border-brand-border bg-brand-surface hover:border-brand-purple hover:shadow-[0_0_10px_rgba(139,92,246,0.2)] transition-all cursor-default">
                             <svg class="w-4 h-4 text-brand-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2"></path></svg>
-                            <span class="text-xs theme-text font-semibold">External</span>
+                            <span class="text-xs text-white font-semibold">External</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <section id="services" class="py-16 lg:py-20 border-b theme-border theme-bg-1">
+        <!-- 3. RECOVERY SERVICES -->
+        <section id="services" class="py-16 lg:py-24 border-b border-brand-border bg-brand-black tech-grid">
             <div class="max-w-7xl mx-auto px-6 reveal">
                 <div class="mb-12 text-center lg:text-left">
-                    <h2 class="text-3xl lg:text-4xl font-bold theme-text mb-4 tracking-tight">Recovery for the Storage You Rely On.</h2>
-                    <p class="theme-text-muted max-w-2xl mx-auto lg:mx-0 text-base lg:text-lg">Specialized technical extraction for all standard and complex storage architectures.</p>
+                    <h2 class="text-3xl lg:text-4xl font-bold text-white mb-4 tracking-tight">Recovery for the Storage You Rely On.</h2>
+                    <p class="text-brand-muted max-w-2xl mx-auto lg:mx-0 text-base lg:text-lg">Specialized technical extraction for all standard and complex storage architectures.</p>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div class="theme-card border rounded-xl p-8 hover:border-brand-primary transition-all duration-300 flex flex-col h-full shadow-sm">
-                        <div class="w-12 h-12 border theme-border bg-brand-softBlack rounded-lg flex items-center justify-center mb-6 text-brand-primary">
+                    <!-- Top Row: 3 Cards -->
+                    <div class="bg-brand-surface border border-brand-border rounded-xl p-8 hover:border-brand-purple hover:shadow-[0_0_25px_rgba(139,92,246,0.2)] hover:-translate-y-2 transition-all duration-300 flex flex-col h-full group">
+                        <div class="w-12 h-12 border border-brand-border bg-brand-softBlack rounded-lg flex items-center justify-center mb-6 text-brand-primary group-hover:bg-brand-purple/10 group-hover:border-brand-purple transition-all">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 7v10c0 2 1.5 3 3.5 3h9c2 0 3.5-1 3.5-3V7c0-2-1.5-3-3.5-3h-9C5.5 4 4 5 4 7zm8 8h.01M7 15h.01"></path></svg>
                         </div>
-                        <h3 class="text-lg lg:text-xl font-bold theme-text mb-3">HDD Data Recovery</h3>
-                        <p class="theme-text-muted text-sm mb-6 flex-grow leading-relaxed">Mechanical repairs in clean environments and advanced logical reconstruction for magnetic hard drives.</p>
-                        <ul class="text-sm theme-text-muted space-y-2 border-t theme-border pt-4">
+                        <h3 class="text-xl font-bold text-white mb-3">HDD Data Recovery</h3>
+                        <p class="text-brand-muted text-sm mb-6 flex-grow leading-relaxed">Mechanical repairs in clean environments and advanced logical reconstruction for magnetic hard drives.</p>
+                        <ul class="text-sm text-brand-muted space-y-2 border-t border-brand-border pt-4">
                             <li class="flex items-start gap-2"><span class="text-brand-primary mt-0.5">•</span> Clicking / unusual sounds</li>
                             <li class="flex items-start gap-2"><span class="text-brand-primary mt-0.5">•</span> Drive not detected</li>
                             <li class="flex items-start gap-2"><span class="text-brand-primary mt-0.5">•</span> Mechanical failure</li>
@@ -263,13 +260,13 @@
                         </ul>
                     </div>
 
-                    <div class="theme-card border rounded-xl p-8 hover:border-brand-primary transition-all duration-300 flex flex-col h-full shadow-sm">
-                        <div class="w-12 h-12 border theme-border bg-brand-softBlack rounded-lg flex items-center justify-center mb-6 text-brand-primary">
+                    <div class="bg-brand-surface border border-brand-border rounded-xl p-8 hover:border-brand-purple hover:shadow-[0_0_25px_rgba(139,92,246,0.2)] hover:-translate-y-2 transition-all duration-300 flex flex-col h-full group">
+                        <div class="w-12 h-12 border border-brand-border bg-brand-softBlack rounded-lg flex items-center justify-center mb-6 text-brand-primary group-hover:bg-brand-purple/10 group-hover:border-brand-purple transition-all">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1v-2zM4 21a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1v-2z"></path></svg>
                         </div>
-                        <h3 class="text-lg lg:text-xl font-bold theme-text mb-3">SSD Data Recovery</h3>
-                        <p class="theme-text-muted text-sm mb-6 flex-grow leading-relaxed">Flash translation layer reconstruction and controller bypass for dead or unrecognized solid-state drives.</p>
-                        <ul class="text-sm theme-text-muted space-y-2 border-t theme-border pt-4">
+                        <h3 class="text-xl font-bold text-white mb-3">SSD Data Recovery</h3>
+                        <p class="text-brand-muted text-sm mb-6 flex-grow leading-relaxed">Flash translation layer reconstruction and controller bypass for dead or unrecognized solid-state drives.</p>
+                        <ul class="text-sm text-brand-muted space-y-2 border-t border-brand-border pt-4">
                             <li class="flex items-start gap-2"><span class="text-brand-primary mt-0.5">•</span> Drive not detected</li>
                             <li class="flex items-start gap-2"><span class="text-brand-primary mt-0.5">•</span> Firmware issues</li>
                             <li class="flex items-start gap-2"><span class="text-brand-primary mt-0.5">•</span> Controller-related failure</li>
@@ -277,13 +274,13 @@
                         </ul>
                     </div>
 
-                    <div class="theme-card border rounded-xl p-8 hover:border-brand-primary transition-all duration-300 flex flex-col h-full shadow-sm">
-                        <div class="w-12 h-12 border theme-border bg-brand-softBlack rounded-lg flex items-center justify-center mb-6 text-brand-primary">
+                    <div class="bg-brand-surface border border-brand-border rounded-xl p-8 hover:border-brand-purple hover:shadow-[0_0_25px_rgba(139,92,246,0.2)] hover:-translate-y-2 transition-all duration-300 flex flex-col h-full group">
+                        <div class="w-12 h-12 border border-brand-border bg-brand-softBlack rounded-lg flex items-center justify-center mb-6 text-brand-primary group-hover:bg-brand-purple/10 group-hover:border-brand-purple transition-all">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
                         </div>
-                        <h3 class="text-lg lg:text-xl font-bold theme-text mb-3">NVMe Data Recovery</h3>
-                        <p class="theme-text-muted text-sm mb-6 flex-grow leading-relaxed">PCIe interface diagnostics and complex logical reconstruction for high-speed M.2 storage.</p>
-                        <ul class="text-sm theme-text-muted space-y-2 border-t theme-border pt-4">
+                        <h3 class="text-xl font-bold text-white mb-3">NVMe Data Recovery</h3>
+                        <p class="text-brand-muted text-sm mb-6 flex-grow leading-relaxed">PCIe interface diagnostics and complex logical reconstruction for high-speed M.2 storage.</p>
+                        <ul class="text-sm text-brand-muted space-y-2 border-t border-brand-border pt-4">
                             <li class="flex items-start gap-2"><span class="text-brand-primary mt-0.5">•</span> Drive not detected</li>
                             <li class="flex items-start gap-2"><span class="text-brand-primary mt-0.5">•</span> Logical data loss</li>
                             <li class="flex items-start gap-2"><span class="text-brand-primary mt-0.5">•</span> Firmware/controller problems</li>
@@ -291,14 +288,15 @@
                         </ul>
                     </div>
 
+                    <!-- Bottom Row: 2 Cards Centered (Desktop) -->
                     <div class="lg:col-span-3 flex flex-col lg:flex-row justify-center gap-6">
-                        <div class="theme-card border rounded-xl p-8 hover:border-brand-primary transition-all duration-300 flex flex-col h-full shadow-sm w-full lg:w-[calc(33.333%-1rem)]">
-                            <div class="w-12 h-12 border theme-border bg-brand-softBlack rounded-lg flex items-center justify-center mb-6 text-brand-primary">
+                        <div class="bg-brand-surface border border-brand-border rounded-xl p-8 hover:border-brand-purple hover:shadow-[0_0_25px_rgba(139,92,246,0.2)] hover:-translate-y-2 transition-all duration-300 flex flex-col h-full w-full lg:w-[calc(33.333%-1rem)] group">
+                            <div class="w-12 h-12 border border-brand-border bg-brand-softBlack rounded-lg flex items-center justify-center mb-6 text-brand-primary group-hover:bg-brand-purple/10 group-hover:border-brand-purple transition-all">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path></svg>
                             </div>
-                            <h3 class="text-lg lg:text-xl font-bold theme-text mb-3">Pen Drive Recovery</h3>
-                            <p class="theme-text-muted text-sm mb-6 flex-grow leading-relaxed">Physical connector repair and monolithic flash memory pinout reconstruction.</p>
-                            <ul class="text-sm theme-text-muted space-y-2 border-t theme-border pt-4">
+                            <h3 class="text-xl font-bold text-white mb-3">Pen Drive Recovery</h3>
+                            <p class="text-brand-muted text-sm mb-6 flex-grow leading-relaxed">Physical connector repair and monolithic flash memory pinout reconstruction.</p>
+                            <ul class="text-sm text-brand-muted space-y-2 border-t border-brand-border pt-4">
                                 <li class="flex items-start gap-2"><span class="text-brand-primary mt-0.5">•</span> Accidental deletion</li>
                                 <li class="flex items-start gap-2"><span class="text-brand-primary mt-0.5">•</span> Drive not detected</li>
                                 <li class="flex items-start gap-2"><span class="text-brand-primary mt-0.5">•</span> File system damage</li>
@@ -306,13 +304,13 @@
                             </ul>
                         </div>
 
-                        <div class="theme-card border rounded-xl p-8 hover:border-brand-primary transition-all duration-300 flex flex-col h-full shadow-sm w-full lg:w-[calc(33.333%-1rem)]">
-                            <div class="w-12 h-12 border theme-border bg-brand-softBlack rounded-lg flex items-center justify-center mb-6 text-brand-primary">
+                        <div class="bg-brand-surface border border-brand-border rounded-xl p-8 hover:border-brand-purple hover:shadow-[0_0_25px_rgba(139,92,246,0.2)] hover:-translate-y-2 transition-all duration-300 flex flex-col h-full w-full lg:w-[calc(33.333%-1rem)] group">
+                            <div class="w-12 h-12 border border-brand-border bg-brand-softBlack rounded-lg flex items-center justify-center mb-6 text-brand-primary group-hover:bg-brand-purple/10 group-hover:border-brand-purple transition-all">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2"></path></svg>
                             </div>
-                            <h3 class="text-lg lg:text-xl font-bold theme-text mb-3">External Drive</h3>
-                            <p class="theme-text-muted text-sm mb-6 flex-grow leading-relaxed">Isolation of enclosure failures and secure internal drive data extraction.</p>
-                            <ul class="text-sm theme-text-muted space-y-2 border-t theme-border pt-4">
+                            <h3 class="text-xl font-bold text-white mb-3">External Drive</h3>
+                            <p class="text-brand-muted text-sm mb-6 flex-grow leading-relaxed">Isolation of enclosure failures and secure internal drive data extraction.</p>
+                            <ul class="text-sm text-brand-muted space-y-2 border-t border-brand-border pt-4">
                                 <li class="flex items-start gap-2"><span class="text-brand-primary mt-0.5">•</span> Dropped / physical shock</li>
                                 <li class="flex items-start gap-2"><span class="text-brand-primary mt-0.5">•</span> Drive not detected</li>
                                 <li class="flex items-start gap-2"><span class="text-brand-primary mt-0.5">•</span> Enclosure issues</li>
@@ -324,111 +322,112 @@
             </div>
         </section>
 
-        <section class="py-16 lg:py-20 border-b border-white/10 bg-brand-softBlack tech-grid">
+        <!-- 4. DIAGNOSTICS: WHAT'S WRONG -->
+        <section class="py-16 lg:py-24 border-b border-brand-border bg-brand-softBlack">
             <div class="max-w-7xl mx-auto px-6 reveal">
-                <div class="text-center mb-10 max-w-2xl mx-auto">
+                <div class="text-center mb-12 max-w-2xl mx-auto">
                     <h2 class="text-3xl lg:text-4xl font-bold text-white mb-4 tracking-tight">What's Wrong With Your Drive?</h2>
                     <p class="text-brand-muted text-base lg:text-lg">Identify your symptom below. Recovery feasibility depends on the condition and exact failure type.</p>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-5xl mx-auto">
-                    
-                    <div class="flex items-center p-4 bg-brand-surface border border-white/10 rounded-lg hover:border-brand-primary transition-colors cursor-default">
-                        <div class="w-10 h-10 rounded bg-brand-softBlack border border-white/10 flex items-center justify-center mr-4 text-brand-primary">
+                    <!-- 10 Problems -->
+                    <div class="flex items-center p-4 bg-brand-surface border border-brand-border rounded-lg hover:border-brand-purple hover:shadow-[0_0_15px_rgba(139,92,246,0.15)] transition-all cursor-default group">
+                        <div class="w-10 h-10 rounded bg-brand-softBlack border border-brand-border flex items-center justify-center mr-4 text-brand-primary group-hover:text-brand-purple transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="1.5"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4m0 4h.01"/></svg>
                         </div>
                         <div>
-                            <h4 class="text-white font-semibold text-sm">1. Drive Not Detected</h4>
+                            <h4 class="text-white font-semibold text-sm group-hover:text-brand-purple transition-colors">1. Drive Not Detected</h4>
                             <p class="text-brand-muted text-xs mt-1">Affects: All storage types</p>
                         </div>
                     </div>
                     
-                    <div class="flex items-center p-4 bg-brand-surface border border-white/10 rounded-lg hover:border-brand-primary transition-colors cursor-default">
-                        <div class="w-10 h-10 rounded bg-brand-softBlack border border-white/10 flex items-center justify-center mr-4 text-brand-primary">
+                    <div class="flex items-center p-4 bg-brand-surface border border-brand-border rounded-lg hover:border-brand-purple hover:shadow-[0_0_15px_rgba(139,92,246,0.15)] transition-all cursor-default group">
+                        <div class="w-10 h-10 rounded bg-brand-softBlack border border-brand-border flex items-center justify-center mr-4 text-brand-primary group-hover:text-brand-purple transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
                         </div>
                         <div>
-                            <h4 class="text-white font-semibold text-sm">2. Clicking or Unusual Sounds</h4>
+                            <h4 class="text-white font-semibold text-sm group-hover:text-brand-purple transition-colors">2. Clicking or Unusual Sounds</h4>
                             <p class="text-brand-muted text-xs mt-1">Affects: HDDs, External Drives</p>
                         </div>
                     </div>
 
-                    <div class="flex items-center p-4 bg-brand-surface border border-white/10 rounded-lg hover:border-brand-primary transition-colors cursor-default">
-                        <div class="w-10 h-10 rounded bg-brand-softBlack border border-white/10 flex items-center justify-center mr-4 text-brand-primary">
+                    <div class="flex items-center p-4 bg-brand-surface border border-brand-border rounded-lg hover:border-brand-purple hover:shadow-[0_0_15px_rgba(139,92,246,0.15)] transition-all cursor-default group">
+                        <div class="w-10 h-10 rounded bg-brand-softBlack border border-brand-border flex items-center justify-center mr-4 text-brand-primary group-hover:text-brand-purple transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                         </div>
                         <div>
-                            <h4 class="text-white font-semibold text-sm">3. Files Missing</h4>
+                            <h4 class="text-white font-semibold text-sm group-hover:text-brand-purple transition-colors">3. Files Missing</h4>
                             <p class="text-brand-muted text-xs mt-1">Affects: All storage types</p>
                         </div>
                     </div>
 
-                    <div class="flex items-center p-4 bg-brand-surface border border-white/10 rounded-lg hover:border-brand-primary transition-colors cursor-default">
-                        <div class="w-10 h-10 rounded bg-brand-softBlack border border-white/10 flex items-center justify-center mr-4 text-brand-primary">
+                    <div class="flex items-center p-4 bg-brand-surface border border-brand-border rounded-lg hover:border-brand-purple hover:shadow-[0_0_15px_rgba(139,92,246,0.15)] transition-all cursor-default group">
+                        <div class="w-10 h-10 rounded bg-brand-softBlack border border-brand-border flex items-center justify-center mr-4 text-brand-primary group-hover:text-brand-purple transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
                         </div>
                         <div>
-                            <h4 class="text-white font-semibold text-sm">4. Drive Asking to Be Formatted</h4>
+                            <h4 class="text-white font-semibold text-sm group-hover:text-brand-purple transition-colors">4. Drive Asking to Be Formatted</h4>
                             <p class="text-brand-muted text-xs mt-1">Affects: USBs, Externals, SDs</p>
                         </div>
                     </div>
 
-                    <div class="flex items-center p-4 bg-brand-surface border border-white/10 rounded-lg hover:border-brand-primary transition-colors cursor-default">
-                        <div class="w-10 h-10 rounded bg-brand-softBlack border border-white/10 flex items-center justify-center mr-4 text-brand-primary">
+                    <div class="flex items-center p-4 bg-brand-surface border border-brand-border rounded-lg hover:border-brand-purple hover:shadow-[0_0_15px_rgba(139,92,246,0.15)] transition-all cursor-default group">
+                        <div class="w-10 h-10 rounded bg-brand-softBlack border border-brand-border flex items-center justify-center mr-4 text-brand-primary group-hover:text-brand-purple transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 7v10c0 2 1.5 3 3.5 3h9c2 0 3.5-1 3.5-3V7c0-2-1.5-3-3.5-3h-9C5.5 4 4 5 4 7zm8 8h.01M7 15h.01"></path></svg>
                         </div>
                         <div>
-                            <h4 class="text-white font-semibold text-sm">5. Partition Disappeared</h4>
+                            <h4 class="text-white font-semibold text-sm group-hover:text-brand-purple transition-colors">5. Partition Disappeared</h4>
                             <p class="text-brand-muted text-xs mt-1">Affects: HDDs, SSDs, Externals</p>
                         </div>
                     </div>
 
-                    <div class="flex items-center p-4 bg-brand-surface border border-white/10 rounded-lg hover:border-brand-primary transition-colors cursor-default">
-                        <div class="w-10 h-10 rounded bg-brand-softBlack border border-white/10 flex items-center justify-center mr-4 text-brand-primary">
+                    <div class="flex items-center p-4 bg-brand-surface border border-brand-border rounded-lg hover:border-brand-purple hover:shadow-[0_0_15px_rgba(139,92,246,0.15)] transition-all cursor-default group">
+                        <div class="w-10 h-10 rounded bg-brand-softBlack border border-brand-border flex items-center justify-center mr-4 text-brand-primary group-hover:text-brand-purple transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
                         </div>
                         <div>
-                            <h4 class="text-white font-semibold text-sm">6. Files Are Corrupted</h4>
+                            <h4 class="text-white font-semibold text-sm group-hover:text-brand-purple transition-colors">6. Files Are Corrupted</h4>
                             <p class="text-brand-muted text-xs mt-1">Affects: All storage types</p>
                         </div>
                     </div>
 
-                    <div class="flex items-center p-4 bg-brand-surface border border-white/10 rounded-lg hover:border-brand-primary transition-colors cursor-default">
-                        <div class="w-10 h-10 rounded bg-brand-softBlack border border-white/10 flex items-center justify-center mr-4 text-brand-primary">
+                    <div class="flex items-center p-4 bg-brand-surface border border-brand-border rounded-lg hover:border-brand-purple hover:shadow-[0_0_15px_rgba(139,92,246,0.15)] transition-all cursor-default group">
+                        <div class="w-10 h-10 rounded bg-brand-softBlack border border-brand-border flex items-center justify-center mr-4 text-brand-primary group-hover:text-brand-purple transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2"></path></svg>
                         </div>
                         <div>
-                            <h4 class="text-white font-semibold text-sm">7. SSD Suddenly Stopped Working</h4>
+                            <h4 class="text-white font-semibold text-sm group-hover:text-brand-purple transition-colors">7. SSD Suddenly Stopped Working</h4>
                             <p class="text-brand-muted text-xs mt-1">Affects: SSDs</p>
                         </div>
                     </div>
 
-                    <div class="flex items-center p-4 bg-brand-surface border border-white/10 rounded-lg hover:border-brand-primary transition-colors cursor-default">
-                        <div class="w-10 h-10 rounded bg-brand-softBlack border border-white/10 flex items-center justify-center mr-4 text-brand-primary">
+                    <div class="flex items-center p-4 bg-brand-surface border border-brand-border rounded-lg hover:border-brand-purple hover:shadow-[0_0_15px_rgba(139,92,246,0.15)] transition-all cursor-default group">
+                        <div class="w-10 h-10 rounded bg-brand-softBlack border border-brand-border flex items-center justify-center mr-4 text-brand-primary group-hover:text-brand-purple transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
                         </div>
                         <div>
-                            <h4 class="text-white font-semibold text-sm">8. NVMe Not Detected</h4>
+                            <h4 class="text-white font-semibold text-sm group-hover:text-brand-purple transition-colors">8. NVMe Not Detected</h4>
                             <p class="text-brand-muted text-xs mt-1">Affects: NVMe / M.2 PCIe</p>
                         </div>
                     </div>
 
-                    <div class="flex items-center p-4 bg-brand-surface border border-white/10 rounded-lg hover:border-brand-primary transition-colors cursor-default">
-                        <div class="w-10 h-10 rounded bg-brand-softBlack border border-white/10 flex items-center justify-center mr-4 text-brand-primary">
+                    <div class="flex items-center p-4 bg-brand-surface border border-brand-border rounded-lg hover:border-brand-purple hover:shadow-[0_0_15px_rgba(139,92,246,0.15)] transition-all cursor-default group">
+                        <div class="w-10 h-10 rounded bg-brand-softBlack border border-brand-border flex items-center justify-center mr-4 text-brand-primary group-hover:text-brand-purple transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path></svg>
                         </div>
                         <div>
-                            <h4 class="text-white font-semibold text-sm">9. Pen Drive Showing Incorrect Capacity</h4>
+                            <h4 class="text-white font-semibold text-sm group-hover:text-brand-purple transition-colors">9. Pen Drive Showing Incorrect Capacity</h4>
                             <p class="text-brand-muted text-xs mt-1">Affects: USBs, SD Cards</p>
                         </div>
                     </div>
 
-                    <div class="flex items-center p-4 bg-brand-surface border border-white/10 rounded-lg hover:border-brand-primary transition-colors cursor-default">
-                        <div class="w-10 h-10 rounded bg-brand-softBlack border border-white/10 flex items-center justify-center mr-4 text-brand-primary">
+                    <div class="flex items-center p-4 bg-brand-surface border border-brand-border rounded-lg hover:border-brand-purple hover:shadow-[0_0_15px_rgba(139,92,246,0.15)] transition-all cursor-default group">
+                        <div class="w-10 h-10 rounded bg-brand-softBlack border border-brand-border flex items-center justify-center mr-4 text-brand-primary group-hover:text-brand-purple transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
                         </div>
                         <div>
-                            <h4 class="text-white font-semibold text-sm">10. External Drive Disconnecting</h4>
+                            <h4 class="text-white font-semibold text-sm group-hover:text-brand-purple transition-colors">10. External Drive Disconnecting</h4>
                             <p class="text-brand-muted text-xs mt-1">Affects: Portable Drives</p>
                         </div>
                     </div>
@@ -436,69 +435,79 @@
             </div>
         </section>
 
-        <section id="process" class="py-16 lg:py-20 border-b theme-border theme-bg-2">
+        <!-- 5. RECOVERY PROCESS (7 STEPS - Glowing Blockchain Visual) -->
+        <section id="process" class="py-16 lg:py-24 border-b border-brand-border bg-brand-black overflow-hidden">
             <div class="max-w-7xl mx-auto px-6 reveal">
-                <h2 class="text-3xl lg:text-4xl font-bold theme-text mb-12 text-center tracking-tight">Structured Recovery Workflow</h2>
+                <h2 class="text-3xl lg:text-4xl font-bold text-white mb-12 lg:mb-20 text-center tracking-tight">Structured Recovery Workflow</h2>
                 
-                <div class="relative w-full overflow-hidden pb-4">
-                    <div class="absolute top-[28px] left-8 right-8 h-[2px] bg-theme-border hidden lg:block z-0"></div>
-                    <div class="absolute top-8 bottom-8 left-[27px] w-[2px] bg-theme-border lg:hidden z-0"></div>
+                <div class="relative w-full pb-4">
+                    <!-- Desktop Glowing Line -->
+                    <div class="absolute top-[28px] left-10 right-10 h-[2px] bg-gradient-to-r from-brand-primary via-brand-purple to-brand-primary hidden lg:block z-0 shadow-[0_0_10px_rgba(139,92,246,0.5)]"></div>
+                    <!-- Mobile Glowing Line -->
+                    <div class="absolute top-10 bottom-10 left-[27px] w-[2px] bg-gradient-to-b from-brand-primary via-brand-purple to-brand-primary lg:hidden z-0 shadow-[0_0_10px_rgba(139,92,246,0.5)]"></div>
 
                     <div class="flex flex-col lg:flex-row justify-between gap-8 lg:gap-2 relative z-10 w-full px-2">
                         
-                        <div class="relative flex flex-row lg:flex-col items-start lg:items-center gap-5 lg:gap-4 lg:w-[13%]">
-                            <div class="w-14 h-14 rounded-md theme-card border-2 border-theme-border flex items-center justify-center text-brand-primary font-mono text-sm shadow-sm transition-colors hover:border-brand-primary shrink-0 z-10">01</div>
+                        <!-- Step 1 -->
+                        <div class="relative flex flex-row lg:flex-col items-start lg:items-center gap-5 lg:gap-4 lg:w-[13%] group">
+                            <div class="w-14 h-14 rounded-md bg-brand-surface border-2 border-brand-primary flex items-center justify-center text-brand-primary font-mono text-sm shadow-[0_0_15px_rgba(183,243,74,0.3)] group-hover:border-brand-purple group-hover:text-brand-purple group-hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] transition-all shrink-0 z-10">01</div>
                             <div class="pt-2 lg:pt-0 lg:text-center w-full">
-                                <h4 class="theme-text font-bold text-sm lg:text-base mb-1">Initial Assessment</h4>
-                                <p class="theme-text-muted text-sm lg:text-xs">Symptom evaluation.</p>
+                                <h4 class="text-white font-bold text-sm lg:text-base mb-1">Initial Assessment</h4>
+                                <p class="text-brand-muted text-sm lg:text-xs">Symptom evaluation.</p>
                             </div>
                         </div>
                         
-                        <div class="relative flex flex-row lg:flex-col items-start lg:items-center gap-5 lg:gap-4 lg:w-[13%]">
-                            <div class="w-14 h-14 rounded-md theme-card border-2 border-theme-border flex items-center justify-center text-brand-primary font-mono text-sm shadow-sm transition-colors hover:border-brand-primary shrink-0 z-10">02</div>
+                        <!-- Step 2 -->
+                        <div class="relative flex flex-row lg:flex-col items-start lg:items-center gap-5 lg:gap-4 lg:w-[13%] group">
+                            <div class="w-14 h-14 rounded-md bg-brand-surface border-2 border-brand-primary flex items-center justify-center text-brand-primary font-mono text-sm shadow-[0_0_15px_rgba(183,243,74,0.3)] group-hover:border-brand-purple group-hover:text-brand-purple group-hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] transition-all shrink-0 z-10">02</div>
                             <div class="pt-2 lg:pt-0 lg:text-center w-full">
-                                <h4 class="theme-text font-bold text-sm lg:text-base mb-1">Device Diagnosis</h4>
-                                <p class="theme-text-muted text-sm lg:text-xs">Hardware isolation.</p>
+                                <h4 class="text-white font-bold text-sm lg:text-base mb-1">Device Diagnosis</h4>
+                                <p class="text-brand-muted text-sm lg:text-xs">Hardware isolation.</p>
                             </div>
                         </div>
                         
-                        <div class="relative flex flex-row lg:flex-col items-start lg:items-center gap-5 lg:gap-4 lg:w-[13%]">
-                            <div class="w-14 h-14 rounded-md theme-card border-2 border-theme-border flex items-center justify-center text-brand-primary font-mono text-sm shadow-sm transition-colors hover:border-brand-primary shrink-0 z-10">03</div>
+                        <!-- Step 3 -->
+                        <div class="relative flex flex-row lg:flex-col items-start lg:items-center gap-5 lg:gap-4 lg:w-[13%] group">
+                            <div class="w-14 h-14 rounded-md bg-brand-surface border-2 border-brand-primary flex items-center justify-center text-brand-primary font-mono text-sm shadow-[0_0_15px_rgba(183,243,74,0.3)] group-hover:border-brand-purple group-hover:text-brand-purple group-hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] transition-all shrink-0 z-10">03</div>
                             <div class="pt-2 lg:pt-0 lg:text-center w-full">
-                                <h4 class="theme-text font-bold text-sm lg:text-base mb-1">Recovery Strategy</h4>
-                                <p class="theme-text-muted text-sm lg:text-xs">Defining method.</p>
+                                <h4 class="text-white font-bold text-sm lg:text-base mb-1">Recovery Strategy</h4>
+                                <p class="text-brand-muted text-sm lg:text-xs">Defining method.</p>
                             </div>
                         </div>
                         
-                        <div class="relative flex flex-row lg:flex-col items-start lg:items-center gap-5 lg:gap-4 lg:w-[13%]">
-                            <div class="w-14 h-14 rounded-md theme-card border-2 border-theme-border flex items-center justify-center text-brand-primary font-mono text-sm shadow-sm transition-colors hover:border-brand-primary shrink-0 z-10">04</div>
+                        <!-- Step 4 -->
+                        <div class="relative flex flex-row lg:flex-col items-start lg:items-center gap-5 lg:gap-4 lg:w-[13%] group">
+                            <div class="w-14 h-14 rounded-md bg-brand-surface border-2 border-brand-primary flex items-center justify-center text-brand-primary font-mono text-sm shadow-[0_0_15px_rgba(183,243,74,0.3)] group-hover:border-brand-purple group-hover:text-brand-purple group-hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] transition-all shrink-0 z-10">04</div>
                             <div class="pt-2 lg:pt-0 lg:text-center w-full">
-                                <h4 class="theme-text font-bold text-sm lg:text-base mb-1">Data Extraction</h4>
-                                <p class="theme-text-muted text-sm lg:text-xs">Cloning & rebuild.</p>
+                                <h4 class="text-white font-bold text-sm lg:text-base mb-1">Data Extraction</h4>
+                                <p class="text-brand-muted text-sm lg:text-xs">Cloning & rebuild.</p>
                             </div>
                         </div>
                         
-                        <div class="relative flex flex-row lg:flex-col items-start lg:items-center gap-5 lg:gap-4 lg:w-[13%]">
-                            <div class="w-14 h-14 rounded-md theme-card border-2 border-theme-border flex items-center justify-center text-brand-primary font-mono text-sm shadow-sm transition-colors hover:border-brand-primary shrink-0 z-10">05</div>
+                        <!-- Step 5 -->
+                        <div class="relative flex flex-row lg:flex-col items-start lg:items-center gap-5 lg:gap-4 lg:w-[13%] group">
+                            <div class="w-14 h-14 rounded-md bg-brand-surface border-2 border-brand-primary flex items-center justify-center text-brand-primary font-mono text-sm shadow-[0_0_15px_rgba(183,243,74,0.3)] group-hover:border-brand-purple group-hover:text-brand-purple group-hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] transition-all shrink-0 z-10">05</div>
                             <div class="pt-2 lg:pt-0 lg:text-center w-full">
-                                <h4 class="theme-text font-bold text-sm lg:text-base mb-1">Data Verification</h4>
-                                <p class="theme-text-muted text-sm lg:text-xs">Integrity checks.</p>
+                                <h4 class="text-white font-bold text-sm lg:text-base mb-1">Data Verification</h4>
+                                <p class="text-brand-muted text-sm lg:text-xs">Integrity checks.</p>
                             </div>
                         </div>
                         
-                        <div class="relative flex flex-row lg:flex-col items-start lg:items-center gap-5 lg:gap-4 lg:w-[13%]">
-                            <div class="w-14 h-14 rounded-md theme-card border-2 border-theme-border flex items-center justify-center text-brand-primary font-mono text-sm shadow-sm transition-colors hover:border-brand-primary shrink-0 z-10">06</div>
+                        <!-- Step 6 (Payment) -->
+                        <div class="relative flex flex-row lg:flex-col items-start lg:items-center gap-5 lg:gap-4 lg:w-[13%] group">
+                            <div class="w-14 h-14 rounded-md bg-brand-surface border-2 border-brand-primary flex items-center justify-center text-brand-primary font-mono text-sm shadow-[0_0_15px_rgba(183,243,74,0.3)] group-hover:border-brand-purple group-hover:text-brand-purple group-hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] transition-all shrink-0 z-10">06</div>
                             <div class="pt-2 lg:pt-0 lg:text-center w-full">
-                                <h4 class="theme-text font-bold text-sm lg:text-base mb-1">Payment</h4>
-                                <p class="theme-text-muted text-sm lg:text-xs">Fee processing.</p>
+                                <h4 class="text-white font-bold text-sm lg:text-base mb-1">Payment</h4>
+                                <p class="text-brand-muted text-sm lg:text-xs">Fee processing.</p>
                             </div>
                         </div>
                         
-                        <div class="relative flex flex-row lg:flex-col items-start lg:items-center gap-5 lg:gap-4 lg:w-[13%]">
-                            <div class="w-14 h-14 rounded-md theme-card border-2 border-theme-border flex items-center justify-center text-brand-primary font-mono text-sm shadow-sm transition-colors hover:border-brand-primary shrink-0 z-10">07</div>
+                        <!-- Step 7 -->
+                        <div class="relative flex flex-row lg:flex-col items-start lg:items-center gap-5 lg:gap-4 lg:w-[13%] group">
+                            <div class="w-14 h-14 rounded-md bg-brand-surface border-2 border-brand-primary flex items-center justify-center text-brand-primary font-mono text-sm shadow-[0_0_15px_rgba(183,243,74,0.3)] group-hover:border-brand-purple group-hover:text-brand-purple group-hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] transition-all shrink-0 z-10">07</div>
                             <div class="pt-2 lg:pt-0 lg:text-center w-full">
-                                <h4 class="theme-text font-bold text-sm lg:text-base mb-1">Secure Handover</h4>
-                                <p class="theme-text-muted text-sm lg:text-xs">Data transferred.</p>
+                                <h4 class="text-white font-bold text-sm lg:text-base mb-1">Secure Handover</h4>
+                                <p class="text-brand-muted text-sm lg:text-xs">Data transferred.</p>
                             </div>
                         </div>
 
@@ -507,94 +516,50 @@
             </div>
         </section>
 
-        <section class="py-16 lg:py-20 theme-bg-greenish border-b theme-border overflow-hidden relative">
-            <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center reveal">
-                <div>
-                    <h2 class="text-3xl lg:text-4xl font-bold theme-text mb-5 tracking-tight">Data Recovery Is More Than File Recovery.</h2>
-                    <p class="theme-text-muted text-base lg:text-lg mb-8 leading-relaxed">
-                        Storage failures occur across multiple architectural layers. True data recovery requires intervening at the exact point of structural failure, whether mechanical, electronic, or logical.
-                    </p>
-                    <ul class="space-y-4">
-                        <li class="flex items-center gap-3 text-sm theme-text font-semibold">
-                            <div class="w-2 h-2 bg-brand-primary rounded-full"></div> Mechanical & Sector-level problems
-                        </li>
-                        <li class="flex items-center gap-3 text-sm theme-text font-semibold">
-                            <div class="w-2 h-2 bg-brand-primary rounded-full"></div> Firmware & Controller issues
-                        </li>
-                        <li class="flex items-center gap-3 text-sm theme-text font-semibold">
-                            <div class="w-2 h-2 bg-brand-primary rounded-full"></div> Flash storage translation behavior
-                        </li>
-                        <li class="flex items-center gap-3 text-sm theme-text font-semibold">
-                            <div class="w-2 h-2 bg-brand-primary rounded-full"></div> File-system and Logical corruption
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="relative h-[320px] flex flex-col justify-center gap-5 pl-12 md:pl-20">
-                    <div class="absolute left-6 md:left-10 top-6 bottom-6 w-[2px] bg-theme-border"></div>
-                    
-                    <div class="relative theme-card border theme-border p-4 rounded-lg shadow-sm -translate-x-4">
-                        <div class="absolute -left-[32px] md:-left-[48px] top-1/2 -translate-y-1/2 w-4 h-4 rounded-full theme-card border-2 border-brand-primary z-10"></div>
-                        <h4 class="theme-text font-bold text-sm">Logical Layer</h4>
-                        <p class="theme-text-muted text-xs mt-1">File systems, partitions, directories</p>
-                    </div>
-                    
-                    <div class="relative theme-card border theme-border p-4 rounded-lg shadow-sm">
-                        <div class="absolute -left-[16px] md:-left-[32px] top-1/2 -translate-y-1/2 w-4 h-4 rounded-full theme-card border-2 border-brand-primary z-10"></div>
-                        <h4 class="theme-text font-bold text-sm">Firmware Layer</h4>
-                        <p class="theme-text-muted text-xs mt-1">Microcode, translation tables, defect lists</p>
-                    </div>
-
-                    <div class="relative theme-card border theme-border p-4 rounded-lg shadow-sm translate-x-4">
-                        <div class="absolute left-[1px] md:-left-[15px] top-1/2 -translate-y-1/2 w-4 h-4 rounded-full theme-card border-2 border-brand-primary z-10"></div>
-                        <h4 class="theme-text font-bold text-sm">Physical Layer</h4>
-                        <p class="theme-text-muted text-xs mt-1">Platters, heads, NAND chips, PCB</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="why-us" class="py-16 lg:py-20 border-b theme-border theme-bg-1">
+        <!-- 6. WHY FORTIS.DATA -->
+        <section id="why-us" class="py-16 lg:py-24 border-b border-brand-border bg-brand-softBlack">
             <div class="max-w-7xl mx-auto px-6 reveal">
-                <div class="text-center mb-10 max-w-2xl mx-auto">
-                    <h2 class="text-3xl lg:text-4xl font-bold theme-text mb-4 tracking-tight">Built Around Careful Recovery.</h2>
-                    <p class="theme-text-muted text-lg">We prioritize data integrity through stringent technical protocols.</p>
+                <div class="text-center mb-12 max-w-2xl mx-auto">
+                    <h2 class="text-3xl lg:text-4xl font-bold text-white mb-4 tracking-tight">Built Around Careful Recovery.</h2>
+                    <p class="text-brand-muted text-lg">We prioritize data integrity through stringent technical protocols.</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="theme-card border theme-border rounded-xl p-6 shadow-sm">
-                        <div class="theme-text font-mono text-sm mb-4 theme-bg-2 w-8 h-8 rounded flex items-center justify-center border theme-border border-brand-primary text-brand-primary">01</div>
-                        <h4 class="theme-text font-bold mb-2">Structured Diagnosis</h4>
-                        <p class="theme-text-muted text-sm leading-relaxed">No guesswork. Every device is evaluated systematically before procedures.</p>
+                    <div class="bg-brand-surface border border-brand-border rounded-xl p-6 hover:border-brand-purple hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(139,92,246,0.15)] transition-all group">
+                        <div class="text-brand-primary font-mono text-sm mb-4 bg-brand-softBlack w-8 h-8 rounded flex items-center justify-center border border-brand-border group-hover:border-brand-purple group-hover:text-brand-purple transition-colors">01</div>
+                        <h4 class="text-white font-bold mb-2">Structured Diagnosis</h4>
+                        <p class="text-brand-muted text-sm leading-relaxed">No guesswork. Every device is evaluated systematically before procedures.</p>
                     </div>
-                    <div class="theme-card border theme-border rounded-xl p-6 shadow-sm">
-                        <div class="theme-text font-mono text-sm mb-4 theme-bg-2 w-8 h-8 rounded flex items-center justify-center border theme-border border-brand-primary text-brand-primary">02</div>
-                        <h4 class="theme-text font-bold mb-2">Device-Specific</h4>
-                        <p class="theme-text-muted text-sm leading-relaxed">Custom recovery vectors based on exact architecture.</p>
+                    <div class="bg-brand-surface border border-brand-border rounded-xl p-6 hover:border-brand-purple hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(139,92,246,0.15)] transition-all group">
+                        <div class="text-brand-primary font-mono text-sm mb-4 bg-brand-softBlack w-8 h-8 rounded flex items-center justify-center border border-brand-border group-hover:border-brand-purple group-hover:text-brand-purple transition-colors">02</div>
+                        <h4 class="text-white font-bold mb-2">Device-Specific</h4>
+                        <p class="text-brand-muted text-sm leading-relaxed">Custom recovery vectors based on exact architecture.</p>
                     </div>
-                    <div class="theme-card border theme-border rounded-xl p-6 shadow-sm">
-                        <div class="theme-text font-mono text-sm mb-4 theme-bg-2 w-8 h-8 rounded flex items-center justify-center border theme-border border-brand-primary text-brand-primary">03</div>
-                        <h4 class="theme-text font-bold mb-2">Professional Handling</h4>
-                        <p class="theme-text-muted text-sm leading-relaxed">Strict adherence to confidentiality and device preservation guidelines.</p>
+                    <div class="bg-brand-surface border border-brand-border rounded-xl p-6 hover:border-brand-purple hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(139,92,246,0.15)] transition-all group">
+                        <div class="text-brand-primary font-mono text-sm mb-4 bg-brand-softBlack w-8 h-8 rounded flex items-center justify-center border border-brand-border group-hover:border-brand-purple group-hover:text-brand-purple transition-colors">03</div>
+                        <h4 class="text-white font-bold mb-2">Professional Handling</h4>
+                        <p class="text-brand-muted text-sm leading-relaxed">Strict adherence to confidentiality and device preservation guidelines.</p>
                     </div>
-                    <div class="theme-card border theme-border rounded-xl p-6 shadow-sm">
-                        <div class="theme-text font-mono text-sm mb-4 theme-bg-2 w-8 h-8 rounded flex items-center justify-center border theme-border border-brand-primary text-brand-primary">04</div>
-                        <h4 class="theme-text font-bold mb-2">Clear Communication</h4>
-                        <p class="theme-text-muted text-sm leading-relaxed">Transparent updates on feasibility, risks, and process timelines.</p>
+                    <div class="bg-brand-surface border border-brand-border rounded-xl p-6 hover:border-brand-purple hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(139,92,246,0.15)] transition-all group">
+                        <div class="text-brand-primary font-mono text-sm mb-4 bg-brand-softBlack w-8 h-8 rounded flex items-center justify-center border border-brand-border group-hover:border-brand-purple group-hover:text-brand-purple transition-colors">04</div>
+                        <h4 class="text-white font-bold mb-2">Clear Communication</h4>
+                        <p class="text-brand-muted text-sm leading-relaxed">Transparent updates on feasibility, risks, and process timelines.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="py-16 lg:py-20 bg-brand-softBlack border-b border-white/10 tech-grid">
+        <!-- 7. DO / DON'T -->
+        <section class="py-16 lg:py-24 bg-brand-black border-b border-brand-border tech-grid">
             <div class="max-w-5xl mx-auto px-6 reveal">
-                <div class="text-center mb-10">
+                <div class="text-center mb-12">
                     <h2 class="text-3xl lg:text-4xl font-bold text-white mb-4 tracking-tight">Before You Try Anything Else</h2>
                     <p class="text-brand-muted text-lg">Incorrect handling of a failing drive destroys data. Follow these guidelines.</p>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
-                    <div class="bg-brand-surface border-2 border-brand-primary rounded-xl p-8 shadow-sm">
+                    <!-- DO -->
+                    <div class="bg-brand-surface border-2 border-brand-primary rounded-xl p-8 shadow-[0_0_15px_rgba(183,243,74,0.1)] hover:shadow-[0_0_25px_rgba(183,243,74,0.3)] transition-shadow">
                         <h3 class="text-brand-primary font-bold text-lg flex items-center gap-2 mb-6">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                             DO:
@@ -619,7 +584,8 @@
                         </ul>
                     </div>
 
-                    <div class="bg-brand-surface border-2 border-brand-danger rounded-xl p-8 shadow-sm">
+                    <!-- DON'T -->
+                    <div class="bg-brand-surface border-2 border-brand-danger rounded-xl p-8 shadow-[0_0_15px_rgba(239,68,68,0.1)] hover:shadow-[0_0_25px_rgba(239,68,68,0.3)] transition-shadow">
                         <h3 class="text-brand-danger font-bold text-lg flex items-center gap-2 mb-6">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                             DON'T:
@@ -651,127 +617,129 @@
             </div>
         </section>
 
-        <section id="faq" class="py-16 lg:py-20 border-b theme-border theme-bg-2">
+        <!-- 8. FAQs -->
+        <section id="faq" class="py-16 lg:py-24 border-b border-brand-border bg-brand-softBlack">
             <div class="max-w-3xl mx-auto px-6 reveal">
-                <h2 class="text-3xl lg:text-4xl font-bold theme-text mb-8 text-center tracking-tight">FAQs</h2>
+                <h2 class="text-3xl lg:text-4xl font-bold text-white mb-10 text-center tracking-tight">FAQs</h2>
                 
                 <div class="space-y-4">
-                    <details class="group theme-card border theme-border rounded-lg shadow-sm [&_summary::-webkit-details-marker]:hidden">
-                        <summary class="flex items-center justify-between p-5 lg:p-6 theme-text font-bold cursor-pointer">
+                    <!-- 10 FAQs -->
+                    <details class="group bg-brand-surface border border-brand-border rounded-lg shadow-sm [&_summary::-webkit-details-marker]:hidden hover:border-brand-purple hover:shadow-[0_0_15px_rgba(139,92,246,0.1)] transition-all">
+                        <summary class="flex items-center justify-between p-5 lg:p-6 text-white font-bold cursor-pointer">
                             1. Can data be recovered if the drive is not detected?
-                            <div class="w-8 h-8 rounded border theme-border flex items-center justify-center group-open:border-brand-primary">
-                                <svg class="w-5 h-5 theme-text-muted group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            <div class="w-8 h-8 rounded border border-brand-border flex items-center justify-center group-open:border-brand-purple group-hover:border-brand-purple transition-colors">
+                                <svg class="w-5 h-5 text-brand-muted group-open:rotate-180 group-hover:text-brand-purple transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </div>
                         </summary>
-                        <div class="px-5 lg:px-6 pb-6 text-sm theme-text-muted leading-relaxed">
+                        <div class="px-5 lg:px-6 pb-6 text-sm text-brand-muted leading-relaxed">
                             Yes. A drive failing to be detected is often due to firmware corruption, controller failure, or read-head failure. We utilize specialized hardware to bypass the BIOS/OS and attempt to access the raw data directly.
                         </div>
                     </details>
                     
-                    <details class="group theme-card border theme-border rounded-lg shadow-sm [&_summary::-webkit-details-marker]:hidden">
-                        <summary class="flex items-center justify-between p-5 lg:p-6 theme-text font-bold cursor-pointer">
+                    <details class="group bg-brand-surface border border-brand-border rounded-lg shadow-sm [&_summary::-webkit-details-marker]:hidden hover:border-brand-purple hover:shadow-[0_0_15px_rgba(139,92,246,0.1)] transition-all">
+                        <summary class="flex items-center justify-between p-5 lg:p-6 text-white font-bold cursor-pointer">
                             2. Can deleted files be recovered?
-                            <div class="w-8 h-8 rounded border theme-border flex items-center justify-center group-open:border-brand-primary">
-                                <svg class="w-5 h-5 theme-text-muted group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            <div class="w-8 h-8 rounded border border-brand-border flex items-center justify-center group-open:border-brand-purple group-hover:border-brand-purple transition-colors">
+                                <svg class="w-5 h-5 text-brand-muted group-open:rotate-180 group-hover:text-brand-purple transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </div>
                         </summary>
-                        <div class="px-5 lg:px-6 pb-6 text-sm theme-text-muted leading-relaxed">
+                        <div class="px-5 lg:px-6 pb-6 text-sm text-brand-muted leading-relaxed">
                             Recovery feasibility depends on the type of failure, device condition, and the state of the underlying data. For HDDs, deleted files are often recoverable if not overwritten. For SSDs, features like TRIM can permanently clear deleted data quickly.
                         </div>
                     </details>
 
-                    <details class="group theme-card border theme-border rounded-lg shadow-sm [&_summary::-webkit-details-marker]:hidden">
-                        <summary class="flex items-center justify-between p-5 lg:p-6 theme-text font-bold cursor-pointer">
+                    <details class="group bg-brand-surface border border-brand-border rounded-lg shadow-sm [&_summary::-webkit-details-marker]:hidden hover:border-brand-purple hover:shadow-[0_0_15px_rgba(139,92,246,0.1)] transition-all">
+                        <summary class="flex items-center justify-between p-5 lg:p-6 text-white font-bold cursor-pointer">
                             3. What should I do if my HDD is making clicking or unusual sounds?
-                            <div class="w-8 h-8 rounded border theme-border flex items-center justify-center group-open:border-brand-primary">
-                                <svg class="w-5 h-5 theme-text-muted group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            <div class="w-8 h-8 rounded border border-brand-border flex items-center justify-center group-open:border-brand-purple group-hover:border-brand-purple transition-colors">
+                                <svg class="w-5 h-5 text-brand-muted group-open:rotate-180 group-hover:text-brand-purple transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </div>
                         </summary>
-                        <div class="px-5 lg:px-6 pb-6 text-sm theme-text-muted leading-relaxed">
+                        <div class="px-5 lg:px-6 pb-6 text-sm text-brand-muted leading-relaxed">
                             Power it off immediately. Clicking usually indicates mechanical read/write head failure. Continued operation will cause the heads to scratch the magnetic platters, permanently destroying the data.
                         </div>
                     </details>
 
-                    <details class="group theme-card border theme-border rounded-lg shadow-sm [&_summary::-webkit-details-marker]:hidden">
-                        <summary class="flex items-center justify-between p-5 lg:p-6 theme-text font-bold cursor-pointer">
+                    <details class="group bg-brand-surface border border-brand-border rounded-lg shadow-sm [&_summary::-webkit-details-marker]:hidden hover:border-brand-purple hover:shadow-[0_0_15px_rgba(139,92,246,0.1)] transition-all">
+                        <summary class="flex items-center justify-between p-5 lg:p-6 text-white font-bold cursor-pointer">
                             4. Is SSD data recovery different from HDD recovery?
-                            <div class="w-8 h-8 rounded border theme-border flex items-center justify-center group-open:border-brand-primary">
-                                <svg class="w-5 h-5 theme-text-muted group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            <div class="w-8 h-8 rounded border border-brand-border flex items-center justify-center group-open:border-brand-purple group-hover:border-brand-purple transition-colors">
+                                <svg class="w-5 h-5 text-brand-muted group-open:rotate-180 group-hover:text-brand-purple transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </div>
                         </summary>
-                        <div class="px-5 lg:px-6 pb-6 text-sm theme-text-muted leading-relaxed">
+                        <div class="px-5 lg:px-6 pb-6 text-sm text-brand-muted leading-relaxed">
                             Significantly. HDDs rely on mechanical platters, while SSDs use NAND flash memory and complex wear-leveling algorithms. SSD recovery often involves logically rebuilding the Flash Translation Layer (FTL) and bypassing damaged controllers.
                         </div>
                     </details>
 
-                    <details class="group theme-card border theme-border rounded-lg shadow-sm [&_summary::-webkit-details-marker]:hidden">
-                        <summary class="flex items-center justify-between p-5 lg:p-6 theme-text font-bold cursor-pointer">
+                    <details class="group bg-brand-surface border border-brand-border rounded-lg shadow-sm [&_summary::-webkit-details-marker]:hidden hover:border-brand-purple hover:shadow-[0_0_15px_rgba(139,92,246,0.1)] transition-all">
+                        <summary class="flex items-center justify-between p-5 lg:p-6 text-white font-bold cursor-pointer">
                             5. Can data be recovered from an NVMe drive?
-                            <div class="w-8 h-8 rounded border theme-border flex items-center justify-center group-open:border-brand-primary">
-                                <svg class="w-5 h-5 theme-text-muted group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            <div class="w-8 h-8 rounded border border-brand-border flex items-center justify-center group-open:border-brand-purple group-hover:border-brand-purple transition-colors">
+                                <svg class="w-5 h-5 text-brand-muted group-open:rotate-180 group-hover:text-brand-purple transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </div>
                         </summary>
-                        <div class="px-5 lg:px-6 pb-6 text-sm theme-text-muted leading-relaxed">
+                        <div class="px-5 lg:px-6 pb-6 text-sm text-brand-muted leading-relaxed">
                             Yes, though it requires specific hardware to interface with PCIe protocols. Feasibility depends heavily on whether the NVMe controller has suffered catastrophic electrical failure or if the NAND memory itself is degraded.
                         </div>
                     </details>
 
-                    <details class="group theme-card border theme-border rounded-lg shadow-sm [&_summary::-webkit-details-marker]:hidden">
-                        <summary class="flex items-center justify-between p-5 lg:p-6 theme-text font-bold cursor-pointer">
+                    <details class="group bg-brand-surface border border-brand-border rounded-lg shadow-sm [&_summary::-webkit-details-marker]:hidden hover:border-brand-purple hover:shadow-[0_0_15px_rgba(139,92,246,0.1)] transition-all">
+                        <summary class="flex items-center justify-between p-5 lg:p-6 text-white font-bold cursor-pointer">
                             6. Can a formatted drive be recovered?
-                            <div class="w-8 h-8 rounded border theme-border flex items-center justify-center group-open:border-brand-primary">
-                                <svg class="w-5 h-5 theme-text-muted group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            <div class="w-8 h-8 rounded border border-brand-border flex items-center justify-center group-open:border-brand-purple group-hover:border-brand-purple transition-colors">
+                                <svg class="w-5 h-5 text-brand-muted group-open:rotate-180 group-hover:text-brand-purple transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </div>
                         </summary>
-                        <div class="px-5 lg:px-6 pb-6 text-sm theme-text-muted leading-relaxed">
+                        <div class="px-5 lg:px-6 pb-6 text-sm text-brand-muted leading-relaxed">
                             Often yes, provided no new data was written to the drive after the format occurred. A "quick format" merely resets the file system directory, leaving the raw data intact until overwritten.
                         </div>
                     </details>
 
-                    <details class="group theme-card border theme-border rounded-lg shadow-sm [&_summary::-webkit-details-marker]:hidden">
-                        <summary class="flex items-center justify-between p-5 lg:p-6 theme-text font-bold cursor-pointer">
+                    <details class="group bg-brand-surface border border-brand-border rounded-lg shadow-sm [&_summary::-webkit-details-marker]:hidden hover:border-brand-purple hover:shadow-[0_0_15px_rgba(139,92,246,0.1)] transition-all">
+                        <summary class="flex items-center justify-between p-5 lg:p-6 text-white font-bold cursor-pointer">
                             7. Should I stop using the drive immediately after data loss?
-                            <div class="w-8 h-8 rounded border theme-border flex items-center justify-center group-open:border-brand-primary">
-                                <svg class="w-5 h-5 theme-text-muted group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            <div class="w-8 h-8 rounded border border-brand-border flex items-center justify-center group-open:border-brand-purple group-hover:border-brand-purple transition-colors">
+                                <svg class="w-5 h-5 text-brand-muted group-open:rotate-180 group-hover:text-brand-purple transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </div>
                         </summary>
-                        <div class="px-5 lg:px-6 pb-6 text-sm theme-text-muted leading-relaxed">
+                        <div class="px-5 lg:px-6 pb-6 text-sm text-brand-muted leading-relaxed">
                             Absolutely. The operating system constantly writes background data. Any ongoing use of the drive drastically increases the chance that your lost data will be permanently overwritten.
                         </div>
                     </details>
 
-                    <details class="group theme-card border theme-border rounded-lg shadow-sm [&_summary::-webkit-details-marker]:hidden">
-                        <summary class="flex items-center justify-between p-5 lg:p-6 theme-text font-bold cursor-pointer">
+                    <details class="group bg-brand-surface border border-brand-border rounded-lg shadow-sm [&_summary::-webkit-details-marker]:hidden hover:border-brand-purple hover:shadow-[0_0_15px_rgba(139,92,246,0.1)] transition-all">
+                        <summary class="flex items-center justify-between p-5 lg:p-6 text-white font-bold cursor-pointer">
                             8. What happens during the initial assessment?
-                            <div class="w-8 h-8 rounded border theme-border flex items-center justify-center group-open:border-brand-primary">
-                                <svg class="w-5 h-5 theme-text-muted group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            <div class="w-8 h-8 rounded border border-brand-border flex items-center justify-center group-open:border-brand-purple group-hover:border-brand-purple transition-colors">
+                                <svg class="w-5 h-5 text-brand-muted group-open:rotate-180 group-hover:text-brand-purple transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </div>
                         </summary>
-                        <div class="px-5 lg:px-6 pb-6 text-sm theme-text-muted leading-relaxed">
+                        <div class="px-5 lg:px-6 pb-6 text-sm text-brand-muted leading-relaxed">
                             We carefully inspect the device's physical condition, test basic electrical/logical responses without stressing the media, and determine a safe strategy. We then communicate the recovery feasibility before proceeding.
                         </div>
                     </details>
 
-                    <details class="group theme-card border theme-border rounded-lg shadow-sm [&_summary::-webkit-details-marker]:hidden">
-                        <summary class="flex items-center justify-between p-5 lg:p-6 theme-text font-bold cursor-pointer">
+                    <details class="group bg-brand-surface border border-brand-border rounded-lg shadow-sm [&_summary::-webkit-details-marker]:hidden hover:border-brand-purple hover:shadow-[0_0_15px_rgba(139,92,246,0.1)] transition-all">
+                        <summary class="flex items-center justify-between p-5 lg:p-6 text-white font-bold cursor-pointer">
                             9. How long can a data recovery take?
-                            <div class="w-8 h-8 rounded border theme-border flex items-center justify-center group-open:border-brand-primary">
-                                <svg class="w-5 h-5 theme-text-muted group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            <div class="w-8 h-8 rounded border border-brand-border flex items-center justify-center group-open:border-brand-purple group-hover:border-brand-purple transition-colors">
+                                <svg class="w-5 h-5 text-brand-muted group-open:rotate-180 group-hover:text-brand-purple transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </div>
                         </summary>
-                        <div class="px-5 lg:px-6 pb-6 text-sm theme-text-muted leading-relaxed">
+                        <div class="px-5 lg:px-6 pb-6 text-sm text-brand-muted leading-relaxed">
                             Timelines vary heavily. A simple logical recovery might take 24–48 hours, whereas a complex mechanical rebuild requiring donor parts or intricate NAND reading can take a week or more. We provide estimates after diagnosis.
                         </div>
                     </details>
 
-                    <details class="group theme-card border theme-border rounded-lg shadow-sm [&_summary::-webkit-details-marker]:hidden">
-                        <summary class="flex items-center justify-between p-5 lg:p-6 theme-text font-bold cursor-pointer">
+                    <details class="group bg-brand-surface border border-brand-border rounded-lg shadow-sm [&_summary::-webkit-details-marker]:hidden hover:border-brand-purple hover:shadow-[0_0_15px_rgba(139,92,246,0.1)] transition-all">
+                        <summary class="flex items-center justify-between p-5 lg:p-6 text-white font-bold cursor-pointer">
                             10. Is data recovery always possible?
-                            <div class="w-8 h-8 rounded border theme-border flex items-center justify-center group-open:border-brand-primary">
-                                <svg class="w-5 h-5 theme-text-muted group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            <div class="w-8 h-8 rounded border border-brand-border flex items-center justify-center group-open:border-brand-purple group-hover:border-brand-purple transition-colors">
+                                <svg class="w-5 h-5 text-brand-muted group-open:rotate-180 group-hover:text-brand-purple transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </div>
                         </summary>
-                        <div class="px-5 lg:px-6 pb-6 text-sm theme-text-muted leading-relaxed">
+                        <div class="px-5 lg:px-6 pb-6 text-sm text-brand-muted leading-relaxed">
                             No. Recovery feasibility depends on the type of failure and device condition. Severe platter scoring on an HDD or severe memory degradation on an SSD can render data permanently unrecoverable.
                         </div>
                     </details>
@@ -779,134 +747,125 @@
             </div>
         </section>
 
-        <section id="assessment" class="py-16 lg:py-24 theme-bg-hero relative overflow-hidden">
-            <div class="max-w-7xl mx-auto px-6 relative z-10 reveal">
+        <!-- 9. ASSESSMENT FORM & CONTACT (Stacked Layout per Rule 2) -->
+        <section id="assessment" class="py-20 lg:py-28 bg-brand-black relative overflow-hidden border-t border-brand-purple/20">
+            <!-- Radiant Purple glow behind the section -->
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-64 bg-brand-purple/10 blur-[100px] pointer-events-none"></div>
+
+            <div class="max-w-3xl mx-auto px-6 relative z-10 reveal">
                 
-                <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+                <!-- TOP: Contact Box -->
+                <div class="bg-brand-surface border border-brand-purple/40 rounded-xl p-8 lg:p-10 shadow-[0_0_30px_rgba(139,92,246,0.15)] text-center mb-8">
+                    <h3 class="text-2xl font-bold tracking-tight mb-3">
+                        <span class="text-white">Fortis</span><span class="text-brand-danger">.</span><span class="text-brand-primary">data</span>
+                    </h3>
+                    <p class="text-brand-muted text-sm lg:text-base mb-8 max-w-lg mx-auto">
+                        Contact our team regarding a recovery enquiry, or request an assessment via the secure form below.
+                    </p>
                     
-                    <div class="lg:col-span-5 bg-brand-softBlack border border-white/10 rounded-xl p-8 lg:p-10 shadow-lg order-2 lg:order-1">
-                        <h3 class="text-2xl font-bold tracking-tight mb-6 text-brand-white">
-                            Fortis<span class="text-brand-danger">.</span><span class="text-brand-primary">data</span>
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8">
+                        <a href="mailto:care@fortisdata.com" class="flex items-center gap-3 group px-6 py-3 rounded-lg border border-brand-border bg-brand-softBlack hover:border-brand-purple transition-all w-full sm:w-auto justify-center">
+                            <svg class="w-5 h-5 text-brand-primary group-hover:text-brand-purple transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            <span class="text-sm text-white font-bold group-hover:text-brand-purple transition-colors">care@fortisdata.com</span>
+                        </a>
+                        
+                        <a href="tel:8009262472" class="flex items-center gap-3 group px-6 py-3 rounded-lg border border-brand-border bg-brand-softBlack hover:border-brand-purple transition-all w-full sm:w-auto justify-center">
+                            <svg class="w-5 h-5 text-brand-primary group-hover:text-brand-purple transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                            <span class="text-sm text-white font-bold group-hover:text-brand-purple transition-colors">8009262472</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- BOTTOM: Assessment Form -->
+                <div>
+                    <div id="formSuccess" class="hidden bg-brand-surface border-2 border-brand-primary rounded-xl p-6 text-center mb-6 shadow-sm">
+                        <h3 class="text-lg text-brand-primary font-bold mb-1 flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            Assessment Request Received
                         </h3>
-                        <p class="text-brand-muted text-sm mb-8 leading-relaxed">
-                            Contact our team regarding a recovery enquiry, or request an assessment via the secure form.
-                        </p>
-                        
-                        <div class="space-y-4 mb-8">
-                            <a href="mailto:care@fortisdata.com" class="flex items-center gap-4 group">
-                                <div class="w-10 h-10 rounded bg-[#111111] border border-white/10 flex items-center justify-center text-brand-primary group-hover:border-brand-primary transition-colors">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                                </div>
-                                <div>
-                                    <div class="text-xs text-brand-muted font-medium">Email</div>
-                                    <div class="text-sm text-brand-white font-bold group-hover:text-brand-primary transition-colors">care@fortisdata.com</div>
-                                </div>
-                            </a>
-                            
-                            <a href="tel:8009262472" class="flex items-center gap-4 group">
-                                <div class="w-10 h-10 rounded bg-[#111111] border border-white/10 flex items-center justify-center text-brand-primary group-hover:border-brand-primary transition-colors">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
-                                </div>
-                                <div>
-                                    <div class="text-xs text-brand-muted font-medium">Phone</div>
-                                    <div class="text-sm text-brand-white font-bold group-hover:text-brand-primary transition-colors">8009262472</div>
-                                </div>
-                            </a>
-                        </div>
+                        <p class="text-white text-sm">Our technical team will review your symptoms and contact you shortly.</p>
+                    </div>
+                    
+                    <div id="formError" class="hidden bg-brand-surface border-2 border-brand-danger rounded-xl p-6 text-center mb-6 shadow-sm">
+                        <h3 class="text-lg text-brand-danger font-bold mb-1">Submission Failed</h3>
+                        <p class="text-white text-sm">There was a problem sending your request. Please try again or contact us directly.</p>
                     </div>
 
-                    <div class="lg:col-span-7 order-1 lg:order-2">
-                        <div class="mb-8">
-                            <h2 class="text-3xl lg:text-4xl font-bold theme-text mb-3 tracking-tight">Recovery Assessment</h2>
-                            <p class="theme-text-muted text-base">Detail the failure symptoms below for a technical evaluation.</p>
-                        </div>
-
-                        <div id="formSuccess" class="hidden theme-card border-2 border-brand-primary rounded-xl p-6 text-center mb-6 shadow-sm">
-                            <h3 class="text-lg text-brand-primary font-bold mb-1 flex items-center justify-center gap-2">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                Assessment Request Received
-                            </h3>
-                            <p class="theme-text text-sm">Our technical team will review your symptoms and contact you shortly.</p>
-                        </div>
+                    <!-- Web3Forms Integration -->
+                    <form id="assessmentForm" action="https://api.web3forms.com/submit" method="POST" class="space-y-5 bg-brand-surface border border-brand-border rounded-xl p-6 lg:p-8 shadow-lg relative z-20">
                         
-                        <div id="formError" class="hidden theme-card border-2 border-brand-danger rounded-xl p-6 text-center mb-6 shadow-sm">
-                            <h3 class="text-lg text-brand-danger font-bold mb-1">Submission Failed</h3>
-                            <p class="theme-text text-sm">There was a problem sending your request. Please try again or contact us directly.</p>
-                        </div>
+                        <input type="hidden" name="access_key" value="1c368e9f-c853-49d6-b478-36e971099caf">
+                        <input type="hidden" name="subject" value="New Recovery Assessment Request - Fortis.data">
+                        <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
 
-                        <form id="assessmentForm" action="https://api.web3forms.com/submit" method="POST" class="space-y-5 theme-card border theme-border rounded-xl p-6 lg:p-8 shadow-sm">
-                            
-                            <input type="hidden" name="access_key" value="1c368e9f-c853-49d6-b478-36e971099caf">
-                            <input type="hidden" name="subject" value="New Recovery Assessment Request - Fortis.data">
-                            <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
-
-                            <div class="grid md:grid-cols-2 gap-5">
-                                <div>
-                                    <label class="block text-sm font-bold theme-text mb-1.5" for="name">Name</label>
-                                    <input required type="text" id="name" name="name" class="w-full theme-bg-1 border theme-border rounded-md px-4 py-3 theme-text focus:outline-none focus:border-brand-primary transition-colors" placeholder="Full Name">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-bold theme-text mb-1.5" for="email">Email</label>
-                                    <input required type="email" id="email" name="email" class="w-full theme-bg-1 border theme-border rounded-md px-4 py-3 theme-text focus:outline-none focus:border-brand-primary transition-colors" placeholder="Email Address">
-                                </div>
-                            </div>
-
-                            <div class="grid md:grid-cols-2 gap-5">
-                                <div>
-                                    <label class="block text-sm font-bold theme-text mb-1.5" for="phone">Phone</label>
-                                    <input required type="tel" id="phone" name="phone" class="w-full theme-bg-1 border theme-border rounded-md px-4 py-3 theme-text focus:outline-none focus:border-brand-primary transition-colors" placeholder="Phone Number">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-bold theme-text mb-1.5" for="device_type">Device Type</label>
-                                    <select required id="device_type" name="device_type" class="w-full theme-bg-1 border theme-border rounded-md px-4 py-3 theme-text focus:outline-none focus:border-brand-primary transition-colors appearance-none">
-                                        <option value="" disabled selected>Select Device</option>
-                                        <option value="HDD">HDD</option>
-                                        <option value="SSD">SSD</option>
-                                        <option value="NVMe">NVMe</option>
-                                        <option value="Pen Drive">Pen Drive</option>
-                                        <option value="External Drive">External Drive</option>
-                                    </select>
-                                </div>
-                            </div>
-
+                        <div class="grid md:grid-cols-2 gap-5">
                             <div>
-                                <label class="block text-sm font-bold theme-text mb-1.5" for="description">Problem Description</label>
-                                <textarea required id="description" name="description" rows="4" class="w-full theme-bg-1 border theme-border rounded-md px-4 py-3 theme-text focus:outline-none focus:border-brand-primary transition-colors resize-none" placeholder="What happened? Are there any noises? Is it detected?"></textarea>
+                                <label class="block text-sm font-bold text-white mb-1.5" for="name">Name</label>
+                                <input required type="text" id="name" name="name" class="w-full bg-brand-softBlack border border-brand-border rounded-md px-4 py-3 text-white focus:outline-none focus:border-brand-purple transition-colors" placeholder="Full Name">
                             </div>
-
-                            <div class="flex items-start gap-3">
-                                <svg class="w-5 h-5 theme-text-muted shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                                <p class="text-xs theme-text-muted font-medium">
-                                    Your information is used only to respond to your recovery enquiry.
-                                </p>
+                            <div>
+                                <label class="block text-sm font-bold text-white mb-1.5" for="email">Email</label>
+                                <input required type="email" id="email" name="email" class="w-full bg-brand-softBlack border border-brand-border rounded-md px-4 py-3 text-white focus:outline-none focus:border-brand-purple transition-colors" placeholder="Email Address">
                             </div>
+                        </div>
 
-                            <button id="submitBtn" type="submit" class="w-full bg-brand-primary text-brand-black font-bold py-3.5 rounded-md hover:brightness-110 transition-all text-base shadow-sm">
-                                Request Assessment
-                            </button>
-                        </form>
-                    </div>
+                        <div class="grid md:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-sm font-bold text-white mb-1.5" for="phone">Phone</label>
+                                <input required type="tel" id="phone" name="phone" class="w-full bg-brand-softBlack border border-brand-border rounded-md px-4 py-3 text-white focus:outline-none focus:border-brand-purple transition-colors" placeholder="Phone Number">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-white mb-1.5" for="device_type">Device Type</label>
+                                <select required id="device_type" name="device_type" class="w-full bg-brand-softBlack border border-brand-border rounded-md px-4 py-3 text-white focus:outline-none focus:border-brand-purple transition-colors appearance-none">
+                                    <option value="" disabled selected>Select Device</option>
+                                    <option value="HDD">HDD</option>
+                                    <option value="SSD">SSD</option>
+                                    <option value="NVMe">NVMe</option>
+                                    <option value="Pen Drive">Pen Drive</option>
+                                    <option value="External Drive">External Drive</option>
+                                </select>
+                            </div>
+                        </div>
 
+                        <div>
+                            <label class="block text-sm font-bold text-white mb-1.5" for="description">Problem Description</label>
+                            <textarea required id="description" name="description" rows="4" class="w-full bg-brand-softBlack border border-brand-border rounded-md px-4 py-3 text-white focus:outline-none focus:border-brand-purple transition-colors resize-none" placeholder="What happened? Are there any noises? Is it detected?"></textarea>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-brand-muted shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            <p class="text-xs text-brand-muted font-medium">
+                                Your information is used only to respond to your recovery enquiry.
+                            </p>
+                        </div>
+
+                        <button id="submitBtn" type="submit" class="w-full bg-brand-primary text-brand-black font-bold py-3.5 rounded-md hover:brightness-110 hover:shadow-[0_0_20px_rgba(183,243,74,0.4)] transition-all text-base">
+                            Request Assessment
+                        </button>
+                    </form>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <footer class="bg-brand-black border-t border-white/10 pt-16 pb-20 lg:pb-12 text-brand-white relative z-20">
+    <!-- FOOTER (Added extra bottom padding for mobile sticky CTA clearance) -->
+    <footer class="bg-brand-black border-t border-brand-border pt-16 pb-28 lg:pb-12 text-brand-white relative z-20">
         <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 mb-12">
             
+            <!-- Brand -->
             <div>
                 <a href="#" class="text-2xl font-bold tracking-tight mb-4 block">
-                    <span class="text-brand-white">Fortis</span><span class="text-brand-danger">.</span><span class="text-brand-primary">data</span>
+                    <span class="text-white">Fortis</span><span class="text-brand-danger">.</span><span class="text-brand-primary">data</span>
                 </a>
                 <p class="text-brand-muted text-sm leading-relaxed">
                     Professional data recovery for complex storage failures. Secure, precise, and technically advanced.
                 </p>
             </div>
             
+            <!-- Services -->
             <div>
-                <h4 class="text-brand-white font-bold mb-4">Services</h4>
+                <h4 class="text-white font-bold mb-4">Services</h4>
                 <ul class="space-y-2.5 text-sm text-brand-muted font-medium">
                     <li><a href="#services" class="hover:text-brand-primary transition-colors">HDD Recovery</a></li>
                     <li><a href="#services" class="hover:text-brand-primary transition-colors">SSD Recovery</a></li>
@@ -916,18 +875,20 @@
                 </ul>
             </div>
 
+            <!-- Company -->
             <div>
-                <h4 class="text-brand-white font-bold mb-4">Company</h4>
+                <h4 class="text-white font-bold mb-4">Company</h4>
                 <ul class="space-y-2.5 text-sm text-brand-muted font-medium">
-                    <li><a href="#about" class="hover:text-brand-primary transition-colors">About</a></li>
+                    <li><a href="#why-us" class="hover:text-brand-primary transition-colors">About</a></li>
                     <li><a href="#why-us" class="hover:text-brand-primary transition-colors">Why Fortis.data</a></li>
                     <li><a href="#process" class="hover:text-brand-primary transition-colors">Recovery Process</a></li>
                     <li><a href="#faq" class="hover:text-brand-primary transition-colors">FAQs</a></li>
                 </ul>
             </div>
 
+            <!-- Support & Legal -->
             <div>
-                <h4 class="text-brand-white font-bold mb-4">Support & Legal</h4>
+                <h4 class="text-white font-bold mb-4">Support & Legal</h4>
                 <ul class="space-y-2.5 text-sm text-brand-muted font-medium">
                     <li><a href="#assessment" class="text-brand-primary hover:brightness-110 transition-colors">Recovery Assessment &rarr;</a></li>
                     <li><button data-modal-target="contactModal" class="hover:text-brand-primary transition-colors cursor-pointer focus:outline-none">Contact</button></li>
@@ -937,23 +898,31 @@
             </div>
         </div>
 
-        <div class="max-w-7xl mx-auto px-6 border-t border-white/10 pt-6">
+        <div class="max-w-7xl mx-auto px-6 border-t border-brand-border pt-6">
             <div class="w-full text-center text-xs text-brand-muted font-medium">
                 © 2026 Fortis.data. All rights reserved.
             </div>
         </div>
     </footer>
 
-    <div class="lg:hidden fixed bottom-0 left-0 w-full bg-brand-softBlack/95 backdrop-blur-md border-t border-white/10 p-4 z-30">
-        <a href="#assessment" class="block w-full bg-brand-primary text-brand-black text-center font-bold py-3.5 rounded-md shadow-lg">
+    <!-- STICKY MOBILE CTA -->
+    <div class="lg:hidden fixed bottom-0 left-0 w-full bg-brand-softBlack/95 backdrop-blur-md border-t border-brand-border p-4 z-40">
+        <a href="#assessment" class="block w-full bg-brand-primary text-brand-black text-center font-bold py-3.5 rounded-md shadow-[0_0_15px_rgba(183,243,74,0.3)]">
             Get a Recovery Assessment
         </a>
     </div>
 
-    <dialog id="contactModal" class="backdrop:bg-brand-black/80 bg-brand-softBlack border border-white/10 rounded-xl w-[90%] max-w-md shadow-2xl p-0 open:flex flex-col">
-        <div class="flex justify-between items-center p-6 border-b border-white/10">
+    <!-- FLOATING WHATSAPP BUTTON (Avoids Mobile CTA) -->
+    <a href="https://wa.me/8009262472?text=Hello%20Fortis.data,%20I%20need%20a%20data%20recovery%20assessment." target="_blank" rel="noopener noreferrer" class="fixed bottom-24 lg:bottom-8 right-4 lg:right-8 z-40 bg-[#25D366] text-white p-3.5 rounded-full shadow-[0_0_20px_rgba(37,211,102,0.4)] hover:scale-110 hover:shadow-[0_0_30px_rgba(37,211,102,0.6)] transition-all flex items-center justify-center group" aria-label="Chat on WhatsApp">
+        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12C2 13.9 2.53 15.68 3.44 17.18L2 22L6.96 20.66C8.42 21.52 10.15 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20.08C10.37 20.08 8.85 19.64 7.55 18.9L7.26 18.73L4 19.63L4.92 16.51L4.72 16.2C3.9 14.93 3.42 13.51 3.42 12C3.42 7.27 7.27 3.42 12 3.42C16.73 3.42 20.58 7.27 20.58 12C20.58 16.73 16.73 20.08 12 20.08ZM16.3 14.28C16.07 14.16 14.92 13.6 14.7 13.52C14.48 13.44 14.33 13.4 14.18 13.63C14.03 13.86 13.6 14.37 13.48 14.52C13.35 14.67 13.23 14.69 13 14.57C12.77 14.45 11.96 14.19 11.02 13.35C10.28 12.69 9.78 11.87 9.63 11.63C9.48 11.4 9.61 11.27 9.73 11.16C9.83 11.06 9.96 10.88 10.08 10.75C10.2 10.61 10.24 10.51 10.32 10.36C10.4 10.2 10.36 10.07 10.3 9.95C10.24 9.83 9.74 8.6 9.53 8.11C9.33 7.63 9.13 7.7 8.98 7.7C8.84 7.7 8.69 7.7 8.54 7.7C8.39 7.7 8.15 7.76 7.94 7.99C7.73 8.22 7.15 8.76 7.15 9.86C7.15 10.96 7.97 12.02 8.08 12.17C8.2 12.32 9.65 14.56 11.88 15.53C12.41 15.76 12.83 15.9 13.15 16C13.69 16.17 14.18 16.14 14.57 16.08C15 16.01 15.92 15.53 16.11 14.99C16.3 14.45 16.3 13.99 16.24 13.89C16.17 13.79 16.02 13.73 15.8 13.62L16.3 14.28Z"/></svg>
+    </a>
+
+    <!-- MODALS -->
+    <!-- Contact Modal -->
+    <dialog id="contactModal" class="backdrop:bg-brand-black/80 bg-brand-surface border border-brand-purple/40 rounded-xl w-[90%] max-w-md shadow-[0_0_30px_rgba(139,92,246,0.2)] p-0 open:flex flex-col">
+        <div class="flex justify-between items-center p-6 border-b border-brand-border">
             <h3 class="text-xl font-bold tracking-tight">
-                <span class="text-brand-white">Fortis</span><span class="text-brand-danger">.</span><span class="text-brand-primary">data</span>
+                <span class="text-white">Fortis</span><span class="text-brand-danger">.</span><span class="text-brand-primary">data</span>
             </h3>
             <button class="close-modal text-brand-muted hover:text-brand-primary transition-colors focus:outline-none" aria-label="Close">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
@@ -963,19 +932,19 @@
             <p class="text-sm text-brand-muted mb-6 font-medium">Contact our team regarding a recovery enquiry, or request an assessment.</p>
             
             <div class="space-y-4">
-                <a href="mailto:care@fortisdata.com" class="flex items-center gap-4 p-4 border border-white/10 rounded-lg hover:border-brand-primary transition-colors group bg-[#111111]">
-                    <svg class="w-6 h-6 text-brand-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                <a href="mailto:care@fortisdata.com" class="flex items-center gap-4 p-4 border border-brand-border rounded-lg hover:border-brand-purple hover:shadow-[0_0_15px_rgba(139,92,246,0.15)] transition-all group bg-brand-softBlack">
+                    <svg class="w-6 h-6 text-brand-primary group-hover:text-brand-purple transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                     <div>
                         <div class="text-xs text-brand-muted font-medium">Email</div>
-                        <div class="text-sm text-brand-white font-bold">care@fortisdata.com</div>
+                        <div class="text-sm text-white font-bold group-hover:text-brand-purple transition-colors">care@fortisdata.com</div>
                     </div>
                 </a>
                 
-                <a href="tel:8009262472" class="flex items-center gap-4 p-4 border border-white/10 rounded-lg hover:border-brand-primary transition-colors group bg-[#111111]">
-                    <svg class="w-6 h-6 text-brand-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                <a href="tel:8009262472" class="flex items-center gap-4 p-4 border border-brand-border rounded-lg hover:border-brand-purple hover:shadow-[0_0_15px_rgba(139,92,246,0.15)] transition-all group bg-brand-softBlack">
+                    <svg class="w-6 h-6 text-brand-primary group-hover:text-brand-purple transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
                     <div>
                         <div class="text-xs text-brand-muted font-medium">Call</div>
-                        <div class="text-sm text-brand-white font-bold">8009262472</div>
+                        <div class="text-sm text-white font-bold group-hover:text-brand-purple transition-colors">8009262472</div>
                     </div>
                 </a>
             </div>
@@ -986,68 +955,71 @@
         </div>
     </dialog>
 
-    <dialog id="privacyModal" class="backdrop:bg-brand-black/80 bg-brand-softBlack border border-white/10 rounded-xl w-[90%] max-w-2xl shadow-2xl p-0 open:flex flex-col max-h-[80vh]">
-        <div class="flex justify-between items-center p-6 border-b border-white/10 bg-brand-softBlack sticky top-0 z-10 rounded-t-xl">
-            <h3 class="text-xl font-bold text-brand-white tracking-tight">Privacy Policy</h3>
+    <!-- Privacy Policy Modal -->
+    <dialog id="privacyModal" class="backdrop:bg-brand-black/80 bg-brand-surface border border-brand-border rounded-xl w-[90%] max-w-2xl shadow-2xl p-0 open:flex flex-col max-h-[80vh]">
+        <div class="flex justify-between items-center p-6 border-b border-brand-border bg-brand-surface sticky top-0 z-10 rounded-t-xl">
+            <h3 class="text-xl font-bold text-white tracking-tight">Privacy Policy</h3>
             <button class="close-modal text-brand-muted hover:text-brand-primary transition-colors focus:outline-none" aria-label="Close">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
         </div>
         <div class="p-6 overflow-y-auto text-sm text-brand-muted space-y-6">
             <div>
-                <h4 class="text-brand-white font-bold mb-2">Information We Collect</h4>
+                <h4 class="text-white font-bold mb-2">Information We Collect</h4>
                 <p>Fortis.data collects minimal personal information necessary to facilitate data recovery services. This includes name, email address, phone number, and technical descriptions of your storage device failures provided via our contact forms.</p>
             </div>
             <div>
-                <h4 class="text-brand-white font-bold mb-2">How Enquiry Information is Used</h4>
+                <h4 class="text-white font-bold mb-2">How Enquiry Information is Used</h4>
                 <p>Your submitted information is used exclusively to contact you regarding your recovery enquiry, to assess recovery feasibility, and to establish communication for logistics and diagnostics.</p>
             </div>
             <div>
-                <h4 class="text-brand-white font-bold mb-2">Data Security Approach</h4>
+                <h4 class="text-white font-bold mb-2">Data Security Approach</h4>
                 <p>We apply strict confidentiality protocols to both your personal information and the physical/logical data stored on your hardware. Hardware sent for diagnostic assessment is subject to internal non-disclosure workflows.</p>
             </div>
             <div>
-                <h4 class="text-brand-white font-bold mb-2">Contact Information</h4>
+                <h4 class="text-white font-bold mb-2">Contact Information</h4>
                 <p>For any questions regarding your privacy, please contact us at care@fortisdata.com.</p>
             </div>
         </div>
     </dialog>
 
-    <dialog id="termsModal" class="backdrop:bg-brand-black/80 bg-brand-softBlack border border-white/10 rounded-xl w-[90%] max-w-2xl shadow-2xl p-0 open:flex flex-col max-h-[80vh]">
-        <div class="flex justify-between items-center p-6 border-b border-white/10 bg-brand-softBlack sticky top-0 z-10 rounded-t-xl">
-            <h3 class="text-xl font-bold text-brand-white tracking-tight">Terms & Conditions</h3>
+    <!-- Terms & Conditions Modal -->
+    <dialog id="termsModal" class="backdrop:bg-brand-black/80 bg-brand-surface border border-brand-border rounded-xl w-[90%] max-w-2xl shadow-2xl p-0 open:flex flex-col max-h-[80vh]">
+        <div class="flex justify-between items-center p-6 border-b border-brand-border bg-brand-surface sticky top-0 z-10 rounded-t-xl">
+            <h3 class="text-xl font-bold text-white tracking-tight">Terms & Conditions</h3>
             <button class="close-modal text-brand-muted hover:text-brand-primary transition-colors focus:outline-none" aria-label="Close">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
         </div>
         <div class="p-6 overflow-y-auto text-sm text-brand-muted space-y-6">
             <div>
-                <h4 class="text-brand-white font-bold mb-2">Service Scope</h4>
+                <h4 class="text-white font-bold mb-2">Service Scope</h4>
                 <p>Fortis.data provides professional data recovery assessments and extraction services. The submission of an enquiry does not constitute a guaranteed contract of recovery.</p>
             </div>
             <div>
-                <h4 class="text-brand-white font-bold mb-2">Assessment and Diagnosis</h4>
+                <h4 class="text-white font-bold mb-2">Assessment and Diagnosis</h4>
                 <p>All devices require a formal diagnostic process before recovery strategies can be finalized. Initial assessments provide an estimate of feasibility but are not absolute guarantees.</p>
             </div>
             <div>
-                <h4 class="text-brand-white font-bold mb-2">Recovery Feasibility</h4>
+                <h4 class="text-white font-bold mb-2">Recovery Feasibility</h4>
                 <p>Recovery feasibility depends on the type of failure, device condition, and the state of the underlying data. We do not guarantee 100% recovery success for any device.</p>
             </div>
             <div>
-                <h4 class="text-brand-white font-bold mb-2">Payment Terms</h4>
+                <h4 class="text-white font-bold mb-2">Payment Terms</h4>
                 <p>Payment occurs at Step 6 of our recovery process, according to the applicable recovery and service terms agreed upon after successful extraction and before secure handover.</p>
             </div>
             <div>
-                <h4 class="text-brand-white font-bold mb-2">Limitation of Guarantees</h4>
+                <h4 class="text-white font-bold mb-2">Limitation of Guarantees</h4>
                 <p>Fortis.data is not liable for data that is inherently unrecoverable due to severe physical destruction, permanent overwriting, or catastrophic flash degradation prior to our intervention.</p>
             </div>
             <div>
-                <h4 class="text-brand-white font-bold mb-2">Contact Information</h4>
+                <h4 class="text-white font-bold mb-2">Contact Information</h4>
                 <p>For specific inquiries regarding service terms, reach out to care@fortisdata.com.</p>
             </div>
         </div>
     </dialog>
 
+    <!-- JAVASCRIPT -->
     <script>
         // Reveal Animations
         const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
@@ -1066,10 +1038,10 @@
         const header = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 20) {
-                header.classList.add('border-white/10', 'shadow-md');
+                header.classList.add('border-brand-border', 'shadow-md');
                 header.classList.remove('border-transparent');
             } else {
-                header.classList.remove('border-white/10', 'shadow-md');
+                header.classList.remove('border-brand-border', 'shadow-md');
                 header.classList.add('border-transparent');
             }
         });
